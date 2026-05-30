@@ -1,0 +1,19 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    # ── Style ──────────────────────────
+    prefer_single_quotes: true
+    prefer_const_constructors: true
+    prefer_const_declarations: true
+    prefer_final_fields: true
+    prefer_final_locals: false
+    avoid_print: true
+    
+    # ── Flutter specific ───────────────
+    use_key_in_widget_constructors: true
+    sized_box_for_whitespace: true
+    
+    # ── Disabled ───────────────────────
+    library_private_types_in_public_api: false
+    depend_on_referenced_packages: false
