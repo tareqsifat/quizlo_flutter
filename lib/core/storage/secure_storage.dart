@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'hive_storage.dart';
 
 /// ─────────────────────────────────────────────
 /// Secure Storage — Wraps flutter_secure_storage
@@ -60,6 +61,9 @@ class SecureStorage {
   static Future<bool> isAuthenticated() async {
     final skipAuth = await isSkipAuth();
     if (skipAuth) return true; // DEV bypass
+
+    // Synchronous Hive bypass for Demo Mode
+    if (HiveStorage.isDemoMode()) return true;
 
     final token = await getAccessToken();
     return token != null && token.isNotEmpty;

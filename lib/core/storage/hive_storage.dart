@@ -35,6 +35,12 @@ class HiveStorage {
   static int? getActiveExamTypeId() =>
       _user.get('active_exam_type_id') as int?;
 
+  static Future<void> setDemoMode(bool isDemo) =>
+      _user.put('is_demo_mode', isDemo);
+
+  static bool isDemoMode() =>
+      _user.get('is_demo_mode', defaultValue: false) as bool;
+
   static Future<void> clearUser() => _user.clear();
 
   // ── Onboarding Box ─────────────────────────

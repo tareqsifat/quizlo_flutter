@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/storage/secure_storage.dart';
 
 /// ─────────────────────────────────────────────
 /// Profile Screen (stub — to be completed)
@@ -43,19 +47,30 @@ class ProfileScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                           border: Border.all(color: Colors.white, width: 2.5),
                         ),
-                        child: const Center(
-                          child: Text('HA', style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 26,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          )),
+                        child: Center(
+                          child: Text(
+                            HiveStorage.isDemoMode() ? 'DU' : 'HA',
+                            style: const TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 26,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 12),
-                      Text('Hero Alom', style: AppTextStyles.h3.copyWith(color: Colors.white)),
+                      Text(
+                        HiveStorage.isDemoMode() ? 'Demo User' : 'Hero Alom',
+                        style: AppTextStyles.h3.copyWith(color: Colors.white),
+                      ),
                       const SizedBox(height: 4),
-                      Text('BCS Candidate • Rank #1', style: AppTextStyles.bodySmall.copyWith(color: Colors.white70)),
+                      Text(
+                        HiveStorage.isDemoMode()
+                            ? 'BCS Candidate (Demo Mode)'
+                            : 'BCS Candidate • Rank #1',
+                        style: AppTextStyles.bodySmall.copyWith(color: Colors.white70),
+                      ),
                       const SizedBox(height: 8),
                       // Gamification badges
                       Row(
@@ -214,7 +229,15 @@ class _SettingsItem extends StatelessWidget {
         leading: Icon(icon, color: color, size: 22),
         title: Text(label, style: AppTextStyles.labelMedium.copyWith(color: color)),
         trailing: Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textHint),
-        onTap: () {},
+        onTap: () async {
+          if (label == 'Logout') {
+            await SecureStorage.clearAll();
+            await HiveStorage.clearAll();
+            if (context.mounted) {
+              context.go(AppRoutes.authLanding);
+            }
+          }
+        },
       ),
     );
   }

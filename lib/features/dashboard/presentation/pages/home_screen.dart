@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/storage/hive_storage.dart';
 
 /// ─────────────────────────────────────────────
 /// Home Screen
@@ -57,7 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Welcome Hero Alom !', style: AppTextStyles.h3),
+                Text(
+                  HiveStorage.isDemoMode()
+                      ? 'Welcome Demo User !'
+                      : 'Welcome Hero Alom !',
+                  style: AppTextStyles.h3,
+                ),
               ],
             ),
             actions: [

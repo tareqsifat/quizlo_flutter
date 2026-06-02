@@ -6,6 +6,8 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/answer_option_tile.dart';
 import '../../../../core/widgets/quiz_progress_bar.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/constants/demo_questions.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Session Screen — Master quiz controller
@@ -33,7 +35,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
   final _stopwatch = Stopwatch();
 
   // Mock questions — in production, from GET /lessons/{id}/questions
-  static final _questions = [
+  static final _defaultMockQuestions = [
     _Question(id: 1, type: 'match', text: 'Touch to match', options: ['English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English'], correctOptionId: 0),
     _Question(id: 2, type: 'hear_touch', text: 'Touch what you hear.', options: ['Nice', 'are', 'is', 'English', 'speak', 'excellent', 'is', 'you'], correctOptionId: 0),
     _Question(id: 3, type: 'mcq', text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry?', options: ['English', 'English', 'English', 'English'], correctOptionId: 1),
@@ -46,10 +48,26 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     _Question(id: 10, type: 'fill_blank', text: 'Lorem Ipsum is _____ dummy text', options: ['Nice', 'are', 'simply', 'English', 'speak', 'excellent', 'is', 'you'], correctOptionId: 2),
   ];
 
+  late final List<_Question> _questions;
+
   @override
   void initState() {
     super.initState();
     _stopwatch.start();
+
+    if (HiveStorage.isDemoMode()) {
+      _questions = DemoQuestions.list.map((m) {
+        return _Question(
+          id: m['id'] as int,
+          type: m['type'] as String,
+          text: m['text'] as String,
+          options: List<String>.from(m['options'] as List),
+          correctOptionId: m['correctOptionId'] as int,
+        );
+      }).toList();
+    } else {
+      _questions = _defaultMockQuestions;
+    }
   }
 
   void _onAnswer(bool isCorrect) {
