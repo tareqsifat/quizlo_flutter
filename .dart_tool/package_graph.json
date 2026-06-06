@@ -10,6 +10,7 @@
         "cached_network_image",
         "confetti",
         "connectivity_plus",
+        "cupertino_icons",
         "dartz",
         "dio",
         "equatable",
@@ -37,7 +38,8 @@
         "riverpod_annotation",
         "share_plus",
         "shimmer",
-        "url_launcher"
+        "url_launcher",
+        "vibration"
       ],
       "devDependencies": [
         "build_runner",
@@ -393,6 +395,14 @@
         "clock",
         "meta",
         "path"
+      ]
+    },
+    {
+      "name": "vibration",
+      "version": "1.9.0",
+      "dependencies": [
+        "flutter",
+        "vibration_platform_interface"
       ]
     },
     {
@@ -1990,6 +2000,52 @@
         "collection",
         "meta",
         "pub_semver"
+      ]
+    },
+    {
+      "name": "cupertino_icons",
+      "version": "1.0.9",
+      "dependencies": []
+    },
+    {
+      "name": "vibration_platform_interface",
+      "version": "0.0.3",
+      "dependencies": [
+        "device_info_plus",
+        "flutter",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "win32_registry",
+      "version": "1.1.5",
+      "dependencies": [
+        "ffi",
+        "win32"
+      ]
+    },
+    {
+      "name": "device_info_plus",
+      "version": "10.1.2",
+      "dependencies": [
+        "device_info_plus_platform_interface",
+        "ffi",
+        "file",
+        "flutter",
+        "flutter_web_plugins",
+        "meta",
+        "web",
+        "win32",
+        "win32_registry"
+      ]
+    },
+    {
+      "name": "device_info_plus_platform_interface",
+      "version": "7.0.3",
+      "dependencies": [
+        "flutter",
+        "meta",
+        "plugin_platform_interface"
       ]
     }
   ],

@@ -8,6 +8,7 @@ import '../../../../core/widgets/quiz_progress_bar.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/constants/demo_questions.dart';
+import '../../../../core/services/feedback_service.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Session Screen — Master quiz controller
@@ -36,16 +37,130 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
 
   // Mock questions — in production, from GET /lessons/{id}/questions
   static final _defaultMockQuestions = [
-    _Question(id: 1, type: 'match', text: 'Touch to match', options: ['English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English', 'English'], correctOptionId: 0),
-    _Question(id: 2, type: 'hear_touch', text: 'Touch what you hear.', options: ['Nice', 'are', 'is', 'English', 'speak', 'excellent', 'is', 'you'], correctOptionId: 0),
-    _Question(id: 3, type: 'mcq', text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry?', options: ['English', 'English', 'English', 'English'], correctOptionId: 1),
-    _Question(id: 4, type: 'mcq', text: 'Give the correct answer. What is the capital of Bangladesh?', options: ['Khulna', 'Chittagong', 'Dhaka', 'Rajshahi'], correctOptionId: 2),
-    _Question(id: 5, type: 'fill_blank', text: 'Lorem Ipsum is _____ text of the printing', options: ['Nice', 'are', 'is', 'English', 'speak', 'excellent', 'is', 'you'], correctOptionId: 2),
-    _Question(id: 6, type: 'mcq', text: 'Bangladesh gained independence in which year?', options: ['1952', '1971', '1947', '1965'], correctOptionId: 1),
-    _Question(id: 7, type: 'match', text: 'Touch to match', options: ['English', 'English', 'English', 'English', 'English', 'English', 'English', 'English'], correctOptionId: 0),
-    _Question(id: 8, type: 'mcq', text: 'Who is the father of the nation of Bangladesh?', options: ['Ziaur Rahman', 'Sheikh Hasina', 'Sheikh Mujibur Rahman', 'H.M. Ershad'], correctOptionId: 2),
-    _Question(id: 9, type: 'hear_touch', text: 'Touch what you hear.', options: ['you', 'speak', 'excellent', 'English', 'Nice', 'are', 'is', 'you'], correctOptionId: 0),
-    _Question(id: 10, type: 'fill_blank', text: 'Lorem Ipsum is _____ dummy text', options: ['Nice', 'are', 'simply', 'English', 'speak', 'excellent', 'is', 'you'], correctOptionId: 2),
+    _Question(
+        id: 1,
+        type: 'match',
+        text: 'Touch to match',
+        options: [
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English'
+        ],
+        correctOptionId: 0),
+    _Question(
+        id: 2,
+        type: 'hear_touch',
+        text: 'Touch what you hear.',
+        options: [
+          'Nice',
+          'are',
+          'is',
+          'English',
+          'speak',
+          'excellent',
+          'is',
+          'you'
+        ],
+        correctOptionId: 0),
+    _Question(
+        id: 3,
+        type: 'mcq',
+        text:
+            'Lorem Ipsum is simply dummy text of the printing and typesetting industry?',
+        options: ['English', 'English', 'English', 'English'],
+        correctOptionId: 1),
+    _Question(
+        id: 4,
+        type: 'mcq',
+        text: 'Give the correct answer. What is the capital of Bangladesh?',
+        options: ['Khulna', 'Chittagong', 'Dhaka', 'Rajshahi'],
+        correctOptionId: 2),
+    _Question(
+        id: 5,
+        type: 'fill_blank',
+        text: 'Lorem Ipsum is _____ text of the printing',
+        options: [
+          'Nice',
+          'are',
+          'is',
+          'English',
+          'speak',
+          'excellent',
+          'is',
+          'you'
+        ],
+        correctOptionId: 2),
+    _Question(
+        id: 6,
+        type: 'mcq',
+        text: 'Bangladesh gained independence in which year?',
+        options: ['1952', '1971', '1947', '1965'],
+        correctOptionId: 1),
+    _Question(
+        id: 7,
+        type: 'match',
+        text: 'Touch to match',
+        options: [
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English',
+          'English'
+        ],
+        correctOptionId: 0),
+    _Question(
+        id: 8,
+        type: 'mcq',
+        text: 'Who is the father of the nation of Bangladesh?',
+        options: [
+          'Ziaur Rahman',
+          'Sheikh Hasina',
+          'Sheikh Mujibur Rahman',
+          'H.M. Ershad'
+        ],
+        correctOptionId: 2),
+    _Question(
+        id: 9,
+        type: 'hear_touch',
+        text: 'Touch what you hear.',
+        options: [
+          'you',
+          'speak',
+          'excellent',
+          'English',
+          'Nice',
+          'are',
+          'is',
+          'you'
+        ],
+        correctOptionId: 0),
+    _Question(
+        id: 10,
+        type: 'fill_blank',
+        text: 'Lorem Ipsum is _____ dummy text',
+        options: [
+          'Nice',
+          'are',
+          'simply',
+          'English',
+          'speak',
+          'excellent',
+          'is',
+          'you'
+        ],
+        correctOptionId: 2),
   ];
 
   late final List<_Question> _questions;
@@ -56,7 +171,8 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     _stopwatch.start();
 
     if (HiveStorage.isDemoMode()) {
-      final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)..shuffle();
+      final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)
+        ..shuffle();
       _questions = demoList.take(10).map((m) {
         return _Question(
           id: m['id'] as int,
@@ -72,7 +188,12 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
   }
 
   void _onAnswer(bool isCorrect) {
-    if (isCorrect) setState(() => _score++);
+    if (isCorrect) {
+      setState(() => _score++);
+      FeedbackService.playCorrect();
+    } else {
+      FeedbackService.playWrong();
+    }
   }
 
   void _nextQuestion() {
@@ -82,7 +203,8 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       // Quiz complete
       _stopwatch.stop();
       final elapsed = _stopwatch.elapsed;
-      final timeStr = '${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
+      final timeStr =
+          '${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
       final accuracy = ((_score / _questions.length) * 100).round();
       final points = _score * 2;
 
@@ -210,7 +332,8 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Give the correct answer.', style: AppTextStyles.questionLabel),
+                Text('Give the correct answer.',
+                    style: AppTextStyles.questionLabel),
                 const SizedBox(height: 32),
 
                 // Question text
@@ -224,8 +347,9 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
                 const SizedBox(height: 40),
 
                 // Options
-                ...List.generate(widget.question.options.length, (i) =>
-                  Padding(
+                ...List.generate(
+                  widget.question.options.length,
+                  (i) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: AnswerOptionTile(
                       text: widget.question.options[i],
@@ -244,7 +368,11 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
           _FeedbackBar(
             isCorrect: _isCorrect!,
             onContinue: () {
-              setState(() { _selectedIndex = null; _answered = false; _isCorrect = null; });
+              setState(() {
+                _selectedIndex = null;
+                _answered = false;
+                _isCorrect = null;
+              });
               widget.onNext();
             },
           )
@@ -263,7 +391,11 @@ class MatchQuestionWidget extends StatefulWidget {
   final VoidCallback onNext;
   final ValueChanged<bool> onAnswer;
 
-  const MatchQuestionWidget({super.key, required this.question, required this.onNext, required this.onAnswer});
+  const MatchQuestionWidget(
+      {super.key,
+      required this.question,
+      required this.onNext,
+      required this.onAnswer});
 
   @override
   State<MatchQuestionWidget> createState() => _MatchQuestionWidgetState();
@@ -285,7 +417,7 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
       final first = _firstSelected!;
       // Simple match: pair left col with right col (even=left, odd=right)
       final isMatch = (first % 2 == 0 && index == first + 1) ||
-                      (first % 2 == 1 && index == first - 1);
+          (first % 2 == 1 && index == first - 1);
       if (isMatch) {
         setState(() {
           _matched.addAll([first, index]);
@@ -300,8 +432,13 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
           _firstSelected = null;
           _hasError = true;
         });
+        widget.onAnswer(false);
         Future.delayed(const Duration(milliseconds: 800), () {
-          if (mounted) setState(() { _wrong.clear(); _hasError = false; });
+          if (mounted)
+            setState(() {
+              _wrong.clear();
+              _hasError = false;
+            });
         });
       }
     }
@@ -354,7 +491,10 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
           _FeedbackBar(
             isCorrect: true,
             onContinue: () {
-              setState(() { _matched.clear(); _allMatched = false; });
+              setState(() {
+                _matched.clear();
+                _allMatched = false;
+              });
               widget.onNext();
             },
           )
@@ -373,10 +513,15 @@ class FillBlankQuestionWidget extends StatefulWidget {
   final VoidCallback onNext;
   final ValueChanged<bool> onAnswer;
 
-  const FillBlankQuestionWidget({super.key, required this.question, required this.onNext, required this.onAnswer});
+  const FillBlankQuestionWidget(
+      {super.key,
+      required this.question,
+      required this.onNext,
+      required this.onAnswer});
 
   @override
-  State<FillBlankQuestionWidget> createState() => _FillBlankQuestionWidgetState();
+  State<FillBlankQuestionWidget> createState() =>
+      _FillBlankQuestionWidgetState();
 }
 
 class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
@@ -386,7 +531,10 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
 
   void _selectWord(int index, String word) {
     if (_selectedIndex != null) return;
-    setState(() { _selectedWord = word; _selectedIndex = index; });
+    setState(() {
+      _selectedWord = word;
+      _selectedIndex = index;
+    });
   }
 
   void _submit() {
@@ -419,15 +567,23 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
                       height: 28,
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       decoration: BoxDecoration(
-                        border: Border(bottom: BorderSide(color: _selectedWord != null ? AppColors.primary : AppColors.textHint, width: 2)),
+                        border: Border(
+                            bottom: BorderSide(
+                                color: _selectedWord != null
+                                    ? AppColors.primary
+                                    : AppColors.textHint,
+                                width: 2)),
                       ),
                       child: Text(
                         _selectedWord ?? '',
-                        style: AppTextStyles.questionText.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700),
+                        style: AppTextStyles.questionText.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    if (parts.length > 1) Text(parts[1], style: AppTextStyles.questionText),
+                    if (parts.length > 1)
+                      Text(parts[1], style: AppTextStyles.questionText),
                   ],
                 ),
                 const SizedBox(height: 48),
@@ -455,7 +611,11 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
           _FeedbackBar(
             isCorrect: _selectedIndex == widget.question.correctOptionId,
             onContinue: () {
-              setState(() { _selectedWord = null; _selectedIndex = null; _answered = false; });
+              setState(() {
+                _selectedWord = null;
+                _selectedIndex = null;
+                _answered = false;
+              });
               widget.onNext();
             },
           )
@@ -477,10 +637,15 @@ class HearTouchQuestionWidget extends StatefulWidget {
   final VoidCallback onNext;
   final ValueChanged<bool> onAnswer;
 
-  const HearTouchQuestionWidget({super.key, required this.question, required this.onNext, required this.onAnswer});
+  const HearTouchQuestionWidget(
+      {super.key,
+      required this.question,
+      required this.onNext,
+      required this.onAnswer});
 
   @override
-  State<HearTouchQuestionWidget> createState() => _HearTouchQuestionWidgetState();
+  State<HearTouchQuestionWidget> createState() =>
+      _HearTouchQuestionWidgetState();
 }
 
 class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
@@ -514,7 +679,8 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Touch what you hear.', style: AppTextStyles.questionLabel),
+                Text('Touch what you hear.',
+                    style: AppTextStyles.questionLabel),
                 const SizedBox(height: 32),
 
                 // Audio player
@@ -527,12 +693,21 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
                         width: 64,
                         height: 64,
                         decoration: BoxDecoration(
-                          color: _isPlaying ? AppColors.primaryDark : AppColors.primary,
+                          color: _isPlaying
+                              ? AppColors.primaryDark
+                              : AppColors.primary,
                           shape: BoxShape.circle,
-                          boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(0.4), blurRadius: 12, offset: const Offset(0, 6))],
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColors.primary.withOpacity(0.4),
+                                blurRadius: 12,
+                                offset: const Offset(0, 6))
+                          ],
                         ),
                         child: Icon(
-                          _isPlaying ? Icons.pause_rounded : Icons.volume_up_rounded,
+                          _isPlaying
+                              ? Icons.pause_rounded
+                              : Icons.volume_up_rounded,
                           color: Colors.white,
                           size: 30,
                         ),
@@ -540,13 +715,18 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
                     ),
                     const SizedBox(width: 12),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-                        boxShadow: const [BoxShadow(color: AppColors.shadowColor, blurRadius: 4)],
+                        boxShadow: const [
+                          BoxShadow(color: AppColors.shadowColor, blurRadius: 4)
+                        ],
                       ),
-                      child: Text('Listen carefully!', style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600)),
+                      child: Text('Listen carefully!',
+                          style: AppTextStyles.bodySmall
+                              .copyWith(fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
@@ -593,7 +773,11 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
           _FeedbackBar(
             isCorrect: _selectedIndices.isNotEmpty,
             onContinue: () {
-              setState(() { _selectedIndices.clear(); _answered = false; _isPlaying = false; });
+              setState(() {
+                _selectedIndices.clear();
+                _answered = false;
+                _isPlaying = false;
+              });
               widget.onNext();
             },
           )
@@ -621,9 +805,11 @@ class _FeedbackBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
       decoration: BoxDecoration(
-        color: isCorrect ? AppColors.feedbackCorrectBg : AppColors.feedbackWrongBg,
+        color:
+            isCorrect ? AppColors.feedbackCorrectBg : AppColors.feedbackWrongBg,
       ),
       child: SafeArea(
         top: false,
@@ -652,8 +838,10 @@ class _FeedbackBar extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: onContinue,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: isCorrect ? AppColors.primary : AppColors.error,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  backgroundColor:
+                      isCorrect ? AppColors.primary : AppColors.error,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                   elevation: 0,
                 ),
                 child: Text('Continue', style: AppTextStyles.buttonLarge),
@@ -675,7 +863,8 @@ class _ErrorBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
       decoration: const BoxDecoration(color: AppColors.feedbackWrongBg),
       child: SafeArea(
         top: false,
@@ -683,8 +872,11 @@ class _ErrorBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Error occurred', style: AppTextStyles.h4.copyWith(color: AppColors.error)),
-            Text('Try again', style: AppTextStyles.bodySmall.copyWith(color: AppColors.error)),
+            Text('Error occurred',
+                style: AppTextStyles.h4.copyWith(color: AppColors.error)),
+            Text('Try again',
+                style:
+                    AppTextStyles.bodySmall.copyWith(color: AppColors.error)),
             const SizedBox(height: 12),
             SizedBox(
               width: double.infinity,
@@ -693,7 +885,8 @@ class _ErrorBar extends StatelessWidget {
                 onPressed: onGotIt,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.error,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                   elevation: 0,
                 ),
                 child: Text('Got it', style: AppTextStyles.buttonLarge),
@@ -711,7 +904,8 @@ class _DisabledContinueBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 12, AppSizes.screenPadding, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 12, AppSizes.screenPadding, 0),
       child: SafeArea(
         top: false,
         child: Column(
@@ -724,11 +918,14 @@ class _DisabledContinueBar extends StatelessWidget {
                 onPressed: null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primarySurface,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                   elevation: 0,
                   disabledBackgroundColor: AppColors.primarySurface,
                 ),
-                child: Text('Continue', style: AppTextStyles.buttonLarge.copyWith(color: AppColors.primary)),
+                child: Text('Continue',
+                    style: AppTextStyles.buttonLarge
+                        .copyWith(color: AppColors.primary)),
               ),
             ),
             const SizedBox(height: 12),
@@ -748,7 +945,8 @@ class _ActiveContinueBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 12, AppSizes.screenPadding, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 12, AppSizes.screenPadding, 0),
       child: SafeArea(
         top: false,
         child: Column(
@@ -760,8 +958,10 @@ class _ActiveContinueBar extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: enabled ? onContinue : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: enabled ? AppColors.primary : AppColors.primarySurface,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  backgroundColor:
+                      enabled ? AppColors.primary : AppColors.primarySurface,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                   elevation: 0,
                   disabledBackgroundColor: AppColors.primarySurface,
                 ),
@@ -786,22 +986,30 @@ class _LeaveLessonDialog extends StatelessWidget {
   final VoidCallback onKeepLearning;
   final VoidCallback onLeave;
 
-  const _LeaveLessonDialog({required this.onKeepLearning, required this.onLeave});
+  const _LeaveLessonDialog(
+      {required this.onKeepLearning, required this.onLeave});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.radiusXxl)),
+        borderRadius:
+            BorderRadius.vertical(top: Radius.circular(AppSizes.radiusXxl)),
       ),
-      padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 24, AppSizes.screenPadding, 0),
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 24, AppSizes.screenPadding, 0),
       child: SafeArea(
         top: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(width: 40, height: 4, decoration: BoxDecoration(color: AppColors.divider, borderRadius: BorderRadius.circular(2))),
+            Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                    color: AppColors.divider,
+                    borderRadius: BorderRadius.circular(2))),
             const SizedBox(height: 20),
             const Divider(color: AppColors.divider),
             const SizedBox(height: 20),
@@ -809,17 +1017,20 @@ class _LeaveLessonDialog extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               "Wait, there's only 1 minute left\nin this lesson!",
-              style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary, height: 1.6),
+              style: AppTextStyles.bodyMedium
+                  .copyWith(color: AppColors.textSecondary, height: 1.6),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
             SizedBox(
-              width: double.infinity, height: AppSizes.buttonHeightLg,
+              width: double.infinity,
+              height: AppSizes.buttonHeightLg,
               child: ElevatedButton(
                 onPressed: onKeepLearning,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                   elevation: 0,
                 ),
                 child: Text('Keep Learning', style: AppTextStyles.buttonLarge),
@@ -827,14 +1038,18 @@ class _LeaveLessonDialog extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             SizedBox(
-              width: double.infinity, height: AppSizes.buttonHeightLg,
+              width: double.infinity,
+              height: AppSizes.buttonHeightLg,
               child: OutlinedButton(
                 onPressed: onLeave,
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppColors.border, width: 1.5),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
                 ),
-                child: Text('Yes, Leave Now', style: AppTextStyles.buttonLarge.copyWith(color: AppColors.textPrimary)),
+                child: Text('Yes, Leave Now',
+                    style: AppTextStyles.buttonLarge
+                        .copyWith(color: AppColors.textPrimary)),
               ),
             ),
             const SizedBox(height: 24),

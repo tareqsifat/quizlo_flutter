@@ -6,10 +6,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'core/constants/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'core/storage/hive_storage.dart';
+import 'core/services/feedback_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveStorage.init();
+  // Initialize the audio and vibration feedback service asynchronously
+  FeedbackService.init();
   runApp(
     const ProviderScope(
       child: QuizloApp(),
