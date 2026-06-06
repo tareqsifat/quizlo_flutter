@@ -1,0 +1,120 @@
+[ +384 ms] executing: uname -m
+[   +9 ms] Exit code 0 from: uname -m
+[        ] x86_64
+[   +8 ms] Artifact Instance of 'MaterialFonts' is not required, skipping update.
+[        ] Artifact Instance of 'GradleWrapper' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidGenSnapshotArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterWebSdk' is not required, skipping update.
+[   +1 ms] Artifact Instance of 'LegacyCanvasKitRemover' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterSdk' is not required, skipping update.
+[        ] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FontSubsetArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'PubDependencies' is not required, skipping update.
+[        ] executing: [/opt/flutter/] git -c log.showSignature=false log HEAD -n 1 --pretty=format:%ad --date=iso
+[ +251 ms] Exit code 0 from: git -c log.showSignature=false log HEAD -n 1 --pretty=format:%ad --date=iso
+[        ] 2026-05-29 12:13:22 -0400
+[  +65 ms] Artifact Instance of 'AndroidGenSnapshotArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterWebSdk' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterEngineStamp' is not required, skipping update.
+[        ] Artifact Instance of 'LegacyCanvasKitRemover' is not required, skipping update.
+[   +5 ms] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[ +118 ms] Flutter assets will be downloaded from https://storage.flutter-io.cn. Make sure you trust this source!
+[   +3 ms] Artifact Instance of 'MaterialFonts' is not required, skipping update.
+[        ] Artifact Instance of 'GradleWrapper' is not required, skipping update.
+[   +7 ms] Artifact Instance of 'AndroidInternalBuildArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterWebSdk' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterEngineStamp' is not required, skipping update.
+[        ] Artifact Instance of 'LegacyCanvasKitRemover' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterSdk' is not required, skipping update.
+[        ] Artifact Instance of 'WindowsEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxEngineArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'LinuxFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'MacOSFuchsiaSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerSDKArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FlutterRunnerDebugSymbols' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'IosUsbArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'FontSubsetArtifacts' is not required, skipping update.
+[        ] Artifact Instance of 'PubDependencies' is not required, skipping update.
+[ +129 ms] executing: [/app/] /opt/flutter/bin/cache/dart-sdk/bin/dart pub --suppress-analytics --directory . get --example
+Resolving dependencies...
+Because riverpod_lint >=2.6.1 <2.6.4 depends on analyzer ^6.7.0 and riverpod_lint >=2.6.2 <3.0.0-dev.0 depends on custom_lint_builder ^0.7.0, riverpod_lint >=2.6.1 <3.0.0-dev.0 requires analyzer ^6.7.0 or custom_lint_builder ^0.7.0.
+And because riverpod_lint >=2.3.13 <2.6.1 depends on custom_lint_builder ^0.6.5, riverpod_lint >=2.3.13 <3.0.0-dev.0 requires analyzer ^6.7.0 or custom_lint_builder ^0.6.5 or ^0.7.0.
+And because custom_lint_builder >=0.6.5 depends on rxdart ^0.28.0 and custom_lint >=0.1.0 <0.6.5 depends on rxdart ^0.27.7, if riverpod_lint >=2.3.13 <3.0.0-dev.0 and custom_lint >=0.1.0 <0.6.5 then analyzer ^6.7.0.
+And because custom_lint >=0.6.5 <0.7.1 depends on analyzer ^6.6.0 and analyzer >=6.6.0 <6.9.0 depends on macros >=0.1.2-main.3 <0.1.3, if riverpod_lint >=2.3.13 <3.0.0-dev.0 and custom_lint >=0.1.0 <0.7.1 then macros >=0.1.2-main.3 <0.1.3 or analyzer ^6.9.0.
+Because macros >=0.1.2-main.4 <0.1.3-main.0 depends on _macros 0.3.2 from sdk and macros >=0.1.2-main.2 <0.1.2-main.4 depends on _macros 0.3.1 from sdk, macros >=0.1.2-main.2 <0.1.3-main.0 requires _macros 0.3.1 or 0.3.2 from sdk.
+Thus, if riverpod_lint >=2.3.13 <3.0.0-dev.0 and custom_lint >=0.1.0 <0.7.1 then analyzer ^6.9.0 or _macros 0.3.1 or 0.3.2 from sdk.
+And because analyzer >=6.9.0 <7.3.0 depends on macros >=0.1.3-main.0 <0.1.4, if riverpod_lint >=2.3.13 <3.0.0-dev.0 and custom_lint >=0.1.0 <0.7.1 then _macros 0.3.1 or 0.3.2 from sdk or macros >=0.1.3-main.0 <0.1.4.
+And because macros >=0.1.3-main.0 depends on _macros from sdk which doesn't exist (could not find package _macros in the Dart SDK), riverpod_lint >=2.3.13 <3.0.0-dev.0 is incompatible with custom_lint >=0.1.0 <0.7.1.
+So, because quizlo_app depends on both custom_lint ^0.6.4 and riverpod_lint ^2.3.13, version solving failed.
+[+5434 ms] pub get failed
+           command: "/opt/flutter/bin/cache/dart-sdk/bin/dart pub --suppress-analytics --directory . get --example"
+           pub env: {
+             "FLUTTER_ROOT": "/opt/flutter",
+             "PUB_ENVIRONMENT": "flutter_cli:verify:apk",
+           }
+           exit code: 69
+
+[   +1 ms] "flutter apk" took 5,747ms.
+[  +92 ms] Failed to update packages.
+[        ] 
+           #0      throwToolExit (package:flutter_tools/src/base/common.dart:34:3)
+           #1      _DefaultPub._runWithStdioInherited (package:flutter_tools/src/dart/pub.dart:486:7)
+           <asynchronous suspension>
+           #2      _DefaultPub.get (package:flutter_tools/src/dart/pub.dart:346:5)
+           <asynchronous suspension>
+           #3      FlutterCommand.verifyThenRunCommand (package:flutter_tools/src/runner/flutter_command.dart:1958:7)
+           <asynchronous suspension>
+           #4      FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1630:27)
+           <asynchronous suspension>
+           #5      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+           <asynchronous suspension>
+           #6      CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+           <asynchronous suspension>
+           #7      FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:496:9)
+           <asynchronous suspension>
+           #8      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+           <asynchronous suspension>
+           #9      FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
+           <asynchronous suspension>
+           #10     FlutterCommandRunner.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:307:33)
+           <asynchronous suspension>
+           #11     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:104:11)
+           <asynchronous suspension>
+           #12     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+           <asynchronous suspension>
+           #13     main (package:flutter_tools/executable.dart:103:3)
+           <asynchronous suspension>
+
+
+[        ] Running 1 shutdown hook
+[   +1 ms] Shutdown hooks complete
+[   +1 ms] exiting with code 69

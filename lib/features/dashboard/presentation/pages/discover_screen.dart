@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/storage/hive_storage.dart';
 
 /// ─────────────────────────────────────────────
 /// Discover Screen — Search + Vertical Quiz List
@@ -188,14 +189,22 @@ class _QuizStartBottomSheet extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 8),
-            Text('${item.questionCount} Question • ${item.timeAgo}', style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary)),
+            Text(
+              HiveStorage.isDemoMode()
+                  ? '10 Question • ${item.timeAgo}'
+                  : '${item.questionCount} Question • ${item.timeAgo}',
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+            ),
             const SizedBox(height: 12),
             Row(children: [
               const Icon(Icons.star_rounded, size: 16, color: AppColors.accent),
               const SizedBox(width: 6),
               RichText(text: TextSpan(children: [
                 TextSpan(text: 'Total Score: ', style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary)),
-                TextSpan(text: '${item.questionCount * 2} Points', style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700)),
+                TextSpan(
+                  text: HiveStorage.isDemoMode() ? '20 Points' : '${item.questionCount * 2} Points',
+                  style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700),
+                ),
               ])),
             ]),
             const SizedBox(height: 16),

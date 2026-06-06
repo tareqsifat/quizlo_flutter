@@ -56,7 +56,8 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     _stopwatch.start();
 
     if (HiveStorage.isDemoMode()) {
-      _questions = DemoQuestions.list.map((m) {
+      final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)..shuffle();
+      _questions = demoList.take(10).map((m) {
         return _Question(
           id: m['id'] as int,
           type: m['type'] as String,

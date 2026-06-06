@@ -440,13 +440,19 @@ class _QuizStartSheet extends StatelessWidget {
 
           Text(item.title, style: AppTextStyles.h3),
           const SizedBox(height: 4),
-          Text('${item.questionCount} Question', style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary)),
+          Text(
+            HiveStorage.isDemoMode() ? '10 Question' : '${item.questionCount} Question',
+            style: AppTextStyles.bodySmall.copyWith(color: AppColors.textSecondary),
+          ),
           const SizedBox(height: 8),
           Row(children: [
             Icon(Icons.star_rounded, size: 18, color: AppColors.accent),
             const SizedBox(width: 6),
             Text('Total Score: ', style: AppTextStyles.bodySmall.copyWith(fontWeight: FontWeight.w600)),
-            Text('${item.questionCount * 2} Points', style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700)),
+            Text(
+              HiveStorage.isDemoMode() ? '20 Points' : '${item.questionCount * 2} Points',
+              style: AppTextStyles.bodySmall.copyWith(color: AppColors.primary, fontWeight: FontWeight.w700),
+            ),
           ]),
           const SizedBox(height: 16),
 
