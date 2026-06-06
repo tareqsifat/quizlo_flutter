@@ -1,0 +1,18 @@
+# Build outputs
+build/
+android/build/
+android/.gradle/
+android/app/build/
+android/.kotlin/
+
+# Generated files - never commit these
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+
+# Local config - machine-specific
+android/local.propertiesandroid/key.properties
+android/local.properties
+android/app/upload-keystore.jks
+android/build/
+android/.gradle/
+android/.kotlin/
+build/

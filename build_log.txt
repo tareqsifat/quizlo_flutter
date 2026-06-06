@@ -1,0 +1,28 @@
+Flutter assets will be downloaded from https://storage.flutter-io.cn. Make sure you trust this source!
+Running Gradle task 'assembleRelease'...                        
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':gradle:compileKotlin'.
+> Unable to delete directory '/opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable'
+    Failed to delete some children. This might happen because a process has files open or has its working directory set in the target directory.
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.keystream
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab.values.at
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm/kotlin
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm/jvm
+    - /opt/flutter/packages/flutter_tools/gradle/build/kotlin/compileKotlin/cacheable/caches-jvm
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 14s
+Running Gradle task 'assembleRelease'...                           14.9s
+Gradle task assembleRelease failed with exit code 1

@@ -57,6 +57,7 @@ dependencies:
   url_launcher: ^6.3.0
   share_plus: ^9.0.0
   package_info_plus: ^8.0.0
+  cupertino_icons: ^1.0.8 
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,13 @@ dev_dependencies:
   mocktail: ^1.0.4
   hive_generator: ^2.0.1
   retrofit_generator: ^8.1.0
+  flutter_launcher_icons: ^0.13.1  # 1. This installs the package
+
+# 2. This configures the package (Notice it has ZERO spaces on the left)
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icons/logo.png" 
 
 flutter:
   uses-material-design: true

@@ -124,7 +124,7 @@ abstract class AppTheme {
       ),
 
       // Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.cardBg,
         elevation: 2,
         shadowColor: AppColors.shadowColor,
@@ -136,7 +136,7 @@ abstract class AppTheme {
 
       // Checkbox
       checkboxTheme: CheckboxThemeData(
-        activeColor: WidgetStateProperty.all(AppColors.primary),
+        fillColor: WidgetStateProperty.all(AppColors.primary),
         checkColor: WidgetStateProperty.all(AppColors.textWhite),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         side: const BorderSide(color: AppColors.border, width: 1.5),

@@ -92,7 +92,7 @@ class DemoQuestions {
     {
       'id': 8,
       'type': 'mcq',
-      'text': "৮. ধরা যাক Algorithm A এর running time $O(n^2)$ এবং Algorithm B এর running time $O(n)$। তাহলে নিচের কোনটি সবচেয়ে সঠিক?",
+      'text': "৮. ধরা যাক Algorithm A এর running time \$O(n^2)\$ এবং Algorithm B এর running time \$O(n)\$। তাহলে নিচের কোনটি সবচেয়ে সঠিক?",
       'options': [
         "Algorithm A, Algorithm B এর চেয়ে ধীর গতির",
         "Algorithm A, Algorithm B এর চেয়ে দ্রুত গতির",
@@ -188,7 +188,7 @@ class DemoQuestions {
     {
       'id': 16,
       'type': 'mcq',
-      'text': "১৬. যদি $5x^3-2x^2+x+k=0$ এর একটি উৎপাদক (x - 3) হয়, তাহলে k এর মান কত?",
+      'text': "১৬. যদি \$5x^3-2x^2+x+k=0\$ এর একটি উৎপাদক (x - 3) হয়, তাহলে k এর মান কত?",
       'options': [
         "৫০",
         "৬০",
@@ -214,10 +214,10 @@ class DemoQuestions {
       'type': 'mcq',
       'text': "১৮. যদি log_x 324=4 হয়, তবে x এর মান কত?",
       'options': [
-        "$3\\sqrt{2}$",
+        "\$3\\sqrt{2}\$",
         "4/2",
-        "$5\\sqrt{2}$",
-        "$\\sqrt{2}$",
+        "\$5\\sqrt{2}\$",
+        "\$\\sqrt{2}\$",
       ],
       'correctOptionId': 0,
     },
@@ -240,8 +240,8 @@ class DemoQuestions {
       'options': [
         "π",
         "2π",
-        "$\\sqrt{2}\\pi$",
-        "$2\\sqrt{2}\\pi$",
+        "\$\\sqrt{2}\\pi\$",
+        "\$2\\sqrt{2}\\pi\$",
       ],
       'correctOptionId': 1,
     },
@@ -344,12 +344,12 @@ class DemoQuestions {
     {
       'id': 29,
       'type': 'mcq',
-      'text': "২৯. যদি x = √5 + √3 হয়, তবে $x^3 + 8/x^3$ এর মান কত?",
+      'text': "২৯. যদি x = √5 + √3 হয়, তবে \$x^3 + 8/x^3\$ এর মান কত?",
       'options': [
-        "$18\\sqrt{5}$",
-        "$22\\sqrt{5}$",
-        "$28\\sqrt{5}$",
-        "$32\\sqrt{5}$",
+        "\$18\\sqrt{5}\$",
+        "\$22\\sqrt{5}\$",
+        "\$28\\sqrt{5}\$",
+        "\$32\\sqrt{5}\$",
       ],
       'correctOptionId': 2,
     },

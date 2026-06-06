@@ -1,0 +1,77 @@
+name: Build Release APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:        # lets you trigger manually from GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Java 17 (required by your build.gradle)
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      # 3. Set up Flutter — pin to stable channel
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.27.4'   # pin a version — don't use 'latest' for reproducibility
+          channel: stable
+          cache: true
+
+      # 4. Decode keystore from secret and write to disk
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
+      # 5. Write key.properties (replaces your local key.properties)
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties << EOF
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          storeFile=upload-keystore.jks
+          EOF
+
+      # 6. Write local.properties (tells Flutter where the SDK is on this runner)
+      - name: Create local.properties
+        run: |
+          cat > android/local.properties << EOF
+          sdk.dir=$ANDROID_SDK_ROOT
+          flutter.sdk=$FLUTTER_ROOT
+          flutter.buildMode=release
+          flutter.versionName=1.0.0
+          flutter.versionCode=1
+          EOF
+
+      # 7. Get Flutter packages
+      - name: Flutter pub get
+        run: flutter pub get
+        env:
+          PUB_HOSTED_URL: https://pub.dev
+          FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
+
+      # 8. Build release APK
+      - name: Build APK
+        run: flutter build apk --release --no-tree-shake-icons
+        env:
+          FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
+
+      # 9. Upload APK as a downloadable artifact
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quizlo-release-${{ github.run_number }}
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
