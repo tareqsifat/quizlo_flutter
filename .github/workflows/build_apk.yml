@@ -51,7 +51,7 @@ jobs:
           FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
 
       - name: Build APK
-        run: flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release --no-tree-shake-icons --verbose 2>&1 | tee build_output.txt; exit ${PIPESTATUS[0]}
         env:
           FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
 
