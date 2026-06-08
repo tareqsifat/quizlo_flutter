@@ -6,10 +6,13 @@ import 'package:flutter/material.dart';
 /// ─────────────────────────────────────────────
 abstract class AppColors {
   // ── Primary Brand ──────────────────────────
-  static const Color primary = Color(0xFF5B4FDC);
-  static const Color primaryLight = Color(0xFF7B70E8);
-  static const Color primaryDark = Color(0xFF3D34A0);
-  static const Color primarySurface = Color(0xFFEEECFB);
+  static const Color primary = Color(0xFF1BA1F2);
+  static const Color primaryLight = Color(0xFF4FC3F7);
+  static const Color primaryDark = Color(0xFF0A75B6);
+  static const Color primarySurface = Color(0xFFE8F5FE);
+
+  // ── CTA Color ──────────────────────────────
+  static const Color cta = Color(0xFF5B4FDC);
 
   // ── Accent / Orange ────────────────────────
   static const Color accent = Color(0xFFF39C12);
@@ -19,7 +22,7 @@ abstract class AppColors {
   // ── Backgrounds ────────────────────────────
   static const Color scaffoldBg = Color(0xFFF5F5F5);
   static const Color cardBg = Color(0xFFFFFFFF);
-  static const Color onboardingBg = Color(0xFF5B4FDC);
+  static const Color onboardingBg = Color(0xFF1BA1F2);
   static const Color darkOverlay = Color(0x80000000);
 
   // ── Text ───────────────────────────────────
@@ -30,8 +33,8 @@ abstract class AppColors {
 
   // ── Answer States ──────────────────────────
   static const Color answerDefault = Color(0xFFFFFFFF);
-  static const Color answerSelected = Color(0xFFEEECFB);   // light purple bg
-  static const Color answerSelectedBorder = Color(0xFF5B4FDC);
+  static const Color answerSelected = Color(0xFFE8F5FE);   // light blue bg
+  static const Color answerSelectedBorder = Color(0xFF1BA1F2);
   static const Color answerCorrect = Color(0xFFE8F8F0);
   static const Color answerCorrectBorder = Color(0xFF27AE60);
   static const Color answerWrong = Color(0xFFFDECEC);
@@ -44,7 +47,7 @@ abstract class AppColors {
   static const Color info = Color(0xFF3498DB);
 
   // ── Feedback Banner ────────────────────────
-  static const Color feedbackCorrectBg = Color(0xFFEEECFB);
+  static const Color feedbackCorrectBg = Color(0xFFE8F5FE);
   static const Color feedbackWrongBg = Color(0xFFFDECEC);
 
   // ── Rankings ───────────────────────────────
@@ -78,18 +81,18 @@ abstract class AppColors {
   static const Color googleWhite = Color(0xFFFFFFFF);
 
   // ── Category Chips ─────────────────────────
-  static const Color chipBg = Color(0xFFEEECFB);
-  static const Color chipText = Color(0xFF5B4FDC);
-  static const Color chipBgActive = Color(0xFF5B4FDC);
+  static const Color chipBg = Color(0xFFE8F5FE);
+  static const Color chipText = Color(0xFF1BA1F2);
+  static const Color chipBgActive = Color(0xFF1BA1F2);
   static const Color chipTextActive = Color(0xFFFFFFFF);
 
   // ── Bottom Nav ─────────────────────────────
   static const Color navBg = Color(0xFFFFFFFF);
-  static const Color navActive = Color(0xFF5B4FDC);
+  static const Color navActive = Color(0xFF1BA1F2);
   static const Color navInactive = Color(0xFFAAAAAA);
 
   // ── Progress Bar ───────────────────────────
-  static const Color progressFill = Color(0xFF5B4FDC);
+  static const Color progressFill = Color(0xFF1BA1F2);
   static const Color progressTrack = Color(0xFFDDDDDD);
 
   // ── Onboarding Dots ────────────────────────

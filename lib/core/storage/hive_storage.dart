@@ -43,6 +43,19 @@ class HiveStorage {
 
   static Future<void> clearUser() => _user.clear();
 
+  // ── Streak Cache ────────────────────────────
+  static Future<void> setStreakCount(int count) => _user.put('streak_count', count);
+  static int getStreakCount() => _user.get('streak_count', defaultValue: 0) as int;
+
+  static Future<void> setLastPracticeDate(String date) => _user.put('last_practice_date', date);
+  static String getLastPracticeDate() => _user.get('last_practice_date', defaultValue: '') as String;
+
+  static Future<void> setPracticedDates(List<String> dates) => _user.put('practiced_dates', dates);
+  static List<String> getPracticedDates() {
+    final data = _user.get('practiced_dates');
+    return data != null ? List<String>.from(data as List) : [];
+  }
+
   // ── Onboarding Box ─────────────────────────
   static Box get _onboarding => Hive.box(_boxOnboarding);
 

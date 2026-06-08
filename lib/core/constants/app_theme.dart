@@ -48,7 +48,7 @@ abstract class AppTheme {
       // Elevated Button
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.cta,
           foregroundColor: AppColors.textWhite,
           minimumSize: const Size(double.infinity, 56),
           shape: RoundedRectangleBorder(
@@ -67,12 +67,12 @@ abstract class AppTheme {
       // Outlined Button
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
+          foregroundColor: AppColors.cta,
           minimumSize: const Size(double.infinity, 56),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
-          side: const BorderSide(color: AppColors.primary, width: 1.5),
+          side: const BorderSide(color: AppColors.cta, width: 1.5),
           textStyle: const TextStyle(
             fontFamily: 'Poppins',
             fontSize: 16,
@@ -85,7 +85,7 @@ abstract class AppTheme {
       // Text Button
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.primary,
+          foregroundColor: AppColors.cta,
           textStyle: const TextStyle(
             fontFamily: 'Poppins',
             fontSize: 14,

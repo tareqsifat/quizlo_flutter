@@ -164,4 +164,26 @@ class QuizRepository {
       );
     }
   }
+
+  Future<Map<String, dynamic>> completeLesson({
+    required int lessonId,
+    required int examTypeId,
+    required int score,
+  }) async {
+    try {
+      final response = await _client.post(
+        ApiEndpoints.completeLesson(lessonId),
+        data: {
+          'exam_type_id': examTypeId,
+          'score': score,
+        },
+      );
+      return response.data['data'] as Map<String, dynamic>;
+    } on DioException catch (e) {
+      throw ApiException.fromResponse(
+        e.response?.data as Map<String, dynamic>? ?? {},
+        e.response?.statusCode,
+      );
+    }
+  }
 }

@@ -4,10 +4,12 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/services/streak_service.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Completed Screen
-/// Confetti + 3 stat cards + action buttons
+/// Multi-step flow: Page 1 (Lesson Complete) -> Page 2 (Streak Screen)
 /// ─────────────────────────────────────────────
 class QuizCompletedScreen extends StatefulWidget {
   final String timeTaken;
@@ -25,30 +27,13 @@ class QuizCompletedScreen extends StatefulWidget {
   State<QuizCompletedScreen> createState() => _QuizCompletedScreenState();
 }
 
-class _QuizCompletedScreenState extends State<QuizCompletedScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeIn;
-  late Animation<Offset> _slideUp;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-    _fadeIn = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
-    _slideUp = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _controller.forward();
-  }
+class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
 
   @override
   void dispose() {
-    _controller.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -56,228 +41,251 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(), // Force navigation via CONTINUE button
+        onPageChanged: (page) {
+          setState(() {
+            _currentPage = page;
+          });
+        },
         children: [
-          // ── Confetti effect ───────────────
-          ..._buildConfettiPieces(),
+          _buildLessonCompletePage(),
+          _buildStreakPage(),
+        ],
+      ),
+    );
+  }
 
-          // ── Main content ──────────────────
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
-              child: FadeTransition(
-                opacity: _fadeIn,
-                child: SlideTransition(
-                  position: _slideUp,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 40),
+  Widget _buildLessonCompletePage() {
+    final dailyGoal = HiveStorage.getDailyGoal();
+    final pointsEarned = widget.points;
+    final remainingXp = (dailyGoal - pointsEarned).clamp(0, dailyGoal);
+    final progressFraction = (pointsEarned / dailyGoal).clamp(0.0, 1.0);
 
-                      // ── Trophy icon ───────
-                      Container(
-                        width: 100,
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: AppColors.accent.withOpacity(0.15),
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Center(
-                          child: Text('🏆', style: TextStyle(fontSize: 52)),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
+        child: Column(
+          children: [
+            const Spacer(flex: 2),
 
-                      // ── Title ─────────────
-                      Text(
-                        'Quiz Completed!',
-                        style: AppTextStyles.display1.copyWith(color: AppColors.primary),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Excellent performance! Keep it up!',
-                        style: AppTextStyles.bodyMedium.copyWith(
-                          color: AppColors.textSecondary,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 40),
+            // Celebratory Emoji Badge
+            Container(
+              width: 140,
+              height: 140,
+              decoration: BoxDecoration(
+                color: AppColors.primarySurface,
+                shape: BoxShape.circle,
+              ),
+              child: const Center(
+                child: Text('🎉', style: TextStyle(fontSize: 72)),
+              ),
+            ),
+            const SizedBox(height: 32),
 
-                      // ── Stats row ─────────
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _StatCard(
-                              icon: Icons.timer_rounded,
-                              label: 'Time',
-                              value: widget.timeTaken,
-                              bgColor: AppColors.statGreenBg,
-                              iconColor: AppColors.statGreen,
-                              valueColor: AppColors.statGreen,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _StatCard(
-                              icon: Icons.auto_graph_rounded,
-                              label: 'Accuracy',
-                              value: '${widget.accuracy}%',
-                              bgColor: AppColors.statOrangeBg,
-                              iconColor: AppColors.statOrange,
-                              valueColor: AppColors.statOrange,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: _StatCard(
-                              icon: Icons.star_rounded,
-                              label: 'Points',
-                              value: '+${widget.points}',
-                              bgColor: AppColors.statPurpleBg,
-                              iconColor: AppColors.statPurple,
-                              valueColor: AppColors.statPurple,
-                            ),
-                          ),
-                        ],
-                      ),
+            // Header Text
+            Text(
+              'Lesson Complete!',
+              style: AppTextStyles.display1.copyWith(
+                color: AppColors.primary,
+                fontSize: 32,
+                fontWeight: FontWeight.w800,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '+$pointsEarned XP',
+              style: AppTextStyles.h2.copyWith(
+                color: AppColors.accent,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
 
-                      const Spacer(),
-
-                      // ── Actions ───────────
-                      SizedBox(
-                        width: double.infinity,
-                        height: AppSizes.buttonHeightLg,
-                        child: ElevatedButton(
-                          onPressed: () => context.go(AppRoutes.discover),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: Text('Explore More Quizzes', style: AppTextStyles.buttonLarge),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      SizedBox(
-                        width: double.infinity,
-                        height: AppSizes.buttonHeightLg,
-                        child: OutlinedButton(
-                          onPressed: () => context.go(AppRoutes.rank),
-                          style: OutlinedButton.styleFrom(
-                            side: const BorderSide(color: AppColors.border, width: 1.5),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                            ),
-                          ),
-                          child: Text(
-                            'Check Leaderboard',
-                            style: AppTextStyles.buttonLarge.copyWith(color: AppColors.textPrimary),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                    ],
+            // Progress bar to daily goal
+            Container(
+              width: double.infinity,
+              height: 16,
+              decoration: BoxDecoration(
+                color: AppColors.divider,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: FractionallySizedBox(
+                alignment: Alignment.centerLeft,
+                widthFactor: progressFraction,
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [AppColors.accent, AppColors.accentLight],
+                    ),
+                    borderRadius: BorderRadius.circular(50),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            const SizedBox(height: 16),
+            Text(
+              remainingXp > 0
+                  ? 'Earn another $remainingXp XP today to reach your daily goal'
+                  : 'Daily goal achieved! Excellent work!',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
 
-  List<Widget> _buildConfettiPieces() {
-    final colors = [
-      AppColors.primary,
-      AppColors.accent,
-      AppColors.success,
-      AppColors.error,
-      AppColors.info,
-    ];
-    return List.generate(30, (i) {
-      final size = Size(
-        MediaQuery.of(context).size.width,
-        MediaQuery.of(context).size.height,
-      );
-      return Positioned(
-        top: (i * 29.7) % size.height,
-        left: (i * 43.1) % size.width,
-        child: _ConfettiPiece(
-          color: colors[i % colors.length],
-          size: 6 + (i % 4) * 2.0,
-          isCircle: i % 3 == 0,
+            const Spacer(flex: 3),
+
+            // Continue Button (routes to next slide)
+            SizedBox(
+              width: double.infinity,
+              height: AppSizes.buttonHeightLg,
+              child: ElevatedButton(
+                onPressed: () {
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary, // sky blue
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+                  ),
+                  elevation: 0,
+                ),
+                child: Text('CONTINUE', style: AppTextStyles.buttonLarge),
+              ),
+            ),
+            const SizedBox(height: 24),
+          ],
         ),
-      );
-    });
-  }
-}
-
-class _StatCard extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-  final Color bgColor;
-  final Color iconColor;
-  final Color valueColor;
-
-  const _StatCard({
-    required this.icon,
-    required this.label,
-    required this.value,
-    required this.bgColor,
-    required this.iconColor,
-    required this.valueColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(AppSizes.cardRadius),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: iconColor, size: 28),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: AppTextStyles.h3.copyWith(color: valueColor),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: AppTextStyles.labelSmall.copyWith(color: iconColor),
-            textAlign: TextAlign.center,
-          ),
-        ],
       ),
     );
   }
-}
 
-class _ConfettiPiece extends StatelessWidget {
-  final Color color;
-  final double size;
-  final bool isCircle;
+  Widget _buildStreakPage() {
+    final streakCount = HiveStorage.getStreakCount();
+    final practicedDays = StreakService.getPracticedDaysOfWeek(); // List of 7 booleans
+    final dayLetters = ['S', 'S', 'M', 'T', 'W', 'T', 'F'];
 
-  const _ConfettiPiece({required this.color, required this.size, required this.isCircle});
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
+        child: Column(
+          children: [
+            const Spacer(flex: 2),
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.5),
-        shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-        borderRadius: isCircle ? null : BorderRadius.circular(2),
+            // Large Flame Badge with Streak Number
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                const Icon(
+                  Icons.local_fire_department_rounded,
+                  size: 160,
+                  color: AppColors.streakOrange,
+                ),
+                Positioned(
+                  bottom: 30,
+                  child: Text(
+                    '$streakCount',
+                    style: const TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 36,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+
+            // Streak Title
+            Text(
+              '$streakCount Day Streak!',
+              style: AppTextStyles.display1.copyWith(
+                color: AppColors.streakOrange,
+                fontSize: 32,
+                fontWeight: FontWeight.w800,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Complete a lesson every day to build your streak',
+              style: AppTextStyles.bodyMedium.copyWith(
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 40),
+
+            // Weekly day indicators (Saturday to Friday)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(7, (index) {
+                final isPracticed = practicedDays[index];
+                return Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Icon(
+                          Icons.local_fire_department_rounded,
+                          size: 38,
+                          color: isPracticed ? AppColors.streakOrange : AppColors.divider,
+                        ),
+                        Positioned(
+                          bottom: 7,
+                          child: Text(
+                            dayLetters[index],
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 9,
+                              fontWeight: FontWeight.w900,
+                              color: isPracticed ? Colors.white : AppColors.textHint,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              }),
+            ),
+
+            const Spacer(flex: 3),
+
+            // Continue Button (routes to Home / Discover)
+            SizedBox(
+              width: double.infinity,
+              height: AppSizes.buttonHeightLg,
+              child: ElevatedButton(
+                onPressed: () {
+                  context.go(AppRoutes.discover);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary, // sky blue
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
+                  ),
+                  elevation: 0,
+                ),
+                child: Text('CONTINUE', style: AppTextStyles.buttonLarge),
+              ),
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
       ),
     );
   }

@@ -15,6 +15,11 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profile = HiveStorage.getUserProfile();
+    final streak = HiveStorage.getStreakCount();
+    final xp = profile != null ? (profile['xp'] ?? 1250) : 1250;
+    final hearts = profile != null ? (profile['hearts'] ?? 4) : 4;
+
     return Scaffold(
       backgroundColor: AppColors.scaffoldBg,
       body: CustomScrollView(
@@ -76,11 +81,11 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _GamBadge(label: '🔥 12', sublabel: 'Streak'),
+                          _GamBadge(label: '🔥 $streak', sublabel: 'Streak'),
                           const SizedBox(width: 16),
-                          _GamBadge(label: '❤️ 4', sublabel: 'Hearts'),
+                          _GamBadge(label: '❤️ $hearts', sublabel: 'Hearts'),
                           const SizedBox(width: 16),
-                          _GamBadge(label: '⭐ 1250', sublabel: 'XP'),
+                          _GamBadge(label: '⭐ $xp', sublabel: 'XP'),
                         ],
                       ),
                     ],
@@ -106,7 +111,7 @@ class ProfileScreen extends StatelessWidget {
                       const SizedBox(width: 12),
                       Expanded(child: _StatCard2(label: 'Accuracy', value: '78%')),
                       const SizedBox(width: 12),
-                      Expanded(child: _StatCard2(label: 'Total XP', value: '1250')),
+                      Expanded(child: _StatCard2(label: 'Total XP', value: '$xp')),
                     ],
                   ),
                   const SizedBox(height: 24),

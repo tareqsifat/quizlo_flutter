@@ -9,6 +9,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/constants/demo_questions.dart';
 import '../../../../core/services/feedback_service.dart';
+import '../../../../core/services/streak_service.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Session Screen — Master quiz controller
@@ -174,10 +175,12 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)
         ..shuffle();
       _questions = demoList.take(10).map((m) {
+        final originalText = m['text'] as String;
+        final cleanedText = originalText.replaceFirst(RegExp(r'^[০-৯\d]+\.\s*'), '');
         return _Question(
           id: m['id'] as int,
           type: m['type'] as String,
-          text: m['text'] as String,
+          text: cleanedText,
           options: List<String>.from(m['options'] as List),
           correctOptionId: m['correctOptionId'] as int,
         );
@@ -196,7 +199,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     }
   }
 
-  void _nextQuestion() {
+  void _nextQuestion() async {
     if (_currentIndex < _questions.length - 1) {
       setState(() => _currentIndex++);
     } else {
@@ -208,14 +211,22 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       final accuracy = ((_score / _questions.length) * 100).round();
       final points = _score * 2;
 
-      context.pushReplacement(
-        AppRoutes.quizCompleted,
-        extra: {
-          'time_taken': timeStr,
-          'accuracy': accuracy,
-          'points': points,
-        },
+      // Update the user's daily streak count
+      await StreakService.updateStreak(
+        lessonId: widget.lessonId,
+        score: accuracy,
       );
+
+      if (mounted) {
+        context.pushReplacement(
+          AppRoutes.quizCompleted,
+          extra: {
+            'time_taken': timeStr,
+            'accuracy': accuracy,
+            'points': points,
+          },
+        );
+      }
     }
   }
 
