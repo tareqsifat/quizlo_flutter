@@ -6,6 +6,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/services/streak_service.dart';
+import '../../../../core/services/feedback_service.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Completed Screen
@@ -30,6 +31,12 @@ class QuizCompletedScreen extends StatefulWidget {
 class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    FeedbackService.playLessonComplete();
+  }
 
   @override
   void dispose() {

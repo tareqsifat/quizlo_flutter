@@ -4,6 +4,7 @@ import 'package:vibration/vibration.dart';
 class FeedbackService {
   static final AudioPlayer _correctPlayer = AudioPlayer();
   static final AudioPlayer _wrongPlayer = AudioPlayer();
+  static final AudioPlayer _completePlayer = AudioPlayer();
   static bool _initialized = false;
 
   /// Pre-loads correct and wrong sound files to ensure low latency playback.
@@ -13,9 +14,11 @@ class FeedbackService {
       // Pre-load assets
       await _correctPlayer.setAsset('assets/audio/correct.mp3');
       await _wrongPlayer.setAsset('assets/audio/wrong.wav');
+      await _completePlayer.setAsset('assets/audio/lesson_complete.wav');
 
       await _correctPlayer.setLoopMode(LoopMode.off);
       await _wrongPlayer.setLoopMode(LoopMode.off);
+      await _completePlayer.setLoopMode(LoopMode.off);
 
       _initialized = true;
     } catch (_) {
@@ -50,10 +53,22 @@ class FeedbackService {
     }
   }
 
+  /// Play the lesson complete sound.
+  static Future<void> playLessonComplete() async {
+    try {
+      await init();
+      await _completePlayer.seek(Duration.zero);
+      await _completePlayer.play();
+    } catch (_) {
+      // Ignore audio playback errors
+    }
+  }
+
   /// Cleanup audio players on app shutdown.
   static void dispose() {
     _correctPlayer.dispose();
     _wrongPlayer.dispose();
+    _completePlayer.dispose();
     _initialized = false;
   }
 }

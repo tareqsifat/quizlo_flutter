@@ -42,11 +42,14 @@ abstract class AppRoutes {
   static const String rank = '/rank';
 }
 
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+
 /// ─────────────────────────────────────────────
 /// App Router Provider
 /// ─────────────────────────────────────────────
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
 

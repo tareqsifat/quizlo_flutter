@@ -7,12 +7,15 @@ import 'core/constants/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'core/storage/hive_storage.dart';
 import 'core/services/feedback_service.dart';
+import 'core/services/notification_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveStorage.init();
   // Initialize the audio and vibration feedback service asynchronously
   FeedbackService.init();
+  // Initialize notification service and schedule daily reminders
+  await NotificationService.init();
   runApp(
     const ProviderScope(
       child: QuizloApp(),

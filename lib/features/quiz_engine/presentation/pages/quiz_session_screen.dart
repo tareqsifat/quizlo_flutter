@@ -171,7 +171,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     super.initState();
     _stopwatch.start();
 
-    if (HiveStorage.isDemoMode()) {
+    if (HiveStorage.isDemoMode() || widget.lessonId == 0) {
       final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)
         ..shuffle();
       _questions = demoList.take(10).map((m) {
