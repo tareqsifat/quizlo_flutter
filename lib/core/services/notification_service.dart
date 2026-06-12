@@ -5,6 +5,7 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:go_router/go_router.dart';
 import '../router/app_router.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -60,6 +61,20 @@ class NotificationService {
 
   /// Schedule the three daily reminder notifications
   static Future<void> scheduleDailyReminders() async {
+    // Check exact alarm permission first (Android 12+)
+    final androidImpl = _notificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>();
+    
+    if (androidImpl != null) {
+      final bool? granted = 
+          await androidImpl.requestExactAlarmsPermission();
+      if (granted == false) {
+        debugPrint('Exact alarm permission denied — skipping schedule');
+        return; // Don't hang, just skip
+      }
+    }
+
     // Cancel existing scheduled notifications to avoid duplicates
     await _notificationsPlugin.cancelAll();
 
@@ -116,18 +131,31 @@ class NotificationService {
     required int minute,
     required NotificationDetails notificationDetails,
   }) async {
-    final tz.TZDateTime scheduledDate = _nextInstanceOfTime(hour, minute);
-    await _notificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      scheduledDate,
-      notificationDetails,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents: DateTimeComponents.time,
-    );
+    try {
+      final tz.TZDateTime scheduledDate = _nextInstanceOfTime(hour, minute);
+      await _notificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        scheduledDate,
+        notificationDetails,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        matchDateTimeComponents: DateTimeComponents.time,
+      );
+    } catch (e) {
+      debugPrint('Failed to schedule notification $id: $e');
+      Fluttertoast.showToast(
+        msg: 'Failed to schedule notification $id: $e',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      // Fallback: try inexact alarm instead
+      // androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle
+    }
   }
 
   /// Helper to calculate the next occurrence of a specific time in the local timezone
