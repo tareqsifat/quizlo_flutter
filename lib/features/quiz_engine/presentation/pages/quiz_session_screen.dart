@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/answer_option_tile.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/widgets/quiz_progress_bar.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
@@ -821,6 +822,12 @@ class _FeedbackBar extends StatelessWidget {
       decoration: BoxDecoration(
         color:
             isCorrect ? AppColors.feedbackCorrectBg : AppColors.feedbackWrongBg,
+        border: Border(
+          top: BorderSide(
+            color: isCorrect ? AppColors.feedbackCorrectBorder : AppColors.feedbackWrongBorder,
+            width: 1.5,
+          ),
+        ),
       ),
       child: SafeArea(
         top: false,
@@ -829,34 +836,38 @@ class _FeedbackBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(children: [
-              Icon(
-                isCorrect ? Icons.check_circle_rounded : Icons.cancel_rounded,
-                color: isCorrect ? AppColors.success : AppColors.error,
-                size: 20,
+              Container(
+                width: 22,
+                height: 22,
+                decoration: BoxDecoration(
+                  color: isCorrect ? AppColors.primary : AppColors.accent,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    isCorrect ? '✓' : '✕',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
               Text(
-                isCorrect ? 'Exceptional' : 'Incorrect',
+                isCorrect ? 'Correct!' : 'Incorrect',
                 style: AppTextStyles.h4.copyWith(
-                  color: isCorrect ? AppColors.success : AppColors.error,
+                  color: isCorrect ? AppColors.answerCorrectText : AppColors.answerWrongText,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ]),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: onContinue,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      isCorrect ? AppColors.primary : AppColors.error,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                  elevation: 0,
-                ),
-                child: Text('Continue', style: AppTextStyles.buttonLarge),
-              ),
+            AppButton(
+              label: 'Continue',
+              onTap: onContinue,
+              variant: isCorrect ? AppButtonVariant.primary : AppButtonVariant.accent,
             ),
             const SizedBox(height: 12),
           ],
@@ -876,7 +887,15 @@ class _ErrorBar extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(
           AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
-      decoration: const BoxDecoration(color: AppColors.feedbackWrongBg),
+      decoration: BoxDecoration(
+        color: AppColors.feedbackWrongBg,
+        border: Border(
+          top: BorderSide(
+            color: AppColors.feedbackWrongBorder,
+            width: 1.5,
+          ),
+        ),
+      ),
       child: SafeArea(
         top: false,
         child: Column(
@@ -884,24 +903,15 @@ class _ErrorBar extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Error occurred',
-                style: AppTextStyles.h4.copyWith(color: AppColors.error)),
+                style: AppTextStyles.h4.copyWith(color: AppColors.answerWrongText, fontWeight: FontWeight.w700)),
             Text('Try again',
                 style:
-                    AppTextStyles.bodySmall.copyWith(color: AppColors.error)),
+                    AppTextStyles.bodySmall.copyWith(color: AppColors.answerWrongText)),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
+            AppButton.danger(
+              label: 'Got it',
+              onTap: onGotIt,
               height: AppSizes.buttonHeightMd,
-              child: ElevatedButton(
-                onPressed: onGotIt,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.error,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                  elevation: 0,
-                ),
-                child: Text('Got it', style: AppTextStyles.buttonLarge),
-              ),
             ),
             const SizedBox(height: 12),
           ],
@@ -922,22 +932,9 @@ class _DisabledContinueBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primarySurface,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                  elevation: 0,
-                  disabledBackgroundColor: AppColors.primarySurface,
-                ),
-                child: Text('Continue',
-                    style: AppTextStyles.buttonLarge
-                        .copyWith(color: AppColors.primary)),
-              ),
+            const AppButton(
+              label: 'Continue',
+              onTap: null,
             ),
             const SizedBox(height: 12),
           ],
@@ -963,26 +960,9 @@ class _ActiveContinueBar extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: enabled ? onContinue : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      enabled ? AppColors.primary : AppColors.primarySurface,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                  elevation: 0,
-                  disabledBackgroundColor: AppColors.primarySurface,
-                ),
-                child: Text(
-                  'Continue',
-                  style: AppTextStyles.buttonLarge.copyWith(
-                    color: enabled ? Colors.white : AppColors.primary,
-                  ),
-                ),
-              ),
+            AppButton(
+              label: 'Continue',
+              onTap: enabled ? onContinue : null,
             ),
             const SizedBox(height: 12),
           ],
@@ -1033,35 +1013,15 @@ class _LeaveLessonDialog extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: onKeepLearning,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                  elevation: 0,
-                ),
-                child: Text('Keep Learning', style: AppTextStyles.buttonLarge),
-              ),
+            AppButton(
+              label: 'Keep Learning',
+              onTap: onKeepLearning,
+              variant: AppButtonVariant.primary,
             ),
             const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: OutlinedButton(
-                onPressed: onLeave,
-                style: OutlinedButton.styleFrom(
-                  side: const BorderSide(color: AppColors.border, width: 1.5),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                ),
-                child: Text('Yes, Leave Now',
-                    style: AppTextStyles.buttonLarge
-                        .copyWith(color: AppColors.textPrimary)),
-              ),
+            AppButton.outlined(
+              label: 'Yes, Leave Now',
+              onTap: onLeave,
             ),
             const SizedBox(height: 24),
           ],
