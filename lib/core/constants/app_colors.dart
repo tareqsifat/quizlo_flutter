@@ -33,12 +33,14 @@ abstract class AppColors {
 
   // ── Answer States ──────────────────────────
   static const Color answerDefault = Color(0xFFFFFFFF);
-  static const Color answerSelected = Color(0xFFE8F5FE);   // light blue bg
+  static const Color answerSelected = Color(0xFFEAF6FD);
   static const Color answerSelectedBorder = Color(0xFF1BA1F2);
-  static const Color answerCorrect = Color(0xFFE8F8F0);
-  static const Color answerCorrectBorder = Color(0xFF27AE60);
-  static const Color answerWrong = Color(0xFFFDECEC);
-  static const Color answerWrongBorder = Color(0xFFE74C3C);
+  static const Color answerCorrect = Color(0xFFEAF6FD);
+  static const Color answerCorrectBorder = Color(0xFF1BA1F2);
+  static const Color answerCorrectText = Color(0xFF0E7DBF);
+  static const Color answerWrong = Color(0xFFFFF8EC);
+  static const Color answerWrongBorder = Color(0xFFF39C12);
+  static const Color answerWrongText = Color(0xFFB87A00);
 
   // ── Status ─────────────────────────────────
   static const Color success = Color(0xFF27AE60);
@@ -47,8 +49,10 @@ abstract class AppColors {
   static const Color info = Color(0xFF3498DB);
 
   // ── Feedback Banner ────────────────────────
-  static const Color feedbackCorrectBg = Color(0xFFE8F5FE);
-  static const Color feedbackWrongBg = Color(0xFFFDECEC);
+  static const Color feedbackCorrectBg = Color(0xFFEAF6FD);
+  static const Color feedbackCorrectBorder = Color(0xFFC8E8F9);
+  static const Color feedbackWrongBg = Color(0xFFFFF8EC);
+  static const Color feedbackWrongBorder = Color(0xFFF5D78A);
 
   // ── Rankings ───────────────────────────────
   static const Color rankGold = Color(0xFFFFD700);
