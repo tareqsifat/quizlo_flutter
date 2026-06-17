@@ -25,8 +25,9 @@ import '../../../../core/services/streak_service.dart';
 /// ─────────────────────────────────────────────
 class QuizSessionScreen extends StatefulWidget {
   final int lessonId;
+  final String? subject;
 
-  const QuizSessionScreen({super.key, required this.lessonId});
+  const QuizSessionScreen({super.key, required this.lessonId, this.subject});
 
   @override
   State<QuizSessionScreen> createState() => _QuizSessionScreenState();
@@ -173,8 +174,11 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     _stopwatch.start();
 
     if (HiveStorage.isDemoMode() || widget.lessonId == 0) {
-      final demoList = List<Map<String, dynamic>>.from(DemoQuestions.list)
-        ..shuffle();
+      var demoList = List<Map<String, dynamic>>.from(DemoQuestions.list);
+      if (widget.subject != null && widget.subject!.isNotEmpty) {
+        demoList = demoList.where((q) => q['subject'] == widget.subject).toList();
+      }
+      demoList.shuffle();
       _questions = demoList.take(10).map((m) {
         final originalText = m['text'] as String;
         final cleanedText = originalText.replaceFirst(RegExp(r'^[০-৯\d]+\.\s*'), '');
@@ -184,6 +188,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           text: cleanedText,
           options: List<String>.from(m['options'] as List),
           correctOptionId: m['correctOptionId'] as int,
+          subject: m['subject'] as String? ?? '',
         );
       }).toList();
     } else {
@@ -195,6 +200,10 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     if (isCorrect) {
       setState(() => _score++);
       FeedbackService.playCorrect();
+      final q = _questions[_currentIndex];
+      if (q.subject.isNotEmpty) {
+        HiveStorage.incrementCorrectQuestionsCount(q.subject);
+      }
     } else {
       FeedbackService.playWrong();
     }
@@ -1038,6 +1047,7 @@ class _Question {
   final String text;
   final List<String> options;
   final int correctOptionId;
+  final String subject;
 
   const _Question({
     required this.id,
@@ -1045,5 +1055,6 @@ class _Question {
     required this.text,
     required this.options,
     required this.correctOptionId,
+    this.subject = '',
   });
 }

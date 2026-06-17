@@ -1,4 +1,22 @@
 import 'package:flutter/material.dart';
+
+class NotificationService {
+  // All notification logic has been commented out per user request.
+  
+  static Future<void> init() async {
+    debugPrint('NotificationService: init bypassed (disabled)');
+  }
+
+  static Future<void> requestPermissions() async {
+    debugPrint('NotificationService: requestPermissions bypassed (disabled)');
+  }
+
+  static Future<void> scheduleDailyReminders() async {
+    debugPrint('NotificationService: scheduleDailyReminders bypassed (disabled)');
+  }
+}
+
+/*
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -153,8 +171,6 @@ class NotificationService {
         backgroundColor: Colors.red,
         textColor: Colors.white,
       );
-      // Fallback: try inexact alarm instead
-      // androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle
     }
   }
 
@@ -197,3 +213,4 @@ class NotificationService {
     }
   }
 }
+*/

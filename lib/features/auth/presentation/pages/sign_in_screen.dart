@@ -434,28 +434,12 @@ class _OrDivider extends StatelessWidget {
 class _FacebookButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: AppSizes.buttonHeightLg,
-      child: ElevatedButton.icon(
-        onPressed: null, // TODO: Facebook auth
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.facebookBlue,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-          ),
-          elevation: 0,
-        ),
-        icon: const Icon(Icons.facebook_rounded, color: Colors.white, size: 22),
-        label: const Text(
-          'Sign In with Facebook',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-      ),
+    return SocialAuthButton(
+      label: 'Sign In with Facebook',
+      backgroundColor: AppColors.facebookBlue,
+      textColor: Colors.white,
+      icon: const Icon(Icons.facebook_rounded, color: Colors.white, size: 22),
+      onTap: () {}, // TODO: Facebook auth
     );
   }
 }
@@ -463,24 +447,12 @@ class _FacebookButton extends StatelessWidget {
 class _GoogleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: AppSizes.buttonHeightLg,
-      child: OutlinedButton.icon(
-        onPressed: null, // TODO: Google auth
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(color: AppColors.border, width: 1.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-          ),
-        ),
-        icon: const Icon(Icons.g_mobiledata_rounded,
-            color: Colors.red, size: 26),
-        label: Text(
-          'Sign In with Google',
-          style: AppTextStyles.labelLarge.copyWith(color: AppColors.textPrimary),
-        ),
-      ),
+    return SocialAuthButton(
+      label: 'Sign In with Google',
+      backgroundColor: Colors.white,
+      textColor: AppColors.textPrimary,
+      icon: const Icon(Icons.g_mobiledata_rounded, color: Colors.red, size: 26),
+      onTap: () {}, // TODO: Google auth
     );
   }
 }

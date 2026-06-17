@@ -5,6 +5,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/widgets/app_button.dart';
 import '../../../../core/services/streak_service.dart';
 import '../../../../core/services/feedback_service.dart';
 
@@ -149,26 +150,14 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
             const Spacer(flex: 3),
 
             // Continue Button (routes to next slide)
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: () {
-                  _pageController.nextPage(
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary, // sky blue
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text('CONTINUE', style: AppTextStyles.buttonLarge),
-              ),
+            AppButton(
+              label: 'CONTINUE',
+              onTap: () {
+                _pageController.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
             ),
             const SizedBox(height: 24),
           ],
@@ -272,23 +261,11 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
             const Spacer(flex: 3),
 
             // Continue Button (routes to Home / Discover)
-            SizedBox(
-              width: double.infinity,
-              height: AppSizes.buttonHeightLg,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.go(AppRoutes.discover);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary, // sky blue
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                  ),
-                  elevation: 0,
-                ),
-                child: Text('CONTINUE', style: AppTextStyles.buttonLarge),
-              ),
+            AppButton(
+              label: 'CONTINUE',
+              onTap: () {
+                context.go(AppRoutes.home);
+              },
             ),
             const SizedBox(height: 24),
           ],
