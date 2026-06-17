@@ -20,8 +20,8 @@ class AuthLandingScreen extends StatelessWidget {
     await SecureStorage.setSkipAuth(false);
     await HiveStorage.setDemoMode(true);
     await HiveStorage.setOnboardingDone(true);
-    await HiveStorage.setExamTypeSelected(true);
-    if (context.mounted) context.go(AppRoutes.home);
+    await HiveStorage.setExamTypeSelected(false);
+    if (context.mounted) context.go(AppRoutes.examTypeSelection);
   }
 
   @override

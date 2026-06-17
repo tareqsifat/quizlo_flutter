@@ -6,6 +6,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Sign In Screen — with SIGN IN / SIGN UP tabs
@@ -334,29 +335,53 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
     );
   }
 
-  void _doSignIn() {
+  void _doSignIn() async {
     if (!_signInFormKey.currentState!.validate()) return;
     setState(() => _signInLoading = true);
-    // TODO: Call auth provider sign-in use-case
-    // On success: check is_new_user → exam type selection or home
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() => _signInLoading = false);
+
+    final success = await ref.read(authStateProvider.notifier).login(
+          _emailCtrl.text.trim(),
+          _passwordCtrl.text,
+        );
+
+    if (mounted) {
+      setState(() => _signInLoading = false);
+      if (success) {
         context.go(AppRoutes.examTypeSelection);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sign In failed. Please check your credentials or connection.'),
+            backgroundColor: AppColors.error,
+          ),
+        );
       }
-    });
+    }
   }
 
-  void _doSignUp() {
+  void _doSignUp() async {
     if (!_signUpFormKey.currentState!.validate()) return;
     setState(() => _signUpLoading = true);
-    // TODO: Call auth provider sign-up use-case
-    Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() => _signUpLoading = false);
+
+    final success = await ref.read(authStateProvider.notifier).register(
+          name: _nameCtrl.text.trim(),
+          email: _signUpEmailCtrl.text.trim(),
+          password: _signUpPasswordCtrl.text,
+        );
+
+    if (mounted) {
+      setState(() => _signUpLoading = false);
+      if (success) {
         context.go(AppRoutes.examTypeSelection);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sign Up failed. Please check your connection or credentials.'),
+            backgroundColor: AppColors.error,
+          ),
+        );
       }
-    });
+    }
   }
 }
 
