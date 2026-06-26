@@ -51,7 +51,7 @@ jobs:
           FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
 
       - name: Build APK
-        run: flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release --no-tree-shake-icons --stacktrace
         env:
           FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
 
