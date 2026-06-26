@@ -128,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   ...const [
                     _SettingsItem(icon: Icons.person_outline_rounded, label: 'Edit Profile'),
-                    _SettingsItem(icon: Icons.notifications_outlined, label: 'Notifications'),
+                    // _SettingsItem(icon: Icons.notifications_outlined, label: 'Notifications'),
                     _SettingsItem(icon: Icons.privacy_tip_outlined, label: 'Privacy Policy'),
                     _SettingsItem(icon: Icons.help_outline_rounded, label: 'Help & Support'),
                     _SettingsItem(icon: Icons.logout_rounded, label: 'Logout', isDestructive: true),

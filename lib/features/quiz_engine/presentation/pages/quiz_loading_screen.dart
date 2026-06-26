@@ -12,11 +12,13 @@ import '../../../../core/router/app_router.dart';
 class QuizLoadingScreen extends StatefulWidget {
   final int lessonId;
   final String lessonTitle;
+  final String? subject;
 
   const QuizLoadingScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
+    this.subject,
   });
 
   @override
@@ -60,7 +62,10 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
       if (mounted) {
         context.pushReplacement(
           AppRoutes.quizSession,
-          extra: {'lesson_id': widget.lessonId},
+          extra: {
+            'lesson_id': widget.lessonId,
+            'subject': widget.subject,
+          },
         );
       }
     });

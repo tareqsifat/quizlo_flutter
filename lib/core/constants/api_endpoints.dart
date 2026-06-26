@@ -14,6 +14,7 @@ abstract class ApiEndpoints {
   static const String login = '/auth/login';
   static const String register = '/auth/register';
   static const String logout = '/auth/logout';
+  static const String googleToken = '/auth/google/token'; // Flutter mobile Google Sign-In
 
   // ── Exam Types ─────────────────────────────
   static const String examTypes = '/exam-types';

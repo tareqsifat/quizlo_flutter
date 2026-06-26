@@ -76,19 +76,19 @@ class AnswerOptionTile extends StatelessWidget {
         return _AnswerColors(
           bg: AppColors.answerSelected,
           border: AppColors.answerSelectedBorder,
-          text: AppColors.primary,
+          text: AppColors.answerCorrectText,
         );
       case AnswerState.correct:
         return _AnswerColors(
           bg: AppColors.answerCorrect,
           border: AppColors.answerCorrectBorder,
-          text: AppColors.success,
+          text: AppColors.answerCorrectText,
         );
       case AnswerState.wrong:
         return _AnswerColors(
           bg: AppColors.answerWrong,
           border: AppColors.answerWrongBorder,
-          text: AppColors.error,
+          text: AppColors.answerWrongText,
         );
       case AnswerState.idle:
         return _AnswerColors(

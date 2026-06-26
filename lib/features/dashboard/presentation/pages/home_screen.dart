@@ -5,6 +5,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/widgets/app_button.dart';
 
 /// ─────────────────────────────────────────────
 /// Home Screen
@@ -463,21 +464,12 @@ class _QuizStartSheet extends StatelessWidget {
           const _Instruction(number: '3', text: 'Try to get the highest score and beat the leader board!'),
           const SizedBox(height: 24),
 
-          SizedBox(
-            width: double.infinity,
-            height: 52,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                context.push(AppRoutes.quizLoading, extra: {'lesson_id': item.id, 'title': item.title});
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.radiusPill)),
-                elevation: 0,
-              ),
-              child: Text('Start Play Quiz', style: AppTextStyles.buttonLarge),
-            ),
+          AppButton(
+            label: 'Start Play Quiz',
+            onTap: () {
+              Navigator.pop(context);
+              context.push(AppRoutes.quizLoading, extra: {'lesson_id': item.id, 'title': item.title});
+            },
           ),
           const SizedBox(height: 16),
         ],

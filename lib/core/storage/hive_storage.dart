@@ -41,6 +41,48 @@ class HiveStorage {
   static bool isDemoMode() =>
       _user.get('is_demo_mode', defaultValue: false) as bool;
 
+  // ── Stack and Subject Progress ────────────────
+  static Future<void> saveSelectedStack(String stack) =>
+      _user.put('selected_stack', stack);
+
+  static String? getSelectedStack() =>
+      _user.get('selected_stack') as String?;
+
+  static Future<void> clearSelectedStack() =>
+      _user.delete('selected_stack');
+
+  static bool hasSelectedStack() =>
+      getSelectedStack() != null;
+
+  static int getCorrectQuestionsCount(String subject) =>
+      _user.get('correct_questions_count_$subject', defaultValue: 0) as int;
+
+  static Future<void> incrementCorrectQuestionsCount(String subject) async {
+    const Map<String, int> subjectQuestionCounts = {
+      'bangla': 35,
+      'english': 35,
+      'Math & logic': 16,
+      'ICT': 18,
+      'cognitive ability': 15,
+      'GK (Bangladesh)': 32,
+      'GK (International)': 27,
+      'Geography': 13,
+      'Etics & Value': 10,
+    };
+    final maxCount = subjectQuestionCounts[subject] ?? 10;
+    final current = getCorrectQuestionsCount(subject);
+    if (current < maxCount) {
+      await _user.put('correct_questions_count_$subject', current + 1);
+    }
+  }
+
+  static Future<void> clearCorrectQuestions() async {
+    final keys = _user.keys.where((k) => k.toString().startsWith('correct_questions_count_'));
+    for (final key in keys) {
+      await _user.delete(key);
+    }
+  }
+
   static Future<void> clearUser() => _user.clear();
 
   // ── Streak Cache ────────────────────────────

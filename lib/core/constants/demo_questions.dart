@@ -7,6 +7,7 @@ class DemoQuestions {
   static const List<Map<String, dynamic>> list = [
     {
       'id': 1,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১. ই-কমার্সে সুরক্ষিত অনলাইন লেনদেনে প্রধানত কোন প্রটোকল ব্যবহৃত হয়?",
       'options': [
@@ -19,6 +20,7 @@ class DemoQuestions {
     },
     {
       'id': 2,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "২. বিভিন্ন নেটওয়ার্কের মধ্যে যোগাযোগ স্থাপনের জন্য নিচের কোন ডিভাইসটি ব্যবহৃত হয়?",
       'options': [
@@ -31,6 +33,7 @@ class DemoQuestions {
     },
     {
       'id': 3,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৩. ক্লাউড কম্পিউটিং এর কোন মডেলটি অ্যাপ্লিকেশন তৈরি করার জন্য প্রোগ্রামারদেরকে প্লাটফর্ম সরবরাহ করে?",
       'options': [
@@ -43,6 +46,7 @@ class DemoQuestions {
     },
     {
       'id': 4,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৪. একটি কম্পিউটার সিস্টেমে ১১০০১০১১২ বাইনারি সংখ্যাটির মান ডেসিমেল এ কত হবে?",
       'options': [
@@ -55,6 +59,7 @@ class DemoQuestions {
     },
     {
       'id': 5,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৫. কোন CPU আর্কিটেকচার স্মার্টফোনে বেশি ব্যবহৃত হয়?",
       'options': [
@@ -67,6 +72,7 @@ class DemoQuestions {
     },
     {
       'id': 6,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৬. কম্পিউটার টার্ন অন এর সময় সঠিক অর্ডার নিচের কোনটি?",
       'options': [
@@ -79,6 +85,7 @@ class DemoQuestions {
     },
     {
       'id': 7,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৭. কোন ধরনের Storage Device সবচেয়ে দ্রুত গতি সম্পন্ন?",
       'options': [
@@ -91,6 +98,7 @@ class DemoQuestions {
     },
     {
       'id': 8,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৮. ধরা যাক Algorithm A এর running time \$O(n^2)\$ এবং Algorithm B এর running time \$O(n)\$। তাহলে নিচের কোনটি সবচেয়ে সঠিক?",
       'options': [
@@ -103,6 +111,7 @@ class DemoQuestions {
     },
     {
       'id': 9,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "৯. LLM চালানোর জন্য নিম্নোক্ত কম্পিউটারের কোন যন্ত্রাংশ সবচেয়ে বেশি গুরুত্বপূর্ণ?",
       'options': [
@@ -115,6 +124,7 @@ class DemoQuestions {
     },
     {
       'id': 10,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১০. Quantum Computing এর জনক কাকে মনে করা হয়?",
       'options': [
@@ -127,6 +137,7 @@ class DemoQuestions {
     },
     {
       'id': 11,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১১. একটি কম্পিউটারের প্রোসেসর ক্লক স্পিড ৪.০০ গিগা হার্জ হলে এর ক্লক মাইকেল টাইম কত?",
       'options': [
@@ -139,6 +150,7 @@ class DemoQuestions {
     },
     {
       'id': 12,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১২. Precision Agriculture এ সাধারণত নিচের কোন প্রযুক্তি ব্যবহৃত হয়?",
       'options': [
@@ -151,6 +163,7 @@ class DemoQuestions {
     },
     {
       'id': 13,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৩. অপারেটিং সিস্টেমে ভার্চুয়াল মেমোরি ব্যবহার করা হয়-",
       'options': [
@@ -163,6 +176,7 @@ class DemoQuestions {
     },
     {
       'id': 14,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৪. কম্পিউটার সিস্টেমের বেঞ্চমার্কিং করা হয় কী পরিমাপের জন্য?",
       'options': [
@@ -175,6 +189,7 @@ class DemoQuestions {
     },
     {
       'id': 15,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৫. নিচের কোন ডিভাইসটি প্রধানত এম্বেডেড সিস্টেম ব্যবহৃত হয়?",
       'options': [
@@ -187,6 +202,7 @@ class DemoQuestions {
     },
     {
       'id': 16,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "১৬. যদি \$5x^3-2x^2+x+k=0\$ এর একটি উৎপাদক (x - 3) হয়, তাহলে k এর মান কত?",
       'options': [
@@ -199,6 +215,7 @@ class DemoQuestions {
     },
     {
       'id': 17,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "১৭. নিচের সিরিজের ফাঁকা জায়গায় কোন সংখ্যা হবে? 243, 81, -, 9, 3, 1",
       'options': [
@@ -211,6 +228,7 @@ class DemoQuestions {
     },
     {
       'id': 18,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "১৮. যদি log_x 324=4 হয়, তবে x এর মান কত?",
       'options': [
@@ -223,6 +241,7 @@ class DemoQuestions {
     },
     {
       'id': 19,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "১৯. একটি গুণোত্তর ধারার প্রথম ও দ্বিতীয় পদ যথাক্রমে 27 এবং 9, তাহলে ধারাটির দশম পদ কত?",
       'options': [
@@ -235,6 +254,7 @@ class DemoQuestions {
     },
     {
       'id': 20,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২০. একটি বৃত্তস্থ বর্গের প্রত্যেক বাহুর দৈর্ঘ্য 2 সে.মি. হলে, ঐ বৃত্তের ক্ষেত্রফল কত?",
       'options': [
@@ -247,6 +267,7 @@ class DemoQuestions {
     },
     {
       'id': 21,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২১. 4 জন তাঁতী 4 দিনে 4টি মাদুর তৈরি করতে পারে। একই হারে 8 জন তাঁতী 8 দিনে কতটি মাদুর তৈরি করতে পারবে?",
       'options': [
@@ -259,6 +280,7 @@ class DemoQuestions {
     },
     {
       'id': 22,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২২. (০, ০) এবং (3, 3) বিন্দুগামী সরলরেখার সমীকরণ কোনটি?",
       'options': [
@@ -271,6 +293,7 @@ class DemoQuestions {
     },
     {
       'id': 23,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৩. যদি nC12 = nC8 হয়, তবে 22Cn এর মান কত?",
       'options': [
@@ -283,6 +306,7 @@ class DemoQuestions {
     },
     {
       'id': 24,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৪. A={x∈IN: 2<x≤6} এবং B={x∈IN: x জোড় সংখ্যা এবং x≤8} হলে, A∩B এর মান কত?",
       'options': [
@@ -295,6 +319,7 @@ class DemoQuestions {
     },
     {
       'id': 25,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৫. একটি ব্যাগে ৫ টি লাল, ৪ টি সবুজ এবং ৩ টি নীল বল আছে। যদি দৈবভাবে ২টি বল নেওয়া হয়, তাহলে বল দুটির কোনটিই নীল না হওয়ার সম্ভাবনা কত?",
       'options': [
@@ -307,6 +332,7 @@ class DemoQuestions {
     },
     {
       'id': 26,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৬. 0.6 কে 0.9 দ্বারা ভাগ করলে, নিচের কোনটি সঠিক?",
       'options': [
@@ -319,6 +345,7 @@ class DemoQuestions {
     },
     {
       'id': 27,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৭. যদি কোনো বর্গক্ষেত্রের প্রত্যেক বাহুর পরিমাণ 10% বৃদ্ধি করা হয়, তবে তার ক্ষেত্রফল শতকরা কত বৃদ্ধি পাবে?",
       'options': [
@@ -331,6 +358,7 @@ class DemoQuestions {
     },
     {
       'id': 28,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৮. 100 টাকা 10% হারে 5 বছরের জন্য বিনিয়োগ করা হলে, সরল ও চক্রবৃদ্ধি মুনাফার পার্থক্য কত?",
       'options': [
@@ -343,6 +371,7 @@ class DemoQuestions {
     },
     {
       'id': 29,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "২৯. যদি x = √5 + √3 হয়, তবে \$x^3 + 8/x^3\$ এর মান কত?",
       'options': [
@@ -355,6 +384,7 @@ class DemoQuestions {
     },
     {
       'id': 30,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "৩০. |x-5|<2, x ∈ N অসমতাটির সমাধান সেট কোনটি?",
       'options': [
@@ -367,6 +397,7 @@ class DemoQuestions {
     },
     {
       'id': 31,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩১. একজন ব্যক্তি ৪ মাইল উত্তরে, ১২ মাইল পূর্বে এবং তারপরে ১২ মাইল উত্তরে ভ্রমণ করেন। তিনি শুরুর বিন্দু থেকে কত দূরে আছেন?",
       'options': [
@@ -379,6 +410,7 @@ class DemoQuestions {
     },
     {
       'id': 32,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩২. পাঁচজন ব্যক্তি গোল হয়ে বসে আছে এবং মাঝখানে তাকিয়ে তাস খেলছে। রাজিবের বামদিকে রয়েছে মুকুল, বিজয় রয়েছে অনিক ও নুরুলের মাঝখানে এবং অনিকের ডান দিকে। তাহলে নুরুলের ডান দিকে কে রয়েছে?",
       'options': [
@@ -391,6 +423,7 @@ class DemoQuestions {
     },
     {
       'id': 33,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৩. A যদি B এর সাথে খাপখায় যেমনভাবে C, D এর সাথে, তাহলে নিচের জোড়াগুলোর মধ্যে কোন জোড়া যুক্তিযুক্তভাবে খাপ খায়?",
       'options': [
@@ -403,6 +436,7 @@ class DemoQuestions {
     },
     {
       'id': 34,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৪. হাত, চোখ ও মস্তিস্কের কার্যাবলি এতটাই- যে শৈশব কালের প্রথম দিকে হাতের ব্যবহার সম্পূর্ণ- বিকাশকে ত্বরান্বিত করতে সাহায্য করে।",
       'options': [
@@ -415,6 +449,7 @@ class DemoQuestions {
     },
     {
       'id': 35,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৫. নিম্নে উল্লিখিত শব্দগুলোর মধ্যে কোন বানানটি সঠিক খুঁজে বের করুন?",
       'options': [
@@ -427,6 +462,7 @@ class DemoQuestions {
     },
     {
       'id': 36,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৬. একটি গিয়ার ট্রেনে তিনটি গিয়ার আছে, গিয়ার 'এ'এর ১২টি দাঁত, গিয়ার 'বি' এর ৩৬টি দাঁত, এবং গিয়ার 'সি' এর ২৪টি দাঁত আছে। যদি গিয়ার 'এ' কে ঘড়ির কাঁটা যেদিকে ঘোরে সেদিকে ঘোরানো হয়, তাহলে গিয়ার 'সি' কোন দিকে ঘুরবে?",
       'options': [
@@ -439,6 +475,7 @@ class DemoQuestions {
     },
     {
       'id': 37,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৭. যখন দুটি বস্তুর সংঘর্ষ হয় এবং তারা একসাথে লেগে থাকে, তখন তাকে কোন ধরনের সংঘর্ষ বলে?",
       'options': [
@@ -451,6 +488,7 @@ class DemoQuestions {
     },
     {
       'id': 38,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৮. নিচের ছবিগুলোর পাশের প্রশ্নবোধক চিহ্নের স্থানে কোন বিকল্পটি বসবে? (লজিক পাজল)",
       'options': [
@@ -463,6 +501,7 @@ class DemoQuestions {
     },
     {
       'id': 39,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৩৯. পৃথিবীর কক্ষপথের বিভিন্ন বিন্দু থেকে দেখলে কোন ঘটনার কারণে একটি নক্ষত্রের অবস্থানের আপাত পরিবর্তন ঘটে?",
       'options': [
@@ -475,6 +514,7 @@ class DemoQuestions {
     },
     {
       'id': 40,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪০. প্রশ্নবোধক চিহ্নিত ঘরে কোন সংখ্যাটি বসবে? (প্যাটার্ন)",
       'options': [
@@ -487,6 +527,7 @@ class DemoQuestions {
     },
     {
       'id': 41,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪১. Seed: Sapling:: Egg:?",
       'options': [
@@ -499,6 +540,7 @@ class DemoQuestions {
     },
     {
       'id': 42,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪২. যদি MFNPO অর্থ 'Lemon' হয়, তবে NBOHP অর্থ কী?",
       'options': [
@@ -511,6 +553,7 @@ class DemoQuestions {
     },
     {
       'id': 43,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪৩. প্রদত্ত চিত্রে ত্রিভুজের সংখ্যা নির্ণয় করুন?",
       'options': [
@@ -523,6 +566,7 @@ class DemoQuestions {
     },
     {
       'id': 44,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪৪. কোনটি প্রশ্নবোধক চিহ্নের স্থলাভিষিক্ত হবে? (ম্যাট্রিক্স)",
       'options': [
@@ -535,6 +579,7 @@ class DemoQuestions {
     },
     {
       'id': 45,
+      'subject': 'cognitive ability',
       'type': 'mcq',
       'text': "৪৫. পানিতে প্রদত্ত প্রতিচ্ছবিগুলোর সাথে কোনটি ইংরেজিতে একটি শব্দের সাথে সাদৃশ্যপূর্ণ?",
       'options': [
@@ -547,6 +592,7 @@ class DemoQuestions {
     },
     {
       'id': 46,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৪৬. নিচের কোনটি পেশাগত নৈতিকতার উপাদান?",
       'options': [
@@ -559,6 +605,7 @@ class DemoQuestions {
     },
     {
       'id': 47,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৪৭. উদ্দেশ্য নৈতিকতার আলোচ্য বিষয় কোনটি?",
       'options': [
@@ -571,6 +618,7 @@ class DemoQuestions {
     },
     {
       'id': 48,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৪৮. জনস্বাস্থ্য ও নৈতিকতা নিশ্চিতকরণে রাষ্ট্র কার্যকর ব্যবস্থা গ্রহণ করবে--এ বিষয়ে সংবিধানের কোন অনুচ্ছেদে উল্লেখ রয়েছে?",
       'options': [
@@ -583,6 +631,7 @@ class DemoQuestions {
     },
     {
       'id': 49,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৪৯. 'সরকারি নিয়োগ-লাভে সুযোগের সমতা'- বিষয়টি সংবিধান মতে--",
       'options': [
@@ -595,6 +644,7 @@ class DemoQuestions {
     },
     {
       'id': 50,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫০. মানুষের মধ্যে সামাজিক মূল্যবোধ গড়ে উঠে--",
       'options': [
@@ -607,6 +657,7 @@ class DemoQuestions {
     },
     {
       'id': 51,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫১. বাংলাদেশ নামক প্রজাতন্ত্রের ভিত্তি--",
       'options': [
@@ -619,6 +670,7 @@ class DemoQuestions {
     },
     {
       'id': 52,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫২. সুশাসন বিষয়ক ধারণাটির প্রথম কোন খ্রিষ্টাব্দে একটি আন্তর্জাতিক সংস্থা তাদের রিপোর্টে বিস্তারিতভাবে তুলে ধরে---",
       'options': [
@@ -631,6 +683,7 @@ class DemoQuestions {
     },
     {
       'id': 53,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫৩. সুশাসন বিষয়ক ধারণাটি কোন আন্তর্জাতিক সংস্থা প্রথম তাদের প্রতিবেদনে বিস্তারিতভাবে তুলে ধরে?",
       'options': [
@@ -643,6 +696,7 @@ class DemoQuestions {
     },
     {
       'id': 54,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫৪. জাতিসংঘের সাধারণ পরিষদে দুর্নীতির বিরুদ্ধে আন্তর্জাতিক কনভেনশনটি গৃহীত হয়?",
       'options': [
@@ -655,6 +709,7 @@ class DemoQuestions {
     },
     {
       'id': 55,
+      'subject': 'Etics & Value',
       'type': 'mcq',
       'text': "৫৫. ৭ আগস্ট ২০২৪ পর্যন্ত দুর্নীতির বিরুদ্ধে জাতিসংঘের আন্তর্জাতিক কনভেনশনে স্বাক্ষরকারী দেশের সংখ্যা-",
       'options': [
@@ -667,6 +722,7 @@ class DemoQuestions {
     },
     {
       'id': 56,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৫৬. 'এমন পিরিতি কভু নাহি দেখি শুনি।/পরানে পরান বান্ধা আপনা আপনি।'- কার লেখা?",
       'options': [
@@ -679,6 +735,7 @@ class DemoQuestions {
     },
     {
       'id': 57,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৫৭. ফোর্ট উইলিয়াম কলেজ পর্বে রচিত বাংলা বইগুলো-",
       'options': [
@@ -691,6 +748,7 @@ class DemoQuestions {
     },
     {
       'id': 58,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৫৮. সাহিত্যের রূপ ও রীতির বিচারে কোন গ্রন্থটি ব্যতিক্রম?",
       'options': [
@@ -703,6 +761,7 @@ class DemoQuestions {
     },
     {
       'id': 59,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৫৯. 'বিরাট গরু-ছাগলের হাট'- ব্যানারে লেখা এই শিরোনামকে অপপ্রয়োগ বলা যায় না কেন?",
       'options': [
@@ -715,6 +774,7 @@ class DemoQuestions {
     },
     {
       'id': 60,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬০. 'অজর' শব্দের বিপরীত কোনটি?",
       'options': [
@@ -727,6 +787,7 @@ class DemoQuestions {
     },
     {
       'id': 61,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬১. 'ব্যাং' শব্দটিং দিয়ে লিখতে হবে, কারণ-",
       'options': [
@@ -739,6 +800,7 @@ class DemoQuestions {
     },
     {
       'id': 62,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬২. 'সে কৌতুক করার কৌতূহল সংবরণ করতে পারল না'।- এই বাক্য কী কারণে ত্রুটিপূর্ণ?",
       'options': [
@@ -751,6 +813,7 @@ class DemoQuestions {
     },
     {
       'id': 63,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৩. 'নিত্য তোমার যে ফুল ফোটে ফুলবনে'- এখানে 'নিত্য' শব্দের প্রতিশব্দ কোনটি?",
       'options': [
@@ -763,6 +826,7 @@ class DemoQuestions {
     },
     {
       'id': 64,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৪. বাক্যের মধ্যে শব্দ অবস্থান করে কীভাবে?",
       'options': [
@@ -775,6 +839,7 @@ class DemoQuestions {
     },
     {
       'id': 65,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৫. বাংলা একাডেমির আধুনিক 'বাংলা অভিধানে'র সম্পাদক কে?",
       'options': [
@@ -787,6 +852,7 @@ class DemoQuestions {
     },
     {
       'id': 66,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৬. কোন মঙ্গলকাব্যে ঐতিহাসিক চরিত্র আছে?",
       'options': [
@@ -799,6 +865,7 @@ class DemoQuestions {
     },
     {
       'id': 67,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৭. কোন কাব্যে আলাওল ব্যক্তিগত জীবনের কথা লিখেছেন?",
       'options': [
@@ -811,6 +878,7 @@ class DemoQuestions {
     },
     {
       'id': 68,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৮. 'তুরস্ক-ভ্রমণ' কার লেখা?",
       'options': [
@@ -823,6 +891,7 @@ class DemoQuestions {
     },
     {
       'id': 69,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৬৯. সৈয়দ ওয়ালীউল্লাহ্ 'চাঁদের অমাবস্যা' উপন্যাসে কোন জীবনদর্শনের রূপায়ণ ঘটেছে?",
       'options': [
@@ -835,6 +904,7 @@ class DemoQuestions {
     },
     {
       'id': 70,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭০. 'প্রভাতফেরির মিছিল যাবে/ছড়াও ফুলের বন্যা,/বিষাগীতি গাইছে পথে/তিতুমীরের কন্যা'।- কার লেখা?",
       'options': [
@@ -847,6 +917,7 @@ class DemoQuestions {
     },
     {
       'id': 71,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭১. 'হরফের ছড়া' কার লেখা বর্ণশিক্ষার বই?",
       'options': [
@@ -859,6 +930,7 @@ class DemoQuestions {
     },
     {
       'id': 72,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭২. 'রক্তকরবী' নাটকের অন্তর্গত বিষয় কী?",
       'options': [
@@ -871,6 +943,7 @@ class DemoQuestions {
     },
     {
       'id': 73,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৩. মীর মশাররফ হোসেন সম্পর্কে কোন তথ্যটি যথার্থ নয়?",
       'options': [
@@ -883,6 +956,7 @@ class DemoQuestions {
     },
     {
       'id': 74,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৪. জীবনানন্দ দাশের মৃত্যুর পর কোন কাব্যগ্রন্থটি প্রকাশিত হয়?",
       'options': [
@@ -895,6 +969,7 @@ class DemoQuestions {
     },
     {
       'id': 75,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৫. 'তুমি অধম তাই বলিয়া আমি উত্তম না হইব কেন?'- কোন উপন্যাসে আছে?",
       'options': [
@@ -907,6 +982,7 @@ class DemoQuestions {
     },
     {
       'id': 76,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৬. 'লুই ভণই গুরু পুছিঅ জান'। এখানে 'ভণই' শব্দের অর্থ কী?",
       'options': [
@@ -919,6 +995,7 @@ class DemoQuestions {
     },
     {
       'id': 77,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৭. 'শ্রীকৃষ্ণকীর্তন' কাব্যের অংশ নয় কোনটি?",
       'options': [
@@ -931,6 +1008,7 @@ class DemoQuestions {
     },
     {
       'id': 78,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৮. বিবৃত স্বরধ্বনি বলতে বোঝায়-",
       'options': [
@@ -943,6 +1021,7 @@ class DemoQuestions {
     },
     {
       'id': 79,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৭৯. মনোয়েল দ্যা আসসুম্পসাঁও অভিধান প্রকাশের আগে কত বছর ধরে শব্দ সংগ্রহ করেন?",
       'options': [
@@ -955,6 +1034,7 @@ class DemoQuestions {
     },
     {
       'id': 80,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮০. আলালের 'ঘরে দুলাল' প্রথমে কোন পত্রিকায় ধারাবাহিকভাবে প্রকাশিত হয়?",
       'options': [
@@ -967,6 +1047,7 @@ class DemoQuestions {
     },
     {
       'id': 81,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮১. 'সকলের তরে সকলে আমরা/प्रत्यেক আমরা পরের তরে'।- কোন কবিতার অংশ?",
       'options': [
@@ -979,6 +1060,7 @@ class DemoQuestions {
     },
     {
       'id': 82,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮২. কাজী নজরুল ইসলামের কোন গ্রন্থটি বাজেয়াপ্ত হয়নি?",
       'options': [
@@ -991,6 +1073,7 @@ class DemoQuestions {
     },
     {
       'id': 83,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৩. জসীম উদ্দীনের 'কবর' কবিতাটি কোন কাব্যের অন্তর্গত?",
       'options': [
@@ -1003,6 +1086,7 @@ class DemoQuestions {
     },
     {
       'id': 84,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৪. গৌড়ী প্রাকৃত বলতে বোঝায়-",
       'options': [
@@ -1015,6 +1099,7 @@ class DemoQuestions {
     },
     {
       'id': 85,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৫. 'Glossary' শব্দের বাংলা পরিভাষা-",
       'options': [
@@ -1027,6 +1112,7 @@ class DemoQuestions {
     },
     {
       'id': 86,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৬. 'ঐক্যমত' শব্দটি কোন বিবেচনায় অশুদ্ধ নয়?",
       'options': [
@@ -1039,6 +1125,7 @@ class DemoQuestions {
     },
     {
       'id': 87,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৭. ১৯৩৬ সালে কলিকাতা বিশ্ববিদ্যালয়ের বানান সংস্কারের মূল উদ্দেশ্য ছিল-",
       'options': [
@@ -1051,6 +1138,7 @@ class DemoQuestions {
     },
     {
       'id': 88,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৮. অভিধানে ং, ঃ, ঁ বর্ণগুলোর অবস্থান কোথায়?",
       'options': [
@@ -1063,6 +1151,7 @@ class DemoQuestions {
     },
     {
       'id': 89,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৮৯. পূর্ববঙ্গীয় উচ্চারণে 'স্মরণ' শব্দের ক্ষেত্রে কোনটি ঘটে?",
       'options': [
@@ -1075,6 +1164,7 @@ class DemoQuestions {
     },
     {
       'id': 90,
+      'subject': 'bangla',
       'type': 'mcq',
       'text': "৯০. 'গড্ডলিকা প্রবাহ' বাগধারার 'গড্ডল' শব্দের অর্থ কী?",
       'options': [
@@ -1087,6 +1177,7 @@ class DemoQuestions {
     },
     {
       'id': 91,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯১. Which sentence is correct?",
       'options': [
@@ -1099,6 +1190,7 @@ class DemoQuestions {
     },
     {
       'id': 92,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯২. Select the right determiner: 'She works as ___ FBI analyst.'",
       'options': [
@@ -1111,6 +1203,7 @@ class DemoQuestions {
     },
     {
       'id': 93,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৩. We met Medha carrying a bouquet of red roses. Here 'carrying' is a/an-----.",
       'options': [
@@ -1123,6 +1216,7 @@ class DemoQuestions {
     },
     {
       'id': 94,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৪. 'Five years have passed since his father died'. Identify the correct simple form of the sentence",
       'options': [
@@ -1135,6 +1229,7 @@ class DemoQuestions {
     },
     {
       'id': 95,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৫. Choose the antonym of 'controversy'",
       'options': [
@@ -1147,6 +1242,7 @@ class DemoQuestions {
     },
     {
       'id': 96,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৬. 'For God's sake hold your tongue, and let me love.' This line is taken from the poem-------.",
       'options': [
@@ -1159,6 +1255,7 @@ class DemoQuestions {
     },
     {
       'id': 97,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৭. The one-act play 'Riders to the Sea' was written by-----.",
       'options': [
@@ -1171,6 +1268,7 @@ class DemoQuestions {
     },
     {
       'id': 98,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৮. 'Neither a borrower nor a lender be, For loan oft loses both itself and friend.' This extract is taken from Shakespeare's play.....",
       'options': [
@@ -1183,6 +1281,7 @@ class DemoQuestions {
     },
     {
       'id': 99,
+      'subject': 'english',
       'type': 'mcq',
       'text': "৯৯. Who composed the elegiac poem 'Thyrsis'?",
       'options': [
@@ -1195,6 +1294,7 @@ class DemoQuestions {
     },
     {
       'id': 100,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০০. Who is the writer of the famous essay 'Tradition and the Individual Talent'?",
       'options': [
@@ -1207,6 +1307,7 @@ class DemoQuestions {
     },
     {
       'id': 101,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০১. 'Our sweetest songs are those that tell of saddest thought.' This oft-quoted line occurs in Sheley's notable poem.....",
       'options': [
@@ -1219,6 +1320,7 @@ class DemoQuestions {
     },
     {
       'id': 102,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০২. Who authored the futuristic novel 'Brave New World'?",
       'options': [
@@ -1231,6 +1333,7 @@ class DemoQuestions {
     },
     {
       'id': 103,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৩. 'Good fences make good neighbors'.---The line was written by.......",
       'options': [
@@ -1243,6 +1346,7 @@ class DemoQuestions {
     },
     {
       'id': 104,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৪. 'Cowards die many times before their deaths: The valiant never taste of death but once'. In which play of Shakespeare do you find this quote?",
       'options': [
@@ -1255,6 +1359,7 @@ class DemoQuestions {
     },
     {
       'id': 105,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৫. 'Knowledge comes but wisdom lingers' This quote is extracted from Tennyson's poem titled__.",
       'options': [
@@ -1267,6 +1372,7 @@ class DemoQuestions {
     },
     {
       'id': 106,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৬. The tragedy 'Samson Agonistes was penned by___.",
       'options': [
@@ -1279,6 +1385,7 @@ class DemoQuestions {
     },
     {
       'id': 107,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৭. Who is the playwright of the absurd drama 'Waiting for Godot?'",
       'options': [
@@ -1291,6 +1398,7 @@ class DemoQuestions {
     },
     {
       'id': 108,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৮. It's strange-but true; for truth is always strange; Stranger than fiction.' This is taken from a poem of.",
       'options': [
@@ -1303,6 +1411,7 @@ class DemoQuestions {
     },
     {
       'id': 109,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১০৯. Who wrote the novella 'Heart of Darkness'?",
       'options': [
@@ -1315,6 +1424,7 @@ class DemoQuestions {
     },
     {
       'id': 110,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১০. Who was the writer of the autobiographical as well as political easy 'Shooting and Elephant'?",
       'options': [
@@ -1327,6 +1437,7 @@ class DemoQuestions {
     },
     {
       'id': 111,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১১. A speech made without any previous thought, preparation or practice is called a/an ---.",
       'options': [
@@ -1339,6 +1450,7 @@ class DemoQuestions {
     },
     {
       'id': 112,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১২. Which one has the identical singular and plural form?",
       'options': [
@@ -1351,6 +1463,7 @@ class DemoQuestions {
     },
     {
       'id': 113,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৩. Select the sentence in which 'fast' is an adverb:",
       'options': [
@@ -1363,6 +1476,7 @@ class DemoQuestions {
     },
     {
       'id': 114,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৪. 'It was a cowardly attack on a defenceless man'. Here 'cowardly' is a/an ---.",
       'options': [
@@ -1375,6 +1489,7 @@ class DemoQuestions {
     },
     {
       'id': 115,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৫. 'The river flows past the village'. Here 'past' is a/an-",
       'options': [
@@ -1387,6 +1502,7 @@ class DemoQuestions {
     },
     {
       'id': 116,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৬. 'Ihana sleeps only for four hours a night.' In this sentence the verb 'sleeps' is",
       'options': [
@@ -1399,6 +1515,7 @@ class DemoQuestions {
     },
     {
       'id': 117,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৭. 'He started teaching Hamlet'. Here 'teaching' is a/an-",
       'options': [
@@ -1411,6 +1528,7 @@ class DemoQuestions {
     },
     {
       'id': 118,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৮. Fill in the blank with the appropriate preposition: 'She was married ___ a rich man'.",
       'options': [
@@ -1423,6 +1541,7 @@ class DemoQuestions {
     },
     {
       'id': 119,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১১৯. Which gender is the word 'sibling'?",
       'options': [
@@ -1435,6 +1554,7 @@ class DemoQuestions {
     },
     {
       'id': 120,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২০. Find out the correctly spelt word.",
       'options': [
@@ -1447,6 +1567,7 @@ class DemoQuestions {
     },
     {
       'id': 121,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২১. The idiom 'smell a rat' means to",
       'options': [
@@ -1459,6 +1580,7 @@ class DemoQuestions {
     },
     {
       'id': 122,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২২. Select the synonym for 'inclement':",
       'options': [
@@ -1471,6 +1593,7 @@ class DemoQuestions {
     },
     {
       'id': 123,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২৩. Tell me frankly why you did this. the underlined part is a/an",
       'options': [
@@ -1483,6 +1606,7 @@ class DemoQuestions {
     },
     {
       'id': 124,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২৪. The prefix 'non' can be added to ---.",
       'options': [
@@ -1495,6 +1619,7 @@ class DemoQuestions {
     },
     {
       'id': 125,
+      'subject': 'english',
       'type': 'mcq',
       'text': "১২৫. Identify the correct passive form: 'I heard her sing'",
       'options': [
@@ -1507,6 +1632,7 @@ class DemoQuestions {
     },
     {
       'id': 126,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১২৬. ক্ষুদ্রঋণ কার্যক্রম বাংলাদেশের গ্রামীণ অর্থনীতিতে প্রধানত-",
       'options': [
@@ -1519,6 +1645,7 @@ class DemoQuestions {
     },
     {
       'id': 127,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১২৭. বর্তমানে পৃথিবীর কোন দেশে বেশি প্রবাসী বাংলাদেশী কর্মরত রয়েছে?",
       'options': [
@@ -1531,6 +1658,7 @@ class DemoQuestions {
     },
     {
       'id': 128,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১২৮. বাংলাদেশের মতো উন্নয়নশীল দেশগুলোর ক্ষেত্রে মূল্যস্ফীতির সহনশীল মাত্রা হলো-",
       'options': [
@@ -1543,6 +1671,7 @@ class DemoQuestions {
     },
     {
       'id': 129,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১২৯. বাংলাদেশ ব্যাংকের রিজার্ভ থেকে চুরি করা অর্থ পাচার করা হয়-",
       'options': [
@@ -1555,6 +1684,7 @@ class DemoQuestions {
     },
     {
       'id': 130,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩০. অর্থ পাচারের কারণ নয় কোনটি?",
       'options': [
@@ -1567,6 +1697,7 @@ class DemoQuestions {
     },
     {
       'id': 131,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩১. বাংলাদেশ কোন দুটি দেশ হতে সিংহভাগ সয়াবিন তেল আমদানী করে?",
       'options': [
@@ -1579,6 +1710,7 @@ class DemoQuestions {
     },
     {
       'id': 132,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩২. বিশ্বব্যাংকের মতে বাংলাদেশের মূল্যস্ফীতি বাড়ার কারণ নয় কোনটি?",
       'options': [
@@ -1591,6 +1723,7 @@ class DemoQuestions {
     },
     {
       'id': 133,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৩. বাংলাদেশের বৃহত্তম সার কারখানার নাম-",
       'options': [
@@ -1603,6 +1736,7 @@ class DemoQuestions {
     },
     {
       'id': 134,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৪. কোন অনুচ্ছেদ মূলে বাংলাদেশের সংবিধানের মৌলিক বিধানাবলি পরিবর্তনযোগ্য নয়?",
       'options': [
@@ -1615,6 +1749,7 @@ class DemoQuestions {
     },
     {
       'id': 135,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৫. বাংলাদেশের সংবিধানের রক্ষাকর্তা-",
       'options': [
@@ -1627,6 +1762,7 @@ class DemoQuestions {
     },
     {
       'id': 136,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৬. তত্ত্বাবধায়ক সরকার ব্যবস্থা পুনঃপ্রবর্তনের জন্য সংবিধানের যে সংশোধন বাতিল করতে হবে-",
       'options': [
@@ -1639,6 +1775,7 @@ class DemoQuestions {
     },
     {
       'id': 137,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৭. জুলাই শহিদ দিবস কোনটি?",
       'options': [
@@ -1651,6 +1788,7 @@ class DemoQuestions {
     },
     {
       'id': 138,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৮. বর্তমান অন্তর্বর্তী সরকারের প্রধান উপদেষ্টা কবে শপথ গ্রহণ করেন?",
       'options': [
@@ -1663,6 +1801,7 @@ class DemoQuestions {
     },
     {
       'id': 139,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৩৯. বাংলাদেশে মোট কতবার জরুরি অবস্থা জারী করা হয়েছে?",
       'options': [
@@ -1675,6 +1814,7 @@ class DemoQuestions {
     },
     {
       'id': 140,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪০. ঢাকা বিশ্ববিদ্যালয় বিল কত সালে আইনে পরিণত হয়?",
       'options': [
@@ -1687,6 +1827,7 @@ class DemoQuestions {
     },
     {
       'id': 141,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪১. একুশে পদক ও স্বাধীনতা পদক দুটোই পেয়েছেন-",
       'options': [
@@ -1699,6 +1840,7 @@ class DemoQuestions {
     },
     {
       'id': 142,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪২. বাংলাদেশের প্রশাসনিক কাঠামো-",
       'options': [
@@ -1711,6 +1853,7 @@ class DemoQuestions {
     },
     {
       'id': 143,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৩. টেস্ট ক্রিকেটে প্রথম বাংলাদেশি হিসেবে ডাবল সেঞ্চুরি করেন-",
       'options': [
@@ -1723,6 +1866,7 @@ class DemoQuestions {
     },
     {
       'id': 144,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৪. ১৯৭৫ সালে একদলীয় শাসন ব্যবস্থায় কোন পত্রিকাটি নিষিদ্ধ ছিল?",
       'options': [
@@ -1735,6 +1879,7 @@ class DemoQuestions {
     },
     {
       'id': 145,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৫. ওয়াসফিয়া নাজরীন বিখ্যাত-",
       'options': [
@@ -1747,6 +1892,7 @@ class DemoQuestions {
     },
     {
       'id': 146,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৬. কোন মুসলিম চিন্তাবিদ প্রথম 'দ্বি-জাতি তত্ত্ব' সম্পর্কে স্পষ্ট ধারণা দেন?",
       'options': [
@@ -1759,6 +1905,7 @@ class DemoQuestions {
     },
     {
       'id': 147,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৭. কোন বছর পাকিস্তান সরকার বাংলাকে অন্যতম রাষ্ট্রভাষা হিসেবে স্বীকৃতি দেয়?",
       'options': [
@@ -1771,6 +1918,7 @@ class DemoQuestions {
     },
     {
       'id': 148,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৮. 'তমদ্দুন মজলিস'- এর নেতা জনাব আবুল কাশেম ঢাকা বিশ্ববিদ্যালয়ের কোন বিষয়ের শিক্ষক ছিলেন?",
       'options': [
@@ -1783,6 +1931,7 @@ class DemoQuestions {
     },
     {
       'id': 149,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৪৯. স্বাধীন বাংলা বেতার কেন্দ্রের জনপ্রিয় অনুষ্ঠান 'জল্লাদের দরবার' এর রচয়িতা কে ছিলেন?",
       'options': [
@@ -1795,6 +1944,7 @@ class DemoQuestions {
     },
     {
       'id': 150,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫০. কোন তারিখে আসাদুজ্জামান আসাদ পুলিশের গুলিতে শহিদ হন?",
       'options': [
@@ -1807,6 +1957,7 @@ class DemoQuestions {
     },
     {
       'id': 151,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫১. 'ঢাকা প্রকাশ' সাপ্তাহিক পত্রিকাটির প্রথম সম্পাদক কে?",
       'options': [
@@ -1819,6 +1970,7 @@ class DemoQuestions {
     },
     {
       'id': 152,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫২. সেরিকালচার বলতে বোঝায়---",
       'options': [
@@ -1831,6 +1983,7 @@ class DemoQuestions {
     },
     {
       'id': 153,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫৩. ছায়া প্রেমী (Shadow loving) অর্থনৈতিক ফসল কোনটি?",
       'options': [
@@ -1843,6 +1996,7 @@ class DemoQuestions {
     },
     {
       'id': 154,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫৪. বিগত ৫০ বছরে বাংলাদেশে কোন ফসলের চাষ তুলনামূলকভাবে সবচেয়ে বেশি বৃদ্ধি পেয়েছে?",
       'options': [
@@ -1855,6 +2009,7 @@ class DemoQuestions {
     },
     {
       'id': 155,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৫৫. ২০২২ সালের জনশুমারি অনুযায়ী বাংলাদেশের জনসংখ্যা-",
       'options': [
@@ -1867,6 +2022,7 @@ class DemoQuestions {
     },
     {
       'id': 156,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৫৬. আফগানিস্তানের তালেবান সরকারকে বৈধ কর্তৃপক্ষ হিসেবে স্বীকৃতি প্রদানকারী প্রথম রাষ্ট্র কোনটি?",
       'options': [
@@ -1879,6 +2035,7 @@ class DemoQuestions {
     },
     {
       'id': 157,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৫৭. 'The One Big Beautiful Bill Act' এ USA প্রেরণ করতে কী পরিমাণ কর ধার্য করা হয়েছে?",
       'options': [
@@ -1891,6 +2048,7 @@ class DemoQuestions {
     },
     {
       'id': 158,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৫৮. বিশ্ব পরিবেশ দিবস কোনটি?",
       'options': [
@@ -1903,6 +2061,7 @@ class DemoQuestions {
     },
     {
       'id': 159,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৫৯. কিয়োটো প্রটোকলের বিষয়বস্তু কী?",
       'options': [
@@ -1915,6 +2074,7 @@ class DemoQuestions {
     },
     {
       'id': 160,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬০. Climate Vulnerable Form (CVF) কবে প্রতিষ্ঠিত হয়?",
       'options': [
@@ -1927,6 +2087,7 @@ class DemoQuestions {
     },
     {
       'id': 161,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬১. ভারত ও পাকিস্তানের মধ্যে সিন্ধু নদের পানিবণ্টন চুক্তি কবে সম্পাদিত হয়?",
       'options': [
@@ -1939,6 +2100,7 @@ class DemoQuestions {
     },
     {
       'id': 162,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬২. UNOPS - এর পূর্ণরূপ কী?",
       'options': [
@@ -1951,6 +2113,7 @@ class DemoQuestions {
     },
     {
       'id': 163,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৩. বর্তমানে অর্থনীতির ব্যাপ্তি অনুসারে বিশ্বের বৃহত্তম অর্থনৈতিক জোট কোনটি?",
       'options': [
@@ -1963,6 +2126,7 @@ class DemoQuestions {
     },
     {
       'id': 164,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৪. জাতিসংঘের বিশ্ব পর্যটন সংস্থা বা জাতিসংঘ পর্যটন (পূর্বতন UNWTO) এর সদর দপ্তর কোথায়?",
       'options': [
@@ -1975,6 +2139,7 @@ class DemoQuestions {
     },
     {
       'id': 165,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৫. কোন দেশটি OPEC এর সদস্য নয়?",
       'options': [
@@ -1987,6 +2152,7 @@ class DemoQuestions {
     },
     {
       'id': 166,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৬. সম্প্রতি পেরুতে খুঁজে পাওয়া ৩৫০০ বছরের পুরোনো শহরের নাম কী?",
       'options': [
@@ -1999,6 +2165,7 @@ class DemoQuestions {
     },
     {
       'id': 167,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৭. ১৯৪৭ সালে প্যালেস্টাইনকে বিভাজনের পরিকল্পনা জাতিসংঘের কোন প্রস্তাবের মাধ্যমে গৃহীত হয়?",
       'options': [
@@ -2011,6 +2178,7 @@ class DemoQuestions {
     },
     {
       'id': 168,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৮. নিম্নের কোন দেশটি 'গোলান হাইটস্' বিরোধের একটি পক্ষ?",
       'options': [
@@ -2023,6 +2191,7 @@ class DemoQuestions {
     },
     {
       'id': 169,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৬৯. নিচের কোন সভ্যতার সময়কালে ওজন পরিমাপ ও দৈর্ঘ্য মাপার পদ্ধতি আবিষ্কার হয়েছিল?",
       'options': [
@@ -2035,6 +2204,7 @@ class DemoQuestions {
     },
     {
       'id': 170,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭০. ন্যাটো (NATO) চার্টারের কোন ধারায় সম্মিলিত প্রতিরক্ষার কথা উল্লেখ আছে?",
       'options': [
@@ -2047,6 +2217,7 @@ class DemoQuestions {
     },
     {
       'id': 171,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭১. রোম সংবিধি এর ফলে কোন সংস্থাটি প্রতিষ্ঠিত হয়?",
       'options': [
@@ -2059,6 +2230,7 @@ class DemoQuestions {
     },
     {
       'id': 172,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭২. কোন দেশগুলো মেডিসিন লাইন/ সীমানা দ্বারা বিভক্ত?",
       'options': [
@@ -2071,6 +2243,7 @@ class DemoQuestions {
     },
     {
       'id': 173,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭৩. বাংলাদেশ কখন 'নারীর বিরুদ্ধে সকল প্রকার বৈষম্য দূরীকরণ' সনদে সম্মতি জানায়?",
       'options': [
@@ -2083,6 +2256,7 @@ class DemoQuestions {
     },
     {
       'id': 174,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭৪. যুক্তরাষ্ট্রের পরিচালিত 'অপারেশন মিডনাইট হ্যামার' ইরানে কবে হামলা করে?",
       'options': [
@@ -2095,6 +2269,7 @@ class DemoQuestions {
     },
     {
       'id': 175,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৭৫. ইরানের ফর্দো (Fordow) পারমাণবিক সমৃদ্ধকরণ কেন্দ্রটি কোন প্রদেশে অবস্থিত?",
       'options': [
@@ -2107,6 +2282,7 @@ class DemoQuestions {
     },
     {
       'id': 176,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৭৬. বাংলাদেশে দীর্ঘতম স্থলসীমান্ত ভারতের কোন রাজ্যের সাথে?",
       'options': [
@@ -2119,6 +2295,7 @@ class DemoQuestions {
     },
     {
       'id': 177,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৭৭. প্রতি ৩০০ দ্রাঘিমার স্থানান্তরে সময়ের ব্যবধান কত মিনিট হয়?",
       'options': [
@@ -2131,6 +2308,7 @@ class DemoQuestions {
     },
     {
       'id': 178,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৭৮. বাংলাদেশের ভৌগোলিক অবস্থান কোন দুটি গুরুত্বপূর্ণ সামুদ্রিক করিডরের মাঝখানে?",
       'options': [
@@ -2143,6 +2321,7 @@ class DemoQuestions {
     },
     {
       'id': 179,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৭৯. হিমালয় পবর্তমালার উদ্ভব কোন দুটি টেকটোনিক প্লেটের সংঘর্ষে হয়েছে?",
       'options': [
@@ -2155,6 +2334,7 @@ class DemoQuestions {
     },
     {
       'id': 180,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮০. বায়ুমণ্ডলের কোন স্তরে ওজোন গ্যাসের স্তর অবস্থান করে?",
       'options': [
@@ -2167,6 +2347,7 @@ class DemoQuestions {
     },
     {
       'id': 181,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮১. ভূতাত্ত্বিক গঠন অনুযায়ী বাংলাদেশের কোন অঞ্চলে সবচেয়ে পুরাতন শিলা গঠন পাওয়া যায়?",
       'options': [
@@ -2179,6 +2360,7 @@ class DemoQuestions {
     },
     {
       'id': 182,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮২. কনরাড বিযুক্তি ভূ-অভ্যন্তরের কোন স্তরসমূহের মাঝে স্থলাভিষিক্ত হয়?",
       'options': [
@@ -2191,6 +2373,7 @@ class DemoQuestions {
     },
     {
       'id': 183,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮৩. বাংলাদেশের উত্তর পশ্চিমাঞ্চলের প্রধান খনিজ সম্পদ কোনটি?",
       'options': [
@@ -2203,6 +2386,7 @@ class DemoQuestions {
     },
     {
       'id': 184,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮৪. এল নিনো বাংলাদেশ ও দক্ষিণ পূর্ব এশিয়ার আঞ্চলিক আবহাওয়ায় কীভাবে প্রভাব ফেলে?",
       'options': [
@@ -2215,6 +2399,7 @@ class DemoQuestions {
     },
     {
       'id': 185,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৮৫. বাংলাদেশের 'দুর্যোগ ব্যবস্থাপনা আইন' কবে প্রণীত হয়?",
       'options': [
@@ -2227,6 +2412,7 @@ class DemoQuestions {
     },
     {
       'id': 186,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৮৬. EPI -এর পূর্ণরূপ কী?",
       'options': [
@@ -2239,6 +2425,7 @@ class DemoQuestions {
     },
     {
       'id': 187,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৮৭. কোন স্পেস টেলিস্কোপ ২০২১ সালে হাবল টেলিস্কোপের স্থলাভিষিক্ত হয়?",
       'options': [
@@ -2251,6 +2438,7 @@ class DemoQuestions {
     },
     {
       'id': 188,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৮৮. QR কোডে ব্যবহৃত হয়-",
       'options': [
@@ -2263,6 +2451,7 @@ class DemoQuestions {
     },
     {
       'id': 189,
+      'subject': 'Math & logic',
       'type': 'mcq',
       'text': "১৮৯. ইথার সম্বন্ধে কোন্টি মিথ্যা?",
       'options': [
@@ -2275,6 +2464,7 @@ class DemoQuestions {
     },
     {
       'id': 190,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৯০. আল্ট্রাসনোগ্রাফিতে ব্যবহৃত শব্দের কম্পাঙ্ক কত?",
       'options': [
@@ -2287,6 +2477,7 @@ class DemoQuestions {
     },
     {
       'id': 191,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৯১. কোনটি শরীরে নাইট্রোজেন সরবরাহ করে?",
       'options': [
@@ -2299,6 +2490,7 @@ class DemoQuestions {
     },
     {
       'id': 192,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৯২. হাইড্রোজেন বোমায় ক্রিয়া করে-",
       'options': [
@@ -2311,6 +2503,7 @@ class DemoQuestions {
     },
     {
       'id': 193,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৯৩. কোন গ্রহে 'Curiosity' মহাকাশযানটি প্রেরণ করা হয়?",
       'options': [
@@ -2323,6 +2516,7 @@ class DemoQuestions {
     },
     {
       'id': 194,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "১৯৪. ফিটকিরিতে কত অণু পানি থাকে?",
       'options': [
@@ -2335,6 +2529,7 @@ class DemoQuestions {
     },
     {
       'id': 195,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৯৫. 'Necessary evil' কোনটি?",
       'options': [
@@ -2347,6 +2542,7 @@ class DemoQuestions {
     },
     {
       'id': 196,
+      'subject': 'ICT',
       'type': 'mcq',
       'text': "১৯৬. তরঙ্গের বেলায় কোনটি সত্য?",
       'options': [
@@ -2359,6 +2555,7 @@ class DemoQuestions {
     },
     {
       'id': 197,
+      'subject': 'GK (Bangladesh)',
       'type': 'mcq',
       'text': "১৯৭. হিগের কণার (Higgs Particle) প্রকৃতির সাথে কোন বাংলাদেশি বিজ্ঞানীর নাম জড়িয়ে আছে?",
       'options': [
@@ -2371,6 +2568,7 @@ class DemoQuestions {
     },
     {
       'id': 198,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৯৮. কোন গ্যাস গ্রিন হাউস ইফেক্ট ঘটায়?",
       'options': [
@@ -2383,6 +2581,7 @@ class DemoQuestions {
     },
     {
       'id': 199,
+      'subject': 'Geography',
       'type': 'mcq',
       'text': "১৯৯. বিরল ভূতল খনিজ (Rare-Earth Minerals) সম্পর্কিত কোন তথ্যটি সঠিক?",
       'options': [
@@ -2395,6 +2594,7 @@ class DemoQuestions {
     },
     {
       'id': 200,
+      'subject': 'GK (International)',
       'type': 'mcq',
       'text': "২০০. কোন ধাতু পানিতে ফেললে আগুন ধরে যায়?",
       'options': [

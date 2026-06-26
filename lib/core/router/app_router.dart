@@ -9,7 +9,9 @@ import '../../features/auth/presentation/pages/forgot_password_screen.dart';
 import '../../features/auth/presentation/pages/otp_verification_screen.dart';
 import '../../features/auth/presentation/pages/create_new_password_screen.dart';
 
-import '../../features/exam_type/presentation/pages/exam_type_selection_screen.dart';
+import '../../features/exam_type/presentation/pages/stack_selection_screen.dart';
+import '../../features/dashboard/presentation/pages/coming_soon_screen.dart';
+import '../../features/dashboard/presentation/pages/subject_selection_screen.dart';
 import '../../features/dashboard/presentation/pages/main_shell.dart';
 import '../../features/dashboard/presentation/pages/home_screen.dart';
 import '../../features/dashboard/presentation/pages/discover_screen.dart';
@@ -18,6 +20,7 @@ import '../../features/quiz_engine/presentation/pages/quiz_session_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../storage/secure_storage.dart';
+import '../storage/hive_storage.dart';
 
 /// ─────────────────────────────────────────────
 /// Route Names — type-safe navigation
@@ -32,6 +35,7 @@ abstract class AppRoutes {
   static const String createNewPassword = '/auth/create-password';
   static const String passwordChanged = '/auth/password-changed';
   static const String examTypeSelection = '/exam-type-selection';
+  static const String comingSoon = '/coming-soon';
   static const String home = '/home';
   static const String discover = '/discover';
   static const String quizLoading = '/quiz/loading';
@@ -136,7 +140,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // ── Exam Type Selection (new users) ──────
       GoRoute(
         path: AppRoutes.examTypeSelection,
-        builder: (context, state) => const ExamTypeSelectionScreen(),
+        builder: (context, state) => const StackSelectionScreen(),
+      ),
+
+      // ── Coming Soon ──────────────────────────
+      GoRoute(
+        path: AppRoutes.comingSoon,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return ComingSoonScreen(title: extra?['title'] as String? ?? 'Quiz');
+        },
       ),
 
       // ── Main Shell (Bottom Nav) ───────────────
@@ -145,7 +158,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: AppRoutes.home,
-            builder: (context, state) => const HomeScreen(),
+            builder: (context, state) => const SubjectSelectionScreen(),
           ),
           GoRoute(
             path: AppRoutes.discover,
@@ -174,6 +187,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return QuizLoadingScreen(
             lessonId: extra?['lesson_id'] as int? ?? 0,
             lessonTitle: extra?['title'] as String? ?? '',
+            subject: extra?['subject'] as String?,
           );
         },
       ),
@@ -183,6 +197,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final extra = state.extra as Map<String, dynamic>?;
           return QuizSessionScreen(
             lessonId: extra?['lesson_id'] as int? ?? 0,
+            subject: extra?['subject'] as String?,
           );
         },
       ),
@@ -202,12 +217,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 });
 
 Future<bool> _isOnboardingDone() async {
-  // reads from Hive
-  return true; // Simplified; actual: HiveStorage.isOnboardingDone()
+  return HiveStorage.isOnboardingDone();
 }
 
 Future<bool> _hasExamTypeSelected() async {
-  return true; // Simplified; actual: HiveStorage.isExamTypeSelected()
+  return HiveStorage.isExamTypeSelected();
 }
 
 // Placeholder screens for tab items not yet implemented
