@@ -62,7 +62,16 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
 
-      
+      - name: Get SHA-1 fingerprint
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > /tmp/temp.jks
+          keytool -list -v \
+            -keystore /tmp/temp.jks \
+            -alias ${{ secrets.KEY_ALIAS }} \
+            -storepass ${{ secrets.KEYSTORE_PASSWORD }} \
+            -keypass ${{ secrets.KEY_PASSWORD }} \
+            2>/dev/null | grep "SHA1:"
+
       # - name: Upload build log on failure
       #   if: failure()
       #   uses: actions/upload-artifact@v4
