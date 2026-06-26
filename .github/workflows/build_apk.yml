@@ -43,6 +43,8 @@ jobs:
           printf 'flutter.buildMode=%s\n'    "release"           >> android/local.properties
           printf 'flutter.versionName=%s\n'  "1.0.0"             >> android/local.properties
           printf 'flutter.versionCode=%s\n'  "1"                 >> android/local.properties
+      - name: Create google-services.json
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON }}" > android/app/google-services.json
 
       - name: Flutter pub get
         run: flutter pub get
@@ -61,16 +63,6 @@ jobs:
           name: quizlo-release-${{ github.run_number }}
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 30
-
-      - name: Get SHA-1 fingerprint
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > /tmp/temp.jks
-          keytool -list -v \
-            -keystore /tmp/temp.jks \
-            -alias ${{ secrets.KEY_ALIAS }} \
-            -storepass ${{ secrets.KEYSTORE_PASSWORD }} \
-            -keypass ${{ secrets.KEY_PASSWORD }} \
-            2>/dev/null | grep "SHA1:"
 
       # - name: Upload build log on failure
       #   if: failure()
