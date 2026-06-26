@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../core/network/dio_client.dart';
 import '../../../core/storage/secure_storage.dart';
 import '../../../core/storage/hive_storage.dart';
@@ -15,6 +16,11 @@ import '../../../core/domain/entities.dart';
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(DioClient());
 });
+
+/// Singleton GoogleSignIn instance — scoped to this auth feature
+final _googleSignIn = GoogleSignIn(
+  scopes: ['email', 'profile'],
+);
 
 // State notifier for auth state
 final authStateProvider = StateNotifierProvider<AuthNotifier, AsyncValue<User?>>((ref) {
@@ -82,8 +88,25 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     }
   }
 
+  Future<bool> loginWithGoogle() async {
+    state = const AsyncValue.loading();
+    try {
+      final result = await _repository.loginWithGoogle();
+      await SecureStorage.saveAccessToken(result.$1.accessToken);
+      await SecureStorage.saveRefreshToken(result.$1.refreshToken);
+      await HiveStorage.saveUserProfile(result.$2.toJson());
+      state = AsyncValue.data(result.$2);
+      return true;
+    } catch (e) {
+      state = AsyncValue.error(e, StackTrace.current);
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     try { await _repository.logout(); } catch (_) {}
+    // Also sign out from Google if the user signed in via Google
+    await _googleSignIn.signOut();
     await SecureStorage.clearAll();
     await HiveStorage.clearAll();
     state = const AsyncValue.data(null);
@@ -179,5 +202,43 @@ class AuthRepository {
   /// Logout
   Future<void> logout() async {
     await _client.post(ApiEndpoints.logout);
+  }
+
+  /// Google Sign-In — mobile flow
+  /// 1. Triggers native Google sign-in picker
+  /// 2. Gets the Google access token
+  /// 3. Sends it to POST /auth/google/token
+  /// 4. Returns (AuthTokens, User) on success
+  Future<(AuthTokens, User)> loginWithGoogle() async {
+    // Step 1: native Google picker
+    final googleAccount = await _googleSignIn.signIn();
+    if (googleAccount == null) {
+      // User cancelled the sign-in dialog
+      throw const ApiException(message: 'Google sign-in was cancelled.', statusCode: 0);
+    }
+
+    // Step 2: get access token from Google
+    final googleAuth = await googleAccount.authentication;
+    final accessToken = googleAuth.accessToken;
+    if (accessToken == null) {
+      throw const ApiException(message: 'Failed to obtain Google access token.', statusCode: 0);
+    }
+
+    // Step 3: exchange token with Laravel backend
+    try {
+      final response = await _client.post(
+        ApiEndpoints.googleToken,
+        data: {'access_token': accessToken},
+      );
+      final data = response.data['data'] as Map<String, dynamic>;
+      final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
+      final user = User.fromJson(data['user'] as Map<String, dynamic>);
+      return (tokens, user);
+    } on DioException catch (e) {
+      throw ApiException.fromResponse(
+        e.response?.data as Map<String, dynamic>? ?? {},
+        e.response?.statusCode,
+      );
+    }
   }
 }

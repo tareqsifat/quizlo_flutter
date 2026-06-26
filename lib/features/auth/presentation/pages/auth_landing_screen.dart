@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
@@ -7,14 +8,22 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/secure_storage.dart';
 import '../../../../core/storage/hive_storage.dart';
+import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Auth Landing Screen
 /// "Unlock Your Learning Potential"
 /// Redesigned with premium "Login User" and "Demo User" modes.
 /// ─────────────────────────────────────────────
-class AuthLandingScreen extends StatelessWidget {
+class AuthLandingScreen extends ConsumerStatefulWidget {
   const AuthLandingScreen({super.key});
+
+  @override
+  ConsumerState<AuthLandingScreen> createState() => _AuthLandingScreenState();
+}
+
+class _AuthLandingScreenState extends ConsumerState<AuthLandingScreen> {
+  bool _googleLoading = false;
 
   Future<void> _enterDemoMode(BuildContext context) async {
     await SecureStorage.setSkipAuth(false);
@@ -22,6 +31,26 @@ class AuthLandingScreen extends StatelessWidget {
     await HiveStorage.setOnboardingDone(true);
     await HiveStorage.setExamTypeSelected(false);
     if (context.mounted) context.go(AppRoutes.examTypeSelection);
+  }
+
+  Future<void> _handleGoogleSignIn() async {
+    setState(() => _googleLoading = true);
+    final success = await ref.read(authStateProvider.notifier).loginWithGoogle();
+    if (!mounted) return;
+    setState(() => _googleLoading = false);
+
+    if (success) {
+      context.go(AppRoutes.examTypeSelection);
+    } else {
+      final error = ref.read(authStateProvider);
+      final message = error.maybeWhen(
+        error: (e, _) => e.toString(),
+        orElse: () => 'Google Sign-In failed. Please try again.',
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message), backgroundColor: AppColors.error),
+      );
+    }
   }
 
   @override
@@ -164,6 +193,36 @@ class AuthLandingScreen extends StatelessWidget {
                             ),
                           ),
                         ],
+                      ),
+                      const SizedBox(height: 10),
+                      // Google Sign-In shortcut from landing screen
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton.icon(
+                          onPressed: _googleLoading ? null : _handleGoogleSignIn,
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            side: const BorderSide(color: AppColors.border),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                            ),
+                          ),
+                          icon: _googleLoading
+                              ? const SizedBox(
+                                  width: 18,
+                                  height: 18,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                )
+                              : const Icon(Icons.g_mobiledata_rounded,
+                                  color: Colors.red, size: 24),
+                          label: Text(
+                            _googleLoading ? 'Signing in...' : 'Continue with Google',
+                            style: AppTextStyles.bodySmall.copyWith(
+                              color: AppColors.textPrimary,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),

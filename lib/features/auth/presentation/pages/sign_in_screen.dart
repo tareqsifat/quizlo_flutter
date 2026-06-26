@@ -145,7 +145,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
               suffix: IconButton(
                 icon: Icon(
                   _signInPasswordVisible
-                      ? Icons.visibility_off_outlined
+                      ? Icons.visibility_outlined
                       : Icons.visibility_off_outlined,
                   size: 20,
                   color: AppColors.textHint,
@@ -469,15 +469,54 @@ class _FacebookButton extends StatelessWidget {
   }
 }
 
-class _GoogleButton extends StatelessWidget {
+class _GoogleButton extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<_GoogleButton> createState() => _GoogleButtonState();
+}
+
+class _GoogleButtonState extends ConsumerState<_GoogleButton> {
+  bool _loading = false;
+
+  void _handleGoogleSignIn() async {
+    setState(() => _loading = true);
+
+    final success =
+        await ref.read(authStateProvider.notifier).loginWithGoogle();
+
+    if (!mounted) return;
+    setState(() => _loading = false);
+
+    if (success) {
+      context.go(AppRoutes.examTypeSelection);
+    } else {
+      final error = ref.read(authStateProvider);
+      final message = error.maybeWhen(
+        error: (e, _) => e.toString(),
+        orElse: () => 'Google Sign-In failed. Please try again.',
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SocialAuthButton(
-      label: 'Sign In with Google',
+      label: _loading ? 'Signing in...' : 'Sign In with Google',
       backgroundColor: Colors.white,
       textColor: AppColors.textPrimary,
-      icon: const Icon(Icons.g_mobiledata_rounded, color: Colors.red, size: 26),
-      onTap: () {}, // TODO: Google auth
+      icon: _loading
+          ? const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            )
+          : const Icon(Icons.g_mobiledata_rounded, color: Colors.red, size: 26),
+      onTap: _loading ? () {} : _handleGoogleSignIn,
     );
   }
 }
