@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -338,6 +339,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
   void _doSignIn() async {
     if (!_signInFormKey.currentState!.validate()) return;
     setState(() => _signInLoading = true);
+    debugPrint('[UI][SignIn] Submitting sign-in for ${_emailCtrl.text.trim()}');
 
     final success = await ref.read(authStateProvider.notifier).login(
           _emailCtrl.text.trim(),
@@ -347,14 +349,17 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
     if (mounted) {
       setState(() => _signInLoading = false);
       if (success) {
+        debugPrint('[UI][SignIn] ✅ Sign-in succeeded — navigating to examTypeSelection');
+        _showDebugToast(context, '✅ Sign In successful!', isSuccess: true);
         context.go(AppRoutes.examTypeSelection);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Sign In failed. Please check your credentials or connection.'),
-            backgroundColor: AppColors.error,
-          ),
+        final err = ref.read(authStateProvider);
+        final msg = err.maybeWhen(
+          error: (e, _) => e.toString(),
+          orElse: () => 'Sign In failed. Please check your credentials or connection.',
         );
+        debugPrint('[UI][SignIn] ❌ Sign-in failed — $msg');
+        _showDebugToast(context, '❌ Sign In failed: $msg', isSuccess: false);
       }
     }
   }
@@ -362,6 +367,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
   void _doSignUp() async {
     if (!_signUpFormKey.currentState!.validate()) return;
     setState(() => _signUpLoading = true);
+    debugPrint('[UI][SignUp] Submitting sign-up for ${_signUpEmailCtrl.text.trim()}');
 
     final success = await ref.read(authStateProvider.notifier).register(
           name: _nameCtrl.text.trim(),
@@ -372,16 +378,45 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
     if (mounted) {
       setState(() => _signUpLoading = false);
       if (success) {
+        debugPrint('[UI][SignUp] ✅ Sign-up succeeded — navigating to examTypeSelection');
+        _showDebugToast(context, '✅ Sign Up successful!', isSuccess: true);
         context.go(AppRoutes.examTypeSelection);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Sign Up failed. Please check your connection or credentials.'),
-            backgroundColor: AppColors.error,
-          ),
+        final err = ref.read(authStateProvider);
+        final msg = err.maybeWhen(
+          error: (e, _) => e.toString(),
+          orElse: () => 'Sign Up failed. Please check your connection or credentials.',
         );
+        debugPrint('[UI][SignUp] ❌ Sign-up failed — $msg');
+        _showDebugToast(context, '❌ Sign Up failed: $msg', isSuccess: false);
       }
     }
+  }
+
+  /// Shows a debug SnackBar. Green = success, red = failure.
+  /// Strip this helper before shipping to production.
+  static void _showDebugToast(
+    BuildContext context,
+    String message, {
+    required bool isSuccess,
+  }) {
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+          SnackBar(
+            content: Text(
+              '[DEBUG] $message',
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+            backgroundColor: isSuccess ? Colors.green.shade700 : AppColors.error,
+            duration: const Duration(seconds: 5),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        );
   }
 }
 
@@ -479,6 +514,8 @@ class _GoogleButtonState extends ConsumerState<_GoogleButton> {
 
   void _handleGoogleSignIn() async {
     setState(() => _loading = true);
+    debugPrint('[UI][Google] Tapped Google Sign-In button');
+    _showStepToast('🔄 Step 1: Opening Google account picker…');
 
     final success =
         await ref.read(authStateProvider.notifier).loginWithGoogle();
@@ -487,20 +524,43 @@ class _GoogleButtonState extends ConsumerState<_GoogleButton> {
     setState(() => _loading = false);
 
     if (success) {
-      context.go(AppRoutes.examTypeSelection);
+      debugPrint('[UI][Google] ✅ Flow complete — navigating to examTypeSelection');
+      _showStepToast('✅ Google Sign-In successful!', isSuccess: true);
+      // Small delay so the user can read the success toast
+      await Future.delayed(const Duration(milliseconds: 600));
+      if (mounted) context.go(AppRoutes.examTypeSelection);
     } else {
       final error = ref.read(authStateProvider);
       final message = error.maybeWhen(
         error: (e, _) => e.toString(),
         orElse: () => 'Google Sign-In failed. Please try again.',
       );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message),
-          backgroundColor: AppColors.error,
-        ),
-      );
+      debugPrint('[UI][Google] ❌ Flow failed — $message');
+      _showStepToast('❌ Google Sign-In failed:\n$message', isSuccess: false);
     }
+  }
+
+  void _showStepToast(String message, {bool isSuccess = false}) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context)
+      ..clearSnackBars()
+      ..showSnackBar(
+          SnackBar(
+            content: Text(
+              '[DEBUG] $message',
+              style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
+            ),
+            backgroundColor: isSuccess
+                ? Colors.green.shade700
+                : (message.startsWith('🔄') ? Colors.blueGrey.shade700 : AppColors.error),
+            duration: const Duration(seconds: 6),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        );
   }
 
   @override
