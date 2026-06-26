@@ -2,7 +2,7 @@
 
 > **For:** Flutter Development Team (User-Facing Mobile Application)
 > **Backend:** Laravel 13 · PHP 8.3 · MySQL 8 · Redis · Laravel Passport (OAuth2)
-> **Base URL:** `https://api.quizlo.app/api/v1`
+> **Base URL:** `https://quizlobackend-production.up.railway.app/api/v1`
 > **Version:** v2.0 · Updated: May 2026
 
 ---

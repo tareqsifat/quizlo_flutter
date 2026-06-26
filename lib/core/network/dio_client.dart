@@ -103,7 +103,15 @@ class _AuthInterceptor extends QueuedInterceptorsWrapper {
           return handler.next(err);
         }
 
-        final refreshDio = Dio(BaseOptions(baseUrl: ApiEndpoints.baseUrl));
+        final refreshDio = Dio(
+          BaseOptions(
+            baseUrl: ApiEndpoints.baseUrl,
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+          ),
+        );
         final response = await refreshDio.post(
           ApiEndpoints.refreshToken,
           data: {

@@ -1,11 +1,11 @@
 /// ─────────────────────────────────────────────
 /// Quizlo API Endpoints
-/// Base URL: https://api.quizlo.app/api/v1
+/// Base URL: https://quizlobackend-production.up.railway.app/api/v1
 /// ─────────────────────────────────────────────
 abstract class ApiEndpoints {
-  // DEV NOTE: Change baseUrl per environment flavor
-  static const String baseUrl = 'https://api.quizlo.app/api/v1';
-  static const String stagingUrl = 'https://staging-api.quizlo.app/api/v1';
+  static const String baseUrl =
+      'https://quizlobackend-production.up.railway.app/api/v1';
+  // No staging environment — production only
 
   // ── Authentication ─────────────────────────
   static const String sendOtp = '/auth/send-otp';
