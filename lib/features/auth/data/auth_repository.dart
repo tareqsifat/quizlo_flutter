@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -73,16 +74,19 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     required String password,
   }) async {
     state = const AsyncValue.loading();
+    debugPrint('[AUTH][SignUp] Attempting registration for $email');
     try {
       final result = await _repository.register(
         name: name, email: email, password: password,
       );
+      debugPrint('[AUTH][SignUp] ✅ Registration success — user: ${result.$2.toJson()}');
       await SecureStorage.saveAccessToken(result.$1.accessToken);
       await SecureStorage.saveRefreshToken(result.$1.refreshToken);
       await HiveStorage.saveUserProfile(result.$2.toJson());
       state = AsyncValue.data(result.$2);
       return true;
     } catch (e) {
+      debugPrint('[AUTH][SignUp] ❌ Registration failed — $e');
       state = AsyncValue.error(e, StackTrace.current);
       return false;
     }
@@ -90,14 +94,17 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
 
   Future<bool> loginWithGoogle() async {
     state = const AsyncValue.loading();
+    debugPrint('[AUTH][Google] Starting Google Sign-In flow…');
     try {
       final result = await _repository.loginWithGoogle();
+      debugPrint('[AUTH][Google] ✅ Google Sign-In success — user: ${result.$2.toJson()}');
       await SecureStorage.saveAccessToken(result.$1.accessToken);
       await SecureStorage.saveRefreshToken(result.$1.refreshToken);
       await HiveStorage.saveUserProfile(result.$2.toJson());
       state = AsyncValue.data(result.$2);
       return true;
     } catch (e) {
+      debugPrint('[AUTH][Google] ❌ Google Sign-In failed — $e');
       state = AsyncValue.error(e, StackTrace.current);
       return false;
     }
@@ -148,6 +155,7 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
+    debugPrint('[REPO][SignUp] POST ${ApiEndpoints.register} → name=$name email=$email');
     try {
       final response = await _client.post(ApiEndpoints.register, data: {
         'name': name,
@@ -156,11 +164,13 @@ class AuthRepository {
         'password_confirmation': password,
         'device_name': 'mobile',
       });
+      debugPrint('[REPO][SignUp] ✅ HTTP ${response.statusCode} — ${response.data}');
       final data = response.data['data'] as Map<String, dynamic>;
       final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
       final user = User.fromJson(data['user'] as Map<String, dynamic>);
       return (tokens, user);
     } on DioException catch (e) {
+      debugPrint('[REPO][SignUp] ❌ HTTP ${e.response?.statusCode} — ${e.response?.data}');
       throw ApiException.fromResponse(
         e.response?.data as Map<String, dynamic>? ?? {},
         e.response?.statusCode,
@@ -211,30 +221,38 @@ class AuthRepository {
   /// 4. Returns (AuthTokens, User) on success
   Future<(AuthTokens, User)> loginWithGoogle() async {
     // Step 1: native Google picker
+    debugPrint('[REPO][Google] Step 1 — opening native Google account picker…');
     final googleAccount = await _googleSignIn.signIn();
     if (googleAccount == null) {
-      // User cancelled the sign-in dialog
+      debugPrint('[REPO][Google] ⚠️  User cancelled the Google account picker.');
       throw const ApiException(message: 'Google sign-in was cancelled.', statusCode: 0);
     }
+    debugPrint('[REPO][Google] ✅ Step 1 — account selected: ${googleAccount.email} (id: ${googleAccount.id})');
 
     // Step 2: get access token from Google
+    debugPrint('[REPO][Google] Step 2 — fetching Google auth tokens…');
     final googleAuth = await googleAccount.authentication;
     final accessToken = googleAuth.accessToken;
     if (accessToken == null) {
+      debugPrint('[REPO][Google] ❌ Step 2 — accessToken is null (idToken: ${googleAuth.idToken != null ? 'present' : 'null'})');
       throw const ApiException(message: 'Failed to obtain Google access token.', statusCode: 0);
     }
+    debugPrint('[REPO][Google] ✅ Step 2 — accessToken obtained (first 20 chars): ${accessToken.substring(0, accessToken.length > 20 ? 20 : accessToken.length)}…');
 
     // Step 3: exchange token with Laravel backend
+    debugPrint('[REPO][Google] Step 3 — POST ${ApiEndpoints.googleToken}');
     try {
       final response = await _client.post(
         ApiEndpoints.googleToken,
         data: {'access_token': accessToken},
       );
+      debugPrint('[REPO][Google] ✅ Step 3 — HTTP ${response.statusCode}: ${response.data}');
       final data = response.data['data'] as Map<String, dynamic>;
       final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
       final user = User.fromJson(data['user'] as Map<String, dynamic>);
       return (tokens, user);
     } on DioException catch (e) {
+      debugPrint('[REPO][Google] ❌ Step 3 — HTTP ${e.response?.statusCode}: ${e.response?.data}');
       throw ApiException.fromResponse(
         e.response?.data as Map<String, dynamic>? ?? {},
         e.response?.statusCode,
