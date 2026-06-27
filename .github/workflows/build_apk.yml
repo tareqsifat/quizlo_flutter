@@ -44,6 +44,7 @@ jobs:
           printf 'flutter.buildMode=%s\n'    "release"           >> android/local.properties
           printf 'flutter.versionName=%s\n'  "1.0.0"             >> android/local.properties
           printf 'flutter.versionCode=%s\n'  "1"                 >> android/local.properties
+          printf 'flutter.minSdkVersion=%s\n' "23"               >> android/local.properties
 
       - name: Flutter pub get
         run: flutter pub get
