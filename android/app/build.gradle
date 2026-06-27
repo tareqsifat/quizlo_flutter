@@ -32,13 +32,12 @@ android {
 
     defaultConfig {
         applicationId "com.quizlo.app"
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 23   // ← change from flutter.minSdkVersion to 23
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutter.versionCode.toInteger()
         versionName flutter.versionName
         multiDexEnabled true
     }
-
     signingConfigs {
         release {
             keyAlias keystoreProperties['keyAlias']
