@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/storage/secure_storage.dart';
+import '../../../../core/services/app_toast.dart';
 
 /// ─────────────────────────────────────────────
 /// Splash Screen
@@ -41,9 +42,33 @@ class _SplashScreenState extends State<SplashScreen>
     await Future.delayed(const Duration(milliseconds: 2200));
     if (!mounted) return;
 
-    final isAuth = await SecureStorage.isAuthenticated();
+    // ── CRITICAL: wrap auth check with a timeout ───────────────
+    // On Android, flutter_secure_storage with encryptedSharedPreferences
+    // can hang when the Keystore is locked (fresh boot / encrypted device).
+    // Without a timeout the splash screen freezes forever — black screen.
+    bool isAuth = false;
+    try {
+      isAuth = await SecureStorage.isAuthenticated()
+          .timeout(const Duration(seconds: 5), onTimeout: () {
+        debugPrint('[SPLASH] ⚠️ Auth check timed out — falling back to unauthenticated');
+        AppToast.show(
+          '⚠️ Auth check timed out. Please try again.',
+          isError: true,
+          duration: const Duration(seconds: 7),
+        );
+        return false;
+      });
+    } catch (e) {
+      debugPrint('[SPLASH] ❌ Auth check error: $e');
+      AppToast.showError('Startup error: $e');
+      isAuth = false;
+    }
+
+    if (!mounted) return;
     final isOnboarded = HiveStorage.isOnboardingDone();
     final hasExamType = HiveStorage.isExamTypeSelected();
+
+    debugPrint('[SPLASH] → isAuth=$isAuth isOnboarded=$isOnboarded hasExamType=$hasExamType');
 
     if (!isOnboarded) {
       context.go(AppRoutes.onboarding);

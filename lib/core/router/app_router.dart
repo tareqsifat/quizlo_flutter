@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,6 +22,7 @@ import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../storage/secure_storage.dart';
 import '../storage/hive_storage.dart';
+import '../services/app_toast.dart';
 
 /// ─────────────────────────────────────────────
 /// Route Names — type-safe navigation
@@ -59,11 +61,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
     // Route guard — redirect unauthenticated users
     redirect: (context, state) async {
-      final isAuth = await SecureStorage.isAuthenticated();
+      // ── CRITICAL: wrap auth check with timeout ──────────────────
+      // flutter_secure_storage on Android (encryptedSharedPreferences)
+      // can hang indefinitely if the Keystore is initializing or locked.
+      // A 5-second timeout prevents a permanent black screen.
+      bool isAuth = false;
+      try {
+        isAuth = await SecureStorage.isAuthenticated()
+            .timeout(const Duration(seconds: 5), onTimeout: () {
+          debugPrint('[ROUTER] ⚠️ SecureStorage timed out — defaulting to unauthenticated');
+          AppToast.show(
+            '⚠️ Storage check timed out. Try restarting the app.',
+            isError: true,
+            duration: const Duration(seconds: 8),
+          );
+          return false;
+        });
+      } catch (e) {
+        debugPrint('[ROUTER] ❌ SecureStorage error: $e — defaulting to unauthenticated');
+        AppToast.showError('Auth check failed: $e');
+        isAuth = false;
+      }
+
       final isOnboarded = await _isOnboardingDone();
       final hasExamType = await _hasExamTypeSelected();
 
       final currentPath = state.matchedLocation;
+      debugPrint('[ROUTER] redirect — path=$currentPath isAuth=$isAuth onboarded=$isOnboarded hasExamType=$hasExamType');
+
       final publicPaths = [
         AppRoutes.splash,
         AppRoutes.onboarding,
@@ -76,9 +101,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ];
 
       if (!isAuth && !publicPaths.contains(currentPath)) {
+        debugPrint('[ROUTER] → redirecting to authLanding (not authenticated)');
         return AppRoutes.authLanding;
       }
       if (isAuth && !hasExamType && currentPath != AppRoutes.examTypeSelection) {
+        debugPrint('[ROUTER] → redirecting to examTypeSelection (no exam type set)');
         return AppRoutes.examTypeSelection;
       }
       return null;

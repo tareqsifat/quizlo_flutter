@@ -1,13 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'hive_storage.dart';
+
 
 /// ─────────────────────────────────────────────
 /// Secure Storage — Wraps flutter_secure_storage
 /// For JWT access/refresh tokens
 /// ─────────────────────────────────────────────
 class SecureStorage {
+  // ── Android: use encryptedSharedPreferences with resetOnError
+  // resetOnError: true — if the Keystore is corrupt/locked, the storage
+  // resets instead of hanging indefinitely (causing black screen).
   static const FlutterSecureStorage _storage = FlutterSecureStorage(
-    aOptions: AndroidOptions(encryptedSharedPreferences: true),
+    aOptions: AndroidOptions(
+      encryptedSharedPreferences: true,
+      resetOnError: true, // ← CRITICAL: prevents black screen on Keystore failure
+    ),
     iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
   );
 
@@ -59,14 +67,19 @@ class SecureStorage {
 
   // ── Auth Check ─────────────────────────────
   static Future<bool> isAuthenticated() async {
-    final skipAuth = await isSkipAuth();
-    if (skipAuth) return true; // DEV bypass
+    try {
+      final skipAuth = await isSkipAuth();
+      if (skipAuth) return true; // DEV bypass
 
-    // Synchronous Hive bypass for Demo Mode
-    if (HiveStorage.isDemoMode()) return true;
+      // Synchronous Hive bypass for Demo Mode
+      if (HiveStorage.isDemoMode()) return true;
 
-    final token = await getAccessToken();
-    return token != null && token.isNotEmpty;
+      final token = await getAccessToken();
+      return token != null && token.isNotEmpty;
+    } catch (e) {
+      debugPrint('[SecureStorage] isAuthenticated error: $e');
+      return false; // fail-open: treat as unauthenticated, never freeze
+    }
   }
 
   // ── Clear All ──────────────────────────────
