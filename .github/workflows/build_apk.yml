@@ -26,9 +26,14 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
-
+      - name: Print SHA1 (REMOVE AFTER)
+        run: |
+          keytool -list -v \
+            -keystore android/app/upload-keystore.jks \
+            -alias "${{ secrets.KEY_ALIAS }}" \
+            -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
+            -noprompt 2>&1 | grep "SHA1"
+            
       - name: Create key.properties
         run: |
           printf 'storePassword=%s\n' "${{ secrets.KEYSTORE_PASSWORD }}" > android/key.properties
@@ -65,12 +70,12 @@ jobs:
       #   env:
       #     FLUTTER_STORAGE_BASE_URL: ${{ secrets.FLUTTER_STORAGE_BASE_URL }}
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: quizlo-release-${{ github.run_number }}
-          path: build/app/outputs/flutter-apk/app-release.apk
-          retention-days: 30
+      # - name: Upload APK artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: quizlo-release-${{ github.run_number }}
+      #     path: build/app/outputs/flutter-apk/app-release.apk
+      #     retention-days: 30
 
       # - name: Upload build log on failure
       #   if: failure()
