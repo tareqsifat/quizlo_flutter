@@ -8,6 +8,7 @@ import '../../../core/storage/hive_storage.dart';
 import '../../../core/constants/api_endpoints.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/domain/entities.dart';
+import '../../../core/services/app_toast.dart';
 
 /// ─────────────────────────────────────────────
 /// Auth Repository — handles all auth API calls
@@ -36,19 +37,30 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
   }
 
   Future<void> _init() async {
+    debugPrint('[AUTH] Initializing auth state…');
     try {
-      final isAuth = await SecureStorage.isAuthenticated();
+      final isAuth = await SecureStorage.isAuthenticated()
+          .timeout(const Duration(seconds: 5), onTimeout: () {
+        debugPrint('[AUTH] ⚠️ _init auth check timed out');
+        AppToast.show('⚠️ Auth init timed out. Please restart the app.', isError: true);
+        return false;
+      });
       if (isAuth) {
         final cached = HiveStorage.getUserProfile();
         if (cached != null) {
+          debugPrint('[AUTH] ✅ Restored session from cache');
           state = AsyncValue.data(User.fromJson(cached));
         } else {
+          debugPrint('[AUTH] Authenticated but no cached profile');
           state = const AsyncValue.data(null);
         }
       } else {
+        debugPrint('[AUTH] Not authenticated');
         state = const AsyncValue.data(null);
       }
     } catch (e) {
+      debugPrint('[AUTH] ❌ _init failed: $e');
+      AppToast.showError('Auth init error: $e');
       state = const AsyncValue.data(null);
     }
   }
