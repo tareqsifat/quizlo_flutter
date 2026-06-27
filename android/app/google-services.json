@@ -1,38 +1,47 @@
 {
   "project_info": {
-    "project_id": "gen-lang-client-0961326227",
-    "project_number": "823256914117",
-    "firebase_url": "",
-    "storage_bucket": ""
+    "project_number": "965957495239",
+    "project_id": "quizlo-226f1",
+    "storage_bucket": "quizlo-226f1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:823256914117:android:000000000000",
+        "mobilesdk_app_id": "1:965957495239:android:8c22b8c4df70b1ac5911e2",
         "android_client_info": {
           "package_name": "com.quizlo.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "823256914117-a98uv05om34fp3873roa5u0ur47d47t4.apps.googleusercontent.com",
+          "client_id": "965957495239-ppfqdj8bosul03l5vj8hti7p2fij65ka.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.quizlo.app",
-            "certificate_hash": "11889E98428275452BD4FD79F06824FC74E5D2C1"
+            "certificate_hash": "11889e98428275452bd4fd79f06824fc74e5d2c1"
           }
         },
         {
-          "client_id": "412231381345-vunq5f0sevjpv0aegvh5tku8bd88gg2o.apps.googleusercontent.com",
+          "client_id": "965957495239-2psup6arc4qd0m11pql609o0aiu33rki.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": ""
+          "current_key": "AIzaSyCvmywyrefXBfbvjPbBWSLJ9gf6wuHvF2k"
         }
       ],
-      "services": {}
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965957495239-2psup6arc4qd0m11pql609o0aiu33rki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
-  ]
+  ],
+  "configuration_version": "1"
 }
