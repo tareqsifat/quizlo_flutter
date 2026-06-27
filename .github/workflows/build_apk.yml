@@ -26,6 +26,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Decode keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+
       - name: Print SHA1 (REMOVE AFTER)
         run: |
           keytool -list -v \
