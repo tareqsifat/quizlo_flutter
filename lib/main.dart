@@ -2,39 +2,66 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'core/constants/app_theme.dart';
 import 'core/router/app_router.dart';
 import 'core/storage/hive_storage.dart';
 import 'core/services/feedback_service.dart';
 import 'core/services/app_toast.dart';
 
+/// Shows a native Android/iOS toast via platform channel.
+/// Works BEFORE the Flutter widget tree exists — fires even on a black screen.
+void _nativeToast(String msg) {
+  debugPrint('[STARTUP] $msg');
+  Fluttertoast.showToast(
+    msg: msg,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    backgroundColor: const Color(0xFF212121),
+    textColor: Colors.white,
+    fontSize: 13.0,
+  );
+}
+
 Future<void> main() async {
   // ── Step 1: Bind Flutter to native layer ──────
   WidgetsFlutterBinding.ensureInitialized();
+  _nativeToast('⏳ [1/3] App starting…');
 
   // ── Step 2: Global Flutter error handler ─────
   FlutterError.onError = (FlutterErrorDetails details) {
-    debugPrint('[FLUTTER_ERROR] ${details.exceptionAsString()}');
+    final msg = details.exceptionAsString();
+    debugPrint('[FLUTTER_ERROR] $msg');
+    _nativeToast('❌ Flutter error: $msg');
     FlutterError.presentError(details);
   };
 
   // ── Step 3: Initialize Hive local storage ────
+  // Hive.initFlutter() can block indefinitely on corrupted/locked storage.
+  // Timeout after 5s so we always reach runApp() and show the freeze in a toast.
   try {
-    debugPrint('[STARTUP] Initializing Hive storage…');
-    await HiveStorage.init();
-    debugPrint('[STARTUP] ✅ Hive storage ready.');
-  } catch (e, st) {
-    debugPrint('[STARTUP] ❌ Hive init failed: $e\n$st');
-    // Non-fatal — app can still run without persistent cache
+    _nativeToast('⏳ [2/3] Loading storage…');
+    await HiveStorage.init().timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        _nativeToast('⚠️ Storage timed out — continuing without cache');
+        debugPrint('[STARTUP] ❌ HiveStorage.init() timed out after 5s');
+      },
+    );
+    _nativeToast('✅ [2/3] Storage ready');
+  } catch (e) {
+    _nativeToast('⚠️ Storage error (non-fatal): $e');
+    debugPrint('[STARTUP] ❌ Hive init failed: $e');
   }
 
   // ── Step 4: Pre-load audio assets (non-blocking) ──
   FeedbackService.init().catchError((Object e) {
-    debugPrint('[STARTUP] ⚠️  FeedbackService init failed (non-fatal): $e');
+    debugPrint('[STARTUP] ⚠️ FeedbackService init failed (non-fatal): $e');
   });
 
   // ── Step 5: Run App ───────────────────────────
-  debugPrint('[STARTUP] Launching QuizloApp…');
+  _nativeToast('⏳ [3/3] Launching…');
+  debugPrint('[STARTUP] Calling runApp…');
   runApp(
     const ProviderScope(
       child: QuizloApp(),
