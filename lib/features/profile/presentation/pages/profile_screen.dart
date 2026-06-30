@@ -8,7 +8,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/storage/secure_storage.dart';
 import '../../../../core/services/app_toast.dart';
-import '../../auth/data/auth_repository.dart';
+import '../../../auth/data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Profile Screen

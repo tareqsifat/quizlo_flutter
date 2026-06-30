@@ -35,7 +35,6 @@ abstract class AppRoutes {
   static const String forgotPassword = '/auth/forgot-password';
   static const String otpVerification = '/auth/otp';
   static const String createNewPassword = '/auth/create-password';
-  static const String passwordChanged = '/auth/password-changed';
   static const String examTypeSelection = '/exam-type-selection';
   static const String comingSoon = '/coming-soon';
   static const String home = '/home';
@@ -97,7 +96,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         AppRoutes.forgotPassword,
         AppRoutes.otpVerification,
         AppRoutes.createNewPassword,
-        AppRoutes.passwordChanged,
       ];
 
       if (!isAuth && !publicPaths.contains(currentPath)) {
@@ -156,10 +154,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 token: extra?['token'] as String? ?? '',
               );
             },
-          ),
-          GoRoute(
-            path: 'password-changed',
-            builder: (context, state) => const PasswordChangedScreen(),
           ),
         ],
       ),

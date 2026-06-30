@@ -7,6 +7,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/errors/failures.dart';
 import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
