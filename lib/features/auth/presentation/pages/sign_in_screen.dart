@@ -341,25 +341,38 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
     setState(() => _signInLoading = true);
     debugPrint('[UI][SignIn] Submitting sign-in for ${_emailCtrl.text.trim()}');
 
-    final success = await ref.read(authStateProvider.notifier).login(
-          _emailCtrl.text.trim(),
-          _passwordCtrl.text,
-        );
+    try {
+      final success = await ref.read(authStateProvider.notifier).login(
+            _emailCtrl.text.trim(),
+            _passwordCtrl.text,
+          );
 
-    if (mounted) {
-      setState(() => _signInLoading = false);
-      if (success) {
-        debugPrint('[UI][SignIn] ✅ Sign-in succeeded — navigating to examTypeSelection');
-        _showDebugToast(context, '✅ Sign In successful!', isSuccess: true);
-        context.go(AppRoutes.examTypeSelection);
-      } else {
-        final err = ref.read(authStateProvider);
-        final msg = err.maybeWhen(
-          error: (e, _) => e.toString(),
-          orElse: () => 'Sign In failed. Please check your credentials or connection.',
-        );
-        debugPrint('[UI][SignIn] ❌ Sign-in failed — $msg');
-        _showDebugToast(context, '❌ Sign In failed: $msg', isSuccess: false);
+      if (mounted) {
+        setState(() => _signInLoading = false);
+        if (success) {
+          debugPrint('[UI][SignIn] ✅ Sign-in succeeded — navigating to examTypeSelection');
+          _showDebugToast(context, '✅ Sign In successful!', isSuccess: true);
+          context.go(AppRoutes.examTypeSelection);
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _signInLoading = false);
+        if (e is ApiException && e.needsVerification) {
+          debugPrint('[UI][SignIn] ⚠️ Email not verified. Redirecting to OTP verification screen.');
+          ref.read(authStateProvider.notifier).sendVerification(_emailCtrl.text.trim());
+          context.push(
+            AppRoutes.otpVerification,
+            extra: {
+              'email': _emailCtrl.text.trim(),
+              'purpose': 'register',
+            },
+          );
+        } else {
+          final msg = e is ApiException ? e.message : e.toString();
+          debugPrint('[UI][SignIn] ❌ Sign-in failed — $msg');
+          _showDebugToast(context, '❌ Sign In failed: $msg', isSuccess: false);
+        }
       }
     }
   }
@@ -369,24 +382,31 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
     setState(() => _signUpLoading = true);
     debugPrint('[UI][SignUp] Submitting sign-up for ${_signUpEmailCtrl.text.trim()}');
 
-    final success = await ref.read(authStateProvider.notifier).register(
-          name: _nameCtrl.text.trim(),
-          email: _signUpEmailCtrl.text.trim(),
-          password: _signUpPasswordCtrl.text,
-        );
+    try {
+      final success = await ref.read(authStateProvider.notifier).register(
+            name: _nameCtrl.text.trim(),
+            email: _signUpEmailCtrl.text.trim(),
+            password: _signUpPasswordCtrl.text,
+          );
 
-    if (mounted) {
-      setState(() => _signUpLoading = false);
-      if (success) {
-        debugPrint('[UI][SignUp] ✅ Sign-up succeeded — navigating to examTypeSelection');
-        _showDebugToast(context, '✅ Sign Up successful!', isSuccess: true);
-        context.go(AppRoutes.examTypeSelection);
-      } else {
-        final err = ref.read(authStateProvider);
-        final msg = err.maybeWhen(
-          error: (e, _) => e.toString(),
-          orElse: () => 'Sign Up failed. Please check your connection or credentials.',
-        );
+      if (mounted) {
+        setState(() => _signUpLoading = false);
+        if (success) {
+          debugPrint('[UI][SignUp] ✅ Sign-up succeeded — navigating to OTP verification');
+          _showDebugToast(context, '✅ Registration successful! Verify your email.', isSuccess: true);
+          context.push(
+            AppRoutes.otpVerification,
+            extra: {
+              'email': _signUpEmailCtrl.text.trim(),
+              'purpose': 'register',
+            },
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _signUpLoading = false);
+        final msg = e is ApiException ? e.message : e.toString();
         debugPrint('[UI][SignUp] ❌ Sign-up failed — $msg');
         _showDebugToast(context, '❌ Sign Up failed: $msg', isSuccess: false);
       }

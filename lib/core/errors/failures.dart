@@ -22,15 +22,17 @@ class NetworkFailure extends Failure {
 /// API returned an error response
 class ApiFailure extends Failure {
   final Map<String, List<String>>? fieldErrors;
+  final bool needsVerification;
 
   const ApiFailure({
     required super.message,
     super.statusCode,
     this.fieldErrors,
+    this.needsVerification = false,
   });
 
   @override
-  List<Object?> get props => [message, statusCode, fieldErrors];
+  List<Object?> get props => [message, statusCode, fieldErrors, needsVerification];
 }
 
 /// Client-side validation failure
@@ -60,15 +62,18 @@ class ApiException implements Exception {
   final String message;
   final int? statusCode;
   final Map<String, List<String>>? fieldErrors;
+  final bool needsVerification;
 
   const ApiException({
     required this.message,
     this.statusCode,
     this.fieldErrors,
+    this.needsVerification = false,
   });
 
   factory ApiException.fromResponse(Map<String, dynamic> json, int? statusCode) {
     final message = json['message'] as String? ?? 'An error occurred.';
+    final needsVerification = json['needs_verification'] as bool? ?? false;
     Map<String, List<String>>? fieldErrors;
 
     if (json['errors'] is Map) {
@@ -84,6 +89,7 @@ class ApiException implements Exception {
       message: message,
       statusCode: statusCode,
       fieldErrors: fieldErrors,
+      needsVerification: needsVerification,
     );
   }
 
@@ -91,6 +97,7 @@ class ApiException implements Exception {
     message: message,
     statusCode: statusCode,
     fieldErrors: fieldErrors,
+    needsVerification: needsVerification,
   );
 
   @override

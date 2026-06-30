@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Forgot Password Screen
 /// ─────────────────────────────────────────────
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailCtrl = TextEditingController();
   bool _loading = false;
@@ -27,12 +29,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  void _sendCode() {
+  void _sendCode() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) {
-        setState(() => _loading = false);
+
+    final success = await ref.read(authStateProvider.notifier).sendForgetPasswordOtp(
+          _emailCtrl.text.trim(),
+        );
+
+    if (mounted) {
+      setState(() => _loading = false);
+      if (success) {
         context.push(
           AppRoutes.otpVerification,
           extra: {
@@ -41,7 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           },
         );
       }
-    });
+    }
   }
 
   @override

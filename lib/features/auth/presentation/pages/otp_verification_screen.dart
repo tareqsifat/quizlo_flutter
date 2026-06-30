@@ -1,17 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../core/services/app_toast.dart';
+import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// OTP Verification Screen
 /// 4-box OTP input + 60s countdown + resend
 /// ─────────────────────────────────────────────
-class OtpVerificationScreen extends StatefulWidget {
+class OtpVerificationScreen extends ConsumerStatefulWidget {
   final String email;
   final String purpose; // 'forgot_password' or 'register'
 
@@ -22,10 +26,10 @@ class OtpVerificationScreen extends StatefulWidget {
   });
 
   @override
-  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+  ConsumerState<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
 }
 
-class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
   final List<TextEditingController> _controllers =
       List.generate(AppSizes.otpLength, (_) => TextEditingController());
   final List<FocusNode> _focusNodes =
@@ -55,18 +59,52 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   String get _otp => _controllers.map((c) => c.text).join();
 
-  void _verify() {
+  void _verify() async {
     if (_otp.length < AppSizes.otpLength) return;
     setState(() => _loading = true);
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) {
-        setState(() => _loading = false);
-        context.push(
-          AppRoutes.createNewPassword,
-          extra: {'email': widget.email, 'token': _otp},
-        );
+
+    if (widget.purpose == 'register') {
+      try {
+        final success = await ref.read(authStateProvider.notifier).verifyEmail(
+              email: widget.email,
+              otp: _otp,
+            );
+        if (mounted) {
+          setState(() => _loading = false);
+          if (success) {
+            AppToast.showSuccess('Email verified successfully!');
+            context.go(AppRoutes.examTypeSelection);
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() => _loading = false);
+          final msg = e is ApiException ? e.message : e.toString();
+          AppToast.showError(msg);
+        }
       }
-    });
+    } else {
+      // For forgot_password, we pass the OTP token to the next screen to submit with the new password
+      setState(() => _loading = false);
+      context.push(
+        AppRoutes.createNewPassword,
+        extra: {'email': widget.email, 'token': _otp},
+      );
+    }
+  }
+
+  void _resendCode() async {
+    _startTimer();
+    bool success = false;
+    if (widget.purpose == 'register') {
+      success = await ref.read(authStateProvider.notifier).sendVerification(widget.email);
+    } else {
+      success = await ref.read(authStateProvider.notifier).sendForgetPasswordOtp(widget.email);
+    }
+
+    if (success) {
+      AppToast.showSuccess('Verification code resent.');
+    }
   }
 
   @override
@@ -98,7 +136,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               Text('OTP Verification', style: AppTextStyles.h1),
               const SizedBox(height: 8),
               Text(
-                'Enter the verification code we just sent on your email address or phone number.',
+                'Enter the verification code we just sent on your email address.',
                 style: AppTextStyles.bodyMedium.copyWith(
                   color: AppColors.textSecondary,
                   height: 1.6,
@@ -160,7 +198,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               // ── Resend link ───────────────
               Center(
                 child: GestureDetector(
-                  onTap: _secondsRemaining == 0 ? _startTimer : null,
+                  onTap: _secondsRemaining == 0 ? _resendCode : null,
                   child: RichText(
                     text: TextSpan(
                       text: "Didn't Received Code? ",
@@ -237,4 +275,3 @@ class _OtpBox extends StatelessWidget {
     );
   }
 }
-

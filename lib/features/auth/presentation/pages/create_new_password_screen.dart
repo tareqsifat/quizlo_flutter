@@ -1,36 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
+import '../../../../core/services/app_toast.dart';
+import '../../data/auth_repository.dart';
 
+/// ─────────────────────────────────────────────
 /// Create New Password Screen
-class CreateNewPasswordScreen extends StatefulWidget {
+/// ─────────────────────────────────────────────
+class CreateNewPasswordScreen extends ConsumerStatefulWidget {
   final String email;
   final String token;
-  const CreateNewPasswordScreen({super.key, required this.email, required this.token});
+
+  const CreateNewPasswordScreen({
+    super.key,
+    required this.email,
+    required this.token,
+  });
 
   @override
-  State<CreateNewPasswordScreen> createState() => _CreateNewPasswordScreenState();
+  ConsumerState<CreateNewPasswordScreen> createState() => _CreateNewPasswordScreenState();
 }
 
-class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
+class _CreateNewPasswordScreenState extends ConsumerState<CreateNewPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _newPassCtrl = TextEditingController();
-  final _confirmPassCtrl = TextEditingController();
-  bool _newVisible = false, _confirmVisible = false, _rememberMe = true, _loading = false;
+  final _passwordCtrl = TextEditingController();
+  final _confirmPasswordCtrl = TextEditingController();
+  bool _obscurePassword = true;
+  bool _obscureConfirm = true;
+  bool _loading = false;
 
   @override
-  void dispose() { _newPassCtrl.dispose(); _confirmPassCtrl.dispose(); super.dispose(); }
+  void dispose() {
+    _passwordCtrl.dispose();
+    _confirmPasswordCtrl.dispose();
+    super.dispose();
+  }
 
-  void _reset() {
+  void _resetPassword() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
-    Future.delayed(const Duration(seconds: 1), () {
-      if (mounted) { setState(() => _loading = false); context.push(AppRoutes.passwordChanged); }
-    });
+
+    final success = await ref.read(authStateProvider.notifier).updatePassword(
+          email: widget.email,
+          otp: widget.token,
+          newPassword: _passwordCtrl.text,
+        );
+
+    if (mounted) {
+      setState(() => _loading = false);
+      if (success) {
+        AppToast.showSuccess('Password reset successfully! Please sign in with your new password.');
+        context.go(AppRoutes.signIn);
+      }
+    }
   }
 
   @override
@@ -46,100 +73,113 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 8),
-                IconButton(padding: EdgeInsets.zero, icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => context.pop()),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
+                  onPressed: () => context.pop(),
+                ),
                 const SizedBox(height: 32),
+
                 Text('Create New Password', style: AppTextStyles.h1),
                 const SizedBox(height: 8),
-                Text('Your new password must be unique from those previously used.', style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary, height: 1.6)),
+                Text(
+                  'Your new password must be unique from those previously used.',
+                  style: AppTextStyles.bodyMedium.copyWith(
+                    color: AppColors.textSecondary,
+                    height: 1.6,
+                  ),
+                ),
                 const SizedBox(height: 32),
+
+                // Password
                 Text('New Password', style: AppTextStyles.labelLarge),
                 const SizedBox(height: 8),
-                _PassField(controller: _newPassCtrl, visible: _newVisible, onToggle: () => setState(() => _newVisible = !_newVisible),
-                  validator: (v) => v == null || v.length < 6 ? 'Min 6 characters' : null),
-                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _passwordCtrl,
+                  obscureText: _obscurePassword,
+                  style: AppTextStyles.bodyMedium,
+                  validator: (v) =>
+                      v == null || v.length < 6 ? 'Min 6 characters' : null,
+                  decoration: InputDecoration(
+                    hintText: '••••••••',
+                    hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
+                    filled: true,
+                    fillColor: AppColors.scaffoldBg,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.textHint,
+                        size: 20,
+                      ),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+
+                // Confirm Password
                 Text('Confirm Password', style: AppTextStyles.labelLarge),
                 const SizedBox(height: 8),
-                _PassField(controller: _confirmPassCtrl, visible: _confirmVisible, onToggle: () => setState(() => _confirmVisible = !_confirmVisible),
-                  validator: (v) => v != _newPassCtrl.text ? 'Passwords do not match' : null),
-                const SizedBox(height: 12),
-                Row(children: [
-                  Checkbox(value: _rememberMe, onChanged: (v) => setState(() => _rememberMe = v ?? true)),
-                  Text('Remember me', style: AppTextStyles.bodySmall.copyWith(color: AppColors.textPrimary)),
-                ]),
-                const SizedBox(height: 24),
-                AppButton(label: 'Reset Password', isLoading: _loading, onTap: _reset),
+                TextFormField(
+                  controller: _confirmPasswordCtrl,
+                  obscureText: _obscureConfirm,
+                  style: AppTextStyles.bodyMedium,
+                  validator: (v) =>
+                      v != _passwordCtrl.text ? 'Passwords do not match' : null,
+                  decoration: InputDecoration(
+                    hintText: '••••••••',
+                    hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
+                    filled: true,
+                    fillColor: AppColors.scaffoldBg,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirm
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined,
+                        color: AppColors.textHint,
+                        size: 20,
+                      ),
+                      onPressed: () =>
+                          setState(() => _obscureConfirm = !_obscureConfirm),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: BorderSide.none,
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(AppSizes.inputRadius),
+                      borderSide: const BorderSide(color: AppColors.primary, width: 2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
+
+                AppButton(
+                  label: 'Reset Password',
+                  isLoading: _loading,
+                  onTap: _resetPassword,
+                ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _PassField extends StatelessWidget {
-  final TextEditingController controller;
-  final bool visible;
-  final VoidCallback onToggle;
-  final String? Function(String?)? validator;
-
-  const _PassField({required this.controller, required this.visible, required this.onToggle, this.validator});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: !visible,
-      validator: validator,
-      style: AppTextStyles.bodyMedium,
-      decoration: InputDecoration(
-        hintText: '••••••••••••••••••',
-        hintStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textHint),
-        suffixIcon: IconButton(icon: const Icon(Icons.visibility_off_outlined, size: 20, color: AppColors.textHint), onPressed: onToggle),
-        filled: true, fillColor: AppColors.scaffoldBg,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.inputRadius), borderSide: BorderSide.none),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.inputRadius), borderSide: BorderSide.none),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.inputRadius), borderSide: const BorderSide(color: AppColors.primary, width: 2)),
-        errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSizes.inputRadius), borderSide: const BorderSide(color: AppColors.error)),
-      ),
-    );
-  }
-}
-
-/// ─────────────────────────────────────────────
-/// Password Changed Screen — success state
-/// ─────────────────────────────────────────────
-class PasswordChangedScreen extends StatelessWidget {
-  const PasswordChangedScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              IconButton(padding: EdgeInsets.zero, icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => context.go(AppRoutes.authLanding)),
-              const Spacer(),
-              Center(
-                child: Container(
-                  width: 100, height: 100,
-                  decoration: const BoxDecoration(color: AppColors.success, shape: BoxShape.circle),
-                  child: const Icon(Icons.check_rounded, color: Colors.white, size: 52),
-                ),
-              ),
-              const SizedBox(height: 32),
-              Center(child: Text('Password Changed!', style: AppTextStyles.h1, textAlign: TextAlign.center)),
-              const SizedBox(height: 12),
-              Center(child: Text('Your password has been changed successfully.', style: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary), textAlign: TextAlign.center)),
-              const Spacer(),
-              AppButton(label: 'Back To Login', onTap: () => context.go(AppRoutes.signIn)),
-              const SizedBox(height: 32),
-            ],
           ),
         ),
       ),

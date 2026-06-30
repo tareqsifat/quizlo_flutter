@@ -76,7 +76,7 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
       return true;
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
-      return false;
+      rethrow;
     }
   }
 
@@ -88,18 +88,88 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     state = const AsyncValue.loading();
     debugPrint('[AUTH][SignUp] Attempting registration for $email');
     try {
-      final result = await _repository.register(
-        name: name, email: email, password: password,
+      await _repository.register(
+        name: name,
+        email: email,
+        password: password,
       );
-      debugPrint('[AUTH][SignUp] ✅ Registration success — user: ${result.$2.toJson()}');
+      state = const AsyncValue.data(null);
+      return true;
+    } catch (e) {
+      debugPrint('[AUTH][SignUp] ❌ Registration failed — $e');
+      state = AsyncValue.error(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  Future<bool> verifyEmail({
+    required String email,
+    required String otp,
+  }) async {
+    state = const AsyncValue.loading();
+    try {
+      final result = await _repository.verifyEmail(email: email, otp: otp);
       await SecureStorage.saveAccessToken(result.$1.accessToken);
       await SecureStorage.saveRefreshToken(result.$1.refreshToken);
       await HiveStorage.saveUserProfile(result.$2.toJson());
       state = AsyncValue.data(result.$2);
       return true;
     } catch (e) {
-      debugPrint('[AUTH][SignUp] ❌ Registration failed — $e');
       state = AsyncValue.error(e, StackTrace.current);
+      rethrow;
+    }
+  }
+
+  Future<bool> sendVerification(String email) async {
+    try {
+      await _repository.sendVerification(email);
+      return true;
+    } catch (e) {
+      AppToast.showError(FailureMapper.map(e).message);
+      return false;
+    }
+  }
+
+  Future<bool> sendForgetPasswordOtp(String email) async {
+    try {
+      await _repository.sendForgetPasswordOtp(email);
+      return true;
+    } catch (e) {
+      AppToast.showError(FailureMapper.map(e).message);
+      return false;
+    }
+  }
+
+  Future<bool> updatePassword({
+    required String email,
+    required String otp,
+    required String newPassword,
+  }) async {
+    try {
+      await _repository.updatePassword(
+        email: email,
+        otp: otp,
+        newPassword: newPassword,
+      );
+      return true;
+    } catch (e) {
+      AppToast.showError(FailureMapper.map(e).message);
+      return false;
+    }
+  }
+
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await _repository.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
+      return true;
+    } catch (e) {
+      AppToast.showError(FailureMapper.map(e).message);
       return false;
     }
   }
@@ -124,7 +194,6 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
 
   Future<void> logout() async {
     try { await _repository.logout(); } catch (_) {}
-    // Also sign out from Google if the user signed in via Google
     await _googleSignIn.signOut();
     await SecureStorage.clearAll();
     await HiveStorage.clearAll();
@@ -147,7 +216,6 @@ class AuthRepository {
       final response = await _client.post(ApiEndpoints.login, data: {
         'email': email,
         'password': password,
-        'device_name': 'mobile',
       });
       final data = response.data['data'] as Map<String, dynamic>;
       final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
@@ -162,7 +230,7 @@ class AuthRepository {
   }
 
   /// Register new user
-  Future<(AuthTokens, User)> register({
+  Future<void> register({
     required String name,
     required String email,
     required String password,
@@ -174,13 +242,8 @@ class AuthRepository {
         'email': email,
         'password': password,
         'password_confirmation': password,
-        'device_name': 'mobile',
       });
       debugPrint('[REPO][SignUp] ✅ HTTP ${response.statusCode} — ${response.data}');
-      final data = response.data['data'] as Map<String, dynamic>;
-      final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
-      final user = User.fromJson(data['user'] as Map<String, dynamic>);
-      return (tokens, user);
     } on DioException catch (e) {
       debugPrint('[REPO][SignUp] ❌ HTTP ${e.response?.statusCode} — ${e.response?.data}');
       throw ApiException.fromResponse(
@@ -190,10 +253,10 @@ class AuthRepository {
     }
   }
 
-  /// Send OTP for forgot password
-  Future<void> sendOtp(String email) async {
+  /// Send verification email OTP
+  Future<void> sendVerification(String email) async {
     try {
-      await _client.post(ApiEndpoints.sendOtp, data: {'email': email});
+      await _client.post(ApiEndpoints.sendVerification, data: {'email': email});
     } on DioException catch (e) {
       throw ApiException.fromResponse(
         e.response?.data as Map<String, dynamic>? ?? {},
@@ -202,17 +265,72 @@ class AuthRepository {
     }
   }
 
-  /// Verify OTP
-  Future<String> verifyOtp({
+  /// Verify email via OTP
+  Future<(AuthTokens, User)> verifyEmail({
     required String email,
     required String otp,
   }) async {
     try {
-      final response = await _client.post(ApiEndpoints.verifyOtp, data: {
+      final response = await _client.post(ApiEndpoints.verification, data: {
         'email': email,
         'otp': otp,
       });
-      return response.data['data']['reset_token'] as String;
+      final data = response.data['data'] as Map<String, dynamic>;
+      final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
+      final user = User.fromJson(data['user'] as Map<String, dynamic>);
+      return (tokens, user);
+    } on DioException catch (e) {
+      throw ApiException.fromResponse(
+        e.response?.data as Map<String, dynamic>? ?? {},
+        e.response?.statusCode,
+      );
+    }
+  }
+
+  /// Send OTP for forgot password
+  Future<void> sendForgetPasswordOtp(String email) async {
+    try {
+      await _client.post(ApiEndpoints.sendForgetPasswordOtp, data: {'email': email});
+    } on DioException catch (e) {
+      throw ApiException.fromResponse(
+        e.response?.data as Map<String, dynamic>? ?? {},
+        e.response?.statusCode,
+      );
+    }
+  }
+
+  /// Reset/update password using OTP
+  Future<void> updatePassword({
+    required String email,
+    required String otp,
+    required String newPassword,
+  }) async {
+    try {
+      await _client.post(ApiEndpoints.updatePassword, data: {
+        'email': email,
+        'otp': otp,
+        'password': newPassword,
+        'password_confirmation': newPassword,
+      });
+    } on DioException catch (e) {
+      throw ApiException.fromResponse(
+        e.response?.data as Map<String, dynamic>? ?? {},
+        e.response?.statusCode,
+      );
+    }
+  }
+
+  /// Change password using existing password
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      await _client.post(ApiEndpoints.changePassword, data: {
+        'current_password': currentPassword,
+        'password': newPassword,
+        'password_confirmation': newPassword,
+      });
     } on DioException catch (e) {
       throw ApiException.fromResponse(
         e.response?.data as Map<String, dynamic>? ?? {},
@@ -227,12 +345,7 @@ class AuthRepository {
   }
 
   /// Google Sign-In — mobile flow
-  /// 1. Triggers native Google sign-in picker
-  /// 2. Gets the Google access token
-  /// 3. Sends it to POST /auth/google/token
-  /// 4. Returns (AuthTokens, User) on success
   Future<(AuthTokens, User)> loginWithGoogle() async {
-    // Step 1: native Google picker
     debugPrint('[REPO][Google] Step 1 — opening native Google account picker…');
     final googleAccount = await _googleSignIn.signIn();
     if (googleAccount == null) {
@@ -241,30 +354,28 @@ class AuthRepository {
     }
     debugPrint('[REPO][Google] ✅ Step 1 — account selected: ${googleAccount.email} (id: ${googleAccount.id})');
 
-    // Step 2: get access token from Google
     debugPrint('[REPO][Google] Step 2 — fetching Google auth tokens…');
     final googleAuth = await googleAccount.authentication;
     final accessToken = googleAuth.accessToken;
     if (accessToken == null) {
-      debugPrint('[REPO][Google] ❌ Step 2 — accessToken is null (idToken: ${googleAuth.idToken != null ? 'present' : 'null'})');
+      debugPrint('[REPO][Google] ❌ Step 2 — accessToken is null');
       throw const ApiException(message: 'Failed to obtain Google access token.', statusCode: 0);
     }
-    debugPrint('[REPO][Google] ✅ Step 2 — accessToken obtained (first 20 chars): ${accessToken.substring(0, accessToken.length > 20 ? 20 : accessToken.length)}…');
+    debugPrint('[REPO][Google] ✅ Step 2 — accessToken obtained');
 
-    // Step 3: exchange token with Laravel backend
     debugPrint('[REPO][Google] Step 3 — POST ${ApiEndpoints.googleToken}');
     try {
       final response = await _client.post(
         ApiEndpoints.googleToken,
         data: {'access_token': accessToken},
       );
-      debugPrint('[REPO][Google] ✅ Step 3 — HTTP ${response.statusCode}: ${response.data}');
+      debugPrint('[REPO][Google] ✅ Step 3 — HTTP ${response.statusCode}');
       final data = response.data['data'] as Map<String, dynamic>;
       final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
       final user = User.fromJson(data['user'] as Map<String, dynamic>);
       return (tokens, user);
     } on DioException catch (e) {
-      debugPrint('[REPO][Google] ❌ Step 3 — HTTP ${e.response?.statusCode}: ${e.response?.data}');
+      debugPrint('[REPO][Google] ❌ Step 3 — HTTP ${e.response?.statusCode}');
       throw ApiException.fromResponse(
         e.response?.data as Map<String, dynamic>? ?? {},
         e.response?.statusCode,
