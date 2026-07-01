@@ -14,7 +14,7 @@ abstract class ApiEndpoints {
   static const String login = 'auth/login';
   static const String register = 'auth/register';
   static const String logout = 'auth/logout';
-  static const String googleToken = 'auth/google/token';
+  static const String googleToken = 'auth/google/exchange';
   static const String sendVerification = 'auth/send-verification';
   static const String verification = 'auth/verification';
   static const String sendForgetPasswordOtp = 'auth/send-forget-password-otp';

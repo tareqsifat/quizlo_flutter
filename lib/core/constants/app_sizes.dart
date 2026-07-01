@@ -63,8 +63,8 @@ abstract class AppSizes {
   static const double bottomNavHeight = 72.0;
 
   // ── OTP ────────────────────────────────────
-  static const double otpBoxSize = 60.0;
-  static const int otpLength = 4;
+  static const double otpBoxSize = 48.0;
+  static const int otpLength = 6;
 
   // ── Horizontal Padding ─────────────────────
   static const double screenPadding = 20.0;

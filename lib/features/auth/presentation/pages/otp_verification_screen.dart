@@ -13,7 +13,7 @@ import '../../data/auth_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// OTP Verification Screen
-/// 4-box OTP input + 60s countdown + resend
+/// 6-box OTP input + 60s countdown + resend
 /// ─────────────────────────────────────────────
 class OtpVerificationScreen extends ConsumerStatefulWidget {
   final String email;
