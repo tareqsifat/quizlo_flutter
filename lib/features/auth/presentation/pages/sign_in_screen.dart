@@ -393,15 +393,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen>
       if (mounted) {
         setState(() => _signUpLoading = false);
         if (success) {
-          debugPrint('[UI][SignUp] ✅ Sign-up succeeded — navigating to OTP verification');
-          _showDebugToast(context, '✅ Registration successful! Verify your email.', isSuccess: true);
-          context.push(
-            AppRoutes.otpVerification,
-            extra: {
-              'email': _signUpEmailCtrl.text.trim(),
-              'purpose': 'register',
-            },
-          );
+          debugPrint('[UI][SignUp] ✅ Sign-up succeeded — user is logged in, navigating to examTypeSelection');
+          _showDebugToast(context, '✅ Registration successful! Welcome aboard.', isSuccess: true);
+          // OTP verification screen is orphaned — backend now issues a token immediately after registration.
+          // context.push(AppRoutes.otpVerification, extra: {'email': _signUpEmailCtrl.text.trim(), 'purpose': 'register'});
+          context.go(AppRoutes.examTypeSelection);
         }
       }
     } catch (e) {

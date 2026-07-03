@@ -88,12 +88,17 @@ class AuthNotifier extends StateNotifier<AsyncValue<User?>> {
     state = const AsyncValue.loading();
     debugPrint('[AUTH][SignUp] Attempting registration for $email');
     try {
-      await _repository.register(
+      final result = await _repository.register(
         name: name,
         email: email,
         password: password,
       );
-      state = const AsyncValue.data(null);
+      // Backend now issues a token immediately — log the user in right away.
+      // The OTP verification screen is orphaned and will be called later if needed.
+      await SecureStorage.saveAccessToken(result.$1.accessToken);
+      await SecureStorage.saveRefreshToken(result.$1.refreshToken);
+      await HiveStorage.saveUserProfile(result.$2.toJson());
+      state = AsyncValue.data(result.$2);
       return true;
     } catch (e) {
       debugPrint('[AUTH][SignUp] ❌ Registration failed — $e');
@@ -229,8 +234,8 @@ class AuthRepository {
     }
   }
 
-  /// Register new user
-  Future<void> register({
+  /// Register new user — returns tokens+user immediately (no OTP step)
+  Future<(AuthTokens, User)> register({
     required String name,
     required String email,
     required String password,
@@ -244,6 +249,10 @@ class AuthRepository {
         'password_confirmation': password,
       });
       debugPrint('[REPO][SignUp] ✅ HTTP ${response.statusCode} — ${response.data}');
+      final data = response.data['data'] as Map<String, dynamic>;
+      final tokens = AuthTokens.fromJson(data['token'] as Map<String, dynamic>);
+      final user = User.fromJson(data['user'] as Map<String, dynamic>);
+      return (tokens, user);
     } on DioException catch (e) {
       debugPrint('[REPO][SignUp] ❌ HTTP ${e.response?.statusCode} — ${e.response?.data}');
       throw ApiException.fromResponse(
