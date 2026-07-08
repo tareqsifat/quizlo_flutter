@@ -6,6 +6,9 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/network/dio_client.dart';
+import '../../../../core/constants/api_endpoints.dart';
+import 'package:dio/dio.dart';
 
 class SubjectSelectionScreen extends StatefulWidget {
   const SubjectSelectionScreen({super.key});
@@ -15,18 +18,81 @@ class SubjectSelectionScreen extends StatefulWidget {
 }
 
 class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
-  // BCS subjects and their total question counts
-  final List<Map<String, dynamic>> _subjects = [
-    {'name': 'bangla', 'displayName': 'Bangla', 'icon': '🇧🇩', 'total': 35},
-    {'name': 'english', 'displayName': 'English', 'icon': '🇬🇧', 'total': 35},
-    {'name': 'Math & logic', 'displayName': 'Math & Logic', 'icon': '📐', 'total': 16},
-    {'name': 'ICT', 'displayName': 'ICT', 'icon': '💻', 'total': 18},
-    {'name': 'cognitive ability', 'displayName': 'Cognitive Ability', 'icon': '🧠', 'total': 15},
-    {'name': 'GK (Bangladesh)', 'displayName': 'GK (Bangladesh)', 'icon': '🏛️', 'total': 32},
-    {'name': 'GK (International)', 'displayName': 'GK (International)', 'icon': '🌍', 'total': 27},
-    {'name': 'Geography', 'displayName': 'Geography', 'icon': '🗺️', 'total': 13},
-    {'name': 'Etics & Value', 'displayName': 'Ethics & Values', 'icon': '⚖️', 'total': 10},
-  ];
+  final _dioClient = DioClient();
+  List<Map<String, dynamic>> _subjects = [];
+  bool _isLoading = true;
+  String? _errorMessage;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchSubjects();
+  }
+
+  Future<void> _fetchSubjects() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
+      final response = await _dioClient.get(
+        ApiEndpoints.subjects,
+        queryParams: {'exam_type_id': examTypeId},
+      );
+      final dataList = response.data['data'] as List;
+      setState(() {
+        _subjects = dataList.map((item) {
+          final slug = item['slug'] as String;
+          return {
+            'name': slug,
+            'displayName': item['name'] as String,
+            'icon': _getEmojiIcon(slug),
+            'total': item['total_marks'] as int? ?? 10,
+          };
+        }).toList();
+        _isLoading = false;
+      });
+    } on DioException catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load subjects: ${e.message}';
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'An unexpected error occurred: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
+  String _getEmojiIcon(String slug) {
+    final s = slug.toLowerCase();
+    if (s.contains('bangla')) {
+      return '🇧🇩';
+    } else if (s.contains('english')) {
+      return '🇬🇧';
+    } else if (s.contains('math') || s.contains('reasoning') || s.contains('logic')) {
+      return '📐';
+    } else if (s.contains('ict') || s.contains('computer') || s.contains('information')) {
+      return '💻';
+    } else if (s.contains('cognitive') || s.contains('mental') || s.contains('ability')) {
+      return '🧠';
+    } else if (s.contains('bangladesh')) {
+      return '🏛️';
+    } else if (s.contains('international') || s.contains('global') || s.contains('affairs')) {
+      return '🌍';
+    } else if (s.contains('geography') || s.contains('environment') || s.contains('disaster')) {
+      return '🗺️';
+    } else if (s.contains('ethics') || s.contains('values')) {
+      return '⚖️';
+    } else if (s.contains('science')) {
+      return '🧪';
+    } else {
+      return '📚';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,44 +167,68 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
 
             // ── Grid of Subjects ─────────────
             Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.screenPadding, vertical: 8),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 16, // Extra vertical space for 3D card layout
-                  childAspectRatio: 1.25,
-                ),
-                itemCount: _subjects.length,
-                itemBuilder: (context, index) {
-                  final sub = _subjects[index];
-                  final name = sub['name'] as String;
-                  final displayName = sub['displayName'] as String;
-                  final icon = sub['icon'] as String;
-                  final total = sub['total'] as int;
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _errorMessage != null
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(AppSizes.screenPadding),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  _errorMessage!,
+                                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.accent),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                AppButton(
+                                  label: 'Retry',
+                                  onTap: _fetchSubjects,
+                                  height: AppSizes.buttonHeightMd,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : GridView.builder(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSizes.screenPadding, vertical: 8),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 16, // Extra vertical space for 3D card layout
+                            childAspectRatio: 1.25,
+                          ),
+                          itemCount: _subjects.length,
+                          itemBuilder: (context, index) {
+                            final sub = _subjects[index];
+                            final name = sub['name'] as String;
+                            final displayName = sub['displayName'] as String;
+                            final icon = sub['icon'] as String;
+                            final total = sub['total'] as int;
 
-                  // Get correct answers count from Hive
-                  final correctCount = HiveStorage.getCorrectQuestionsCount(name);
-                  final progress = (correctCount / total).clamp(0.0, 1.0);
+                            // Get correct answers count from Hive
+                            final correctCount = HiveStorage.getCorrectQuestionsCount(name);
+                            final progress = (correctCount / total).clamp(0.0, 1.0);
 
-                  return _SubjectCard3D(
-                    name: name,
-                    displayName: displayName,
-                    icon: icon,
-                    correctCount: correctCount,
-                    total: total,
-                    progress: progress,
-                    onTap: () {
-                      context.push(AppRoutes.quizLoading, extra: {
-                        'lesson_id': 0,
-                        'title': displayName,
-                        'subject': name,
-                      });
-                    },
-                  );
-                },
-              ),
+                            return _SubjectCard3D(
+                              name: name,
+                              displayName: displayName,
+                              icon: icon,
+                              correctCount: correctCount,
+                              total: total,
+                              progress: progress,
+                              onTap: () {
+                                context.push(AppRoutes.quizLoading, extra: {
+                                  'lesson_id': 0,
+                                  'title': displayName,
+                                  'subject': name,
+                                });
+                              },
+                            );
+                          },
+                        ),
             ),
 
             // ── Random/Mixup Button ──────────

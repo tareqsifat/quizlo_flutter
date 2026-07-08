@@ -11,6 +11,9 @@ import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/constants/demo_questions.dart';
 import '../../../../core/services/feedback_service.dart';
 import '../../../../core/services/streak_service.dart';
+import '../../../../core/network/dio_client.dart';
+import '../../../../core/constants/api_endpoints.dart';
+import 'package:dio/dio.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Session Screen — Master quiz controller
@@ -166,33 +169,177 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
         correctOptionId: 2),
   ];
 
-  late final List<_Question> _questions;
+  List<_Question> _questions = [];
+  bool _isLoading = true;
+  String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
     _stopwatch.start();
+    _loadQuestions();
+  }
 
-    if (HiveStorage.isDemoMode() || widget.lessonId == 0) {
-      var demoList = List<Map<String, dynamic>>.from(DemoQuestions.list);
-      if (widget.subject != null && widget.subject!.isNotEmpty) {
-        demoList = demoList.where((q) => q['subject'] == widget.subject).toList();
+  Future<void> _loadQuestions() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
+
+      if (HiveStorage.isDemoMode()) {
+        _loadDemoQuestions();
+        return;
       }
-      demoList.shuffle();
+
+      if (widget.lessonId != 0) {
+        // Fetch lesson questions
+        final response = await DioClient().get(
+          ApiEndpoints.lessonQuestions(widget.lessonId),
+          queryParams: {'exam_type_id': examTypeId},
+        );
+        final list = response.data['data'] as List;
+        setState(() {
+          _questions = list.map((item) => _parseApiQuestion(item)).toList();
+          _isLoading = false;
+        });
+      } else {
+        // Practice session for a subject
+        final subjectsResponse = await DioClient().get(
+          ApiEndpoints.subjects,
+          queryParams: {'exam_type_id': examTypeId},
+        );
+        final subjectsList = subjectsResponse.data['data'] as List;
+        final matchingSubject = subjectsList.firstWhere(
+          (s) => s['slug'].toString().toLowerCase() == widget.subject?.toLowerCase(),
+          orElse: () => null,
+        );
+
+        if (matchingSubject != null) {
+          final subjectId = matchingSubject['id'] as int;
+          final lessonsResponse = await DioClient().get(
+            ApiEndpoints.subjectLessons(subjectId),
+            queryParams: {'exam_type_id': examTypeId},
+          );
+          final lessonsList = lessonsResponse.data['data'] as List;
+
+          final List<_Question> fetchedQuestions = [];
+          for (final lesson in lessonsList) {
+            final lessonId = lesson['id'] as int;
+            try {
+              final questionsResponse = await DioClient().get(
+                ApiEndpoints.lessonQuestions(lessonId),
+                queryParams: {'exam_type_id': examTypeId},
+              );
+              final qList = questionsResponse.data['data'] as List;
+              for (final q in qList) {
+                fetchedQuestions.add(_parseApiQuestion(q));
+              }
+            } catch (e) {
+              debugPrint('Error fetching questions for lesson $lessonId: $e');
+            }
+          }
+
+          if (fetchedQuestions.isNotEmpty) {
+            fetchedQuestions.shuffle();
+            setState(() {
+              _questions = fetchedQuestions.take(10).toList();
+              _isLoading = false;
+            });
+            return;
+          }
+        }
+
+        // Fallback to local demo questions if no API questions found for this subject
+        _loadDemoQuestions();
+      }
+    } on DioException catch (e) {
+      debugPrint('[QUIZ] Dio error loading questions: ${e.message}');
+      setState(() {
+        _errorMessage = 'Failed to load questions: ${e.message}';
+        _isLoading = false;
+      });
+    } catch (e) {
+      debugPrint('[QUIZ] Unexpected error loading questions: $e');
+      setState(() {
+        _errorMessage = 'An unexpected error occurred: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
+  void _loadDemoQuestions() {
+    var demoList = List<Map<String, dynamic>>.from(DemoQuestions.list);
+    if (widget.subject != null && widget.subject!.isNotEmpty) {
+      demoList = demoList.where((q) => q['subject'] == widget.subject).toList();
+    }
+    demoList.shuffle();
+    setState(() {
       _questions = demoList.take(10).map((m) {
         final originalText = m['text'] as String;
         final cleanedText = originalText.replaceFirst(RegExp(r'^[০-৯\d]+\.\s*'), '');
         return _Question(
           id: m['id'] as int,
-          type: m['type'] as String,
+          type: m['type'] as String? ?? 'mcq',
           text: cleanedText,
-          options: List<String>.from(m['options'] as List),
+          options: (m['options'] as List).asMap().entries.map((entry) {
+            return _Option(id: entry.key, text: entry.value as String);
+          }).toList(),
           correctOptionId: m['correctOptionId'] as int,
           subject: m['subject'] as String? ?? '',
         );
       }).toList();
+      _isLoading = false;
+    });
+  }
+
+  _Question _parseApiQuestion(Map<String, dynamic> item) {
+    final text = item['question_text'] as String;
+    final cleanedText = text.replaceFirst(RegExp(r'^[০-৯\d]+\.\s*'), '');
+    final optionsList = item['options'] as List;
+    return _Question(
+      id: item['id'] as int,
+      type: 'mcq', // API only supports MCQ currently
+      text: cleanedText,
+      options: optionsList.map((o) {
+        return _Option(
+          id: o['id'] as int,
+          text: o['option_text'] as String,
+        );
+      }).toList(),
+      correctOptionId: -1, // Will be verified via API
+      subject: widget.subject ?? '',
+      explanation: item['explanation'] as String?,
+    );
+  }
+
+  Future<Map<String, dynamic>> _checkAnswer(int questionId, int selectedOptionId) async {
+    if (HiveStorage.isDemoMode() || (_questions.isNotEmpty && _questions[_currentIndex].correctOptionId != -1)) {
+      final q = _questions.firstWhere((question) => question.id == questionId);
+      final isCorrect = selectedOptionId == q.correctOptionId;
+      return {
+        'is_correct': isCorrect,
+        'correct_option_id': q.correctOptionId,
+      };
     } else {
-      _questions = _defaultMockQuestions;
+      final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
+      final response = await DioClient().post(
+        ApiEndpoints.submitAnswer,
+        data: {
+          'exam_type_id': examTypeId,
+          'question_id': questionId,
+          'selected_option_id': selectedOptionId,
+          'session_type': widget.lessonId > 0 ? 'lesson' : 'practice',
+          'session_id': null,
+        },
+      );
+      final data = response.data['data'] as Map<String, dynamic>;
+      return {
+        'is_correct': data['is_correct'] as bool,
+        'correct_option_id': data['correct_option_id'] as int,
+      };
     }
   }
 
@@ -218,7 +365,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       final elapsed = _stopwatch.elapsed;
       final timeStr =
           '${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
-      final accuracy = ((_score / _questions.length) * 100).round();
+      final accuracy = _questions.isEmpty ? 0 : ((_score / _questions.length) * 100).round();
       final points = _score * 2;
 
       // Update the user's daily streak count
@@ -257,6 +404,51 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    if (_errorMessage != null) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.screenPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  _errorMessage!,
+                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.accent),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                AppButton(
+                  label: 'Retry',
+                  onTap: _loadQuestions,
+                  height: AppSizes.buttonHeightMd,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (_questions.isEmpty) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: Center(
+          child: Text('No questions available.'),
+        ),
+      );
+    }
+
     final q = _questions[_currentIndex];
 
     return Scaffold(
@@ -290,12 +482,14 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           question: q,
           onNext: _nextQuestion,
           onAnswer: _onAnswer,
+          onCheckAnswer: _checkAnswer,
         );
       default: // mcq
         return McqQuestionWidget(
           question: q,
           onNext: _nextQuestion,
           onAnswer: _onAnswer,
+          onCheckAnswer: _checkAnswer,
         );
     }
   }
@@ -308,12 +502,14 @@ class McqQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
   final ValueChanged<bool> onAnswer;
+  final Future<Map<String, dynamic>> Function(int questionId, int optionId) onCheckAnswer;
 
   const McqQuestionWidget({
     super.key,
     required this.question,
     required this.onNext,
     required this.onAnswer,
+    required this.onCheckAnswer,
   });
 
   @override
@@ -324,21 +520,34 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
   int? _selectedIndex;
   bool _answered = false;
   bool? _isCorrect;
+  int? _correctOptionId;
+  bool _checking = false;
 
-  void _select(int index) {
-    if (_answered) return;
-    final isCorrect = index == widget.question.correctOptionId;
-    setState(() {
-      _selectedIndex = index;
-      _answered = true;
-      _isCorrect = isCorrect;
-    });
-    widget.onAnswer(isCorrect);
+  void _select(int index) async {
+    if (_answered || _checking) return;
+    setState(() => _checking = true);
+    final selectedOption = widget.question.options[index];
+    try {
+      final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
+      final isCorrect = result['is_correct'] as bool;
+      final correctId = result['correct_option_id'] as int;
+      setState(() {
+        _selectedIndex = index;
+        _answered = true;
+        _isCorrect = isCorrect;
+        _correctOptionId = correctId;
+        _checking = false;
+      });
+      widget.onAnswer(isCorrect);
+    } catch (e) {
+      setState(() => _checking = false);
+    }
   }
 
   AnswerState _stateFor(int index) {
     if (!_answered) return AnswerState.idle;
-    if (index == widget.question.correctOptionId) return AnswerState.correct;
+    final optionId = widget.question.options[index].id;
+    if (optionId == _correctOptionId) return AnswerState.correct;
     if (index == _selectedIndex) return AnswerState.wrong;
     return AnswerState.idle;
   }
@@ -368,17 +577,25 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
                 const SizedBox(height: 40),
 
                 // Options
-                ...List.generate(
-                  widget.question.options.length,
-                  (i) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: AnswerOptionTile(
-                      text: widget.question.options[i],
-                      state: _stateFor(i),
-                      onTap: () => _select(i),
+                if (_checking)
+                  const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                else
+                  ...List.generate(
+                    widget.question.options.length,
+                    (i) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: AnswerOptionTile(
+                        text: widget.question.options[i].text,
+                        state: _stateFor(i),
+                        onTap: () => _select(i),
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -393,6 +610,7 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
                 _selectedIndex = null;
                 _answered = false;
                 _isCorrect = null;
+                _correctOptionId = null;
               });
               widget.onNext();
             },
@@ -496,7 +714,7 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
                   ),
                   itemCount: cols.length,
                   itemBuilder: (context, i) => AnswerOptionTile(
-                    text: cols[i],
+                    text: cols[i].text,
                     state: _stateFor(i),
                     onTap: () => _select(i),
                     height: 44,
@@ -533,12 +751,15 @@ class FillBlankQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
   final ValueChanged<bool> onAnswer;
+  final Future<Map<String, dynamic>> Function(int questionId, int optionId) onCheckAnswer;
 
-  const FillBlankQuestionWidget(
-      {super.key,
-      required this.question,
-      required this.onNext,
-      required this.onAnswer});
+  const FillBlankQuestionWidget({
+    super.key,
+    required this.question,
+    required this.onNext,
+    required this.onAnswer,
+    required this.onCheckAnswer,
+  });
 
   @override
   State<FillBlankQuestionWidget> createState() =>
@@ -549,20 +770,33 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
   String? _selectedWord;
   int? _selectedIndex;
   bool _answered = false;
+  bool? _isCorrect;
+  bool _checking = false;
 
   void _selectWord(int index, String word) {
-    if (_selectedIndex != null) return;
+    if (_selectedIndex != null || _checking) return;
     setState(() {
       _selectedWord = word;
       _selectedIndex = index;
     });
   }
 
-  void _submit() {
-    if (_selectedIndex == null) return;
-    final isCorrect = _selectedIndex == widget.question.correctOptionId;
-    setState(() => _answered = true);
-    widget.onAnswer(isCorrect);
+  void _submit() async {
+    if (_selectedIndex == null || _checking) return;
+    setState(() => _checking = true);
+    final selectedOption = widget.question.options[_selectedIndex!];
+    try {
+      final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
+      final isCorrect = result['is_correct'] as bool;
+      setState(() {
+        _isCorrect = isCorrect;
+        _answered = true;
+        _checking = false;
+      });
+      widget.onAnswer(isCorrect);
+    } catch (e) {
+      setState(() => _checking = false);
+    }
   }
 
   @override
@@ -610,39 +844,43 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
                 const SizedBox(height: 48),
 
                 // Word chips
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: List.generate(widget.question.options.length, (i) {
-                    final word = widget.question.options[i];
-                    final isPlaced = i == _selectedIndex;
-                    return WordChip(
-                      word: word,
-                      isPlaced: isPlaced,
-                      isSelected: false,
-                      onTap: () => _selectWord(i, word),
-                    );
-                  }),
-                ),
+                if (_checking)
+                  const Center(child: CircularProgressIndicator())
+                else
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(widget.question.options.length, (i) {
+                      final word = widget.question.options[i];
+                      final isPlaced = i == _selectedIndex;
+                      return WordChip(
+                        word: word.text,
+                        isPlaced: isPlaced,
+                        isSelected: false,
+                        onTap: () => _selectWord(i, word.text),
+                      );
+                    }),
+                  ),
               ],
             ),
           ),
         ),
         if (_answered)
           _FeedbackBar(
-            isCorrect: _selectedIndex == widget.question.correctOptionId,
+            isCorrect: _isCorrect!,
             onContinue: () {
               setState(() {
                 _selectedWord = null;
                 _selectedIndex = null;
                 _answered = false;
+                _isCorrect = null;
               });
               widget.onNext();
             },
           )
         else
           _ActiveContinueBar(
-            enabled: _selectedWord != null,
+            enabled: _selectedWord != null && !_checking,
             onContinue: _submit,
           ),
       ],
@@ -762,7 +1000,7 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
                     spacing: 8,
                     children: _selectedIndices.map((i) {
                       return WordChip(
-                        word: widget.question.options[i],
+                        word: widget.question.options[i].text,
                         isSelected: true,
                         onTap: () => _toggleWord(i),
                       );
@@ -779,7 +1017,7 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
                   children: List.generate(widget.question.options.length, (i) {
                     final isSelected = _selectedIndices.contains(i);
                     return WordChip(
-                      word: widget.question.options[i],
+                      word: widget.question.options[i].text,
                       isSelected: isSelected,
                       isPlaced: false,
                       onTap: () => _toggleWord(i),
@@ -1045,9 +1283,10 @@ class _Question {
   final int id;
   final String type;
   final String text;
-  final List<String> options;
+  final List<_Option> options;
   final int correctOptionId;
   final String subject;
+  final String? explanation;
 
   const _Question({
     required this.id,
@@ -1056,5 +1295,16 @@ class _Question {
     required this.options,
     required this.correctOptionId,
     this.subject = '',
+    this.explanation,
+  });
+}
+
+class _Option {
+  final int id;
+  final String text;
+
+  const _Option({
+    required this.id,
+    required this.text,
   });
 }

@@ -6,6 +6,9 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
+import '../../../../core/network/dio_client.dart';
+import '../../../../core/constants/api_endpoints.dart';
+import 'package:dio/dio.dart';
 
 class StackSelectionScreen extends StatefulWidget {
   const StackSelectionScreen({super.key});
@@ -16,25 +19,80 @@ class StackSelectionScreen extends StatefulWidget {
 
 class _StackSelectionScreenState extends State<StackSelectionScreen> {
   String? _selectedStack;
+  final _dioClient = DioClient();
+  List<Map<String, dynamic>> _stacks = [];
+  bool _isLoading = true;
+  String? _errorMessage;
 
-  final List<Map<String, dynamic>> _stacks = [
-    {'code': 'BCS', 'name': 'BCS Preliminary', 'icon': '🎖️'},
-    {'code': 'SSC', 'name': 'SSC Prep', 'icon': '📚'},
-    {'code': 'HSC', 'name': 'HSC Prep', 'icon': '🏫'},
-    {'code': 'IELTS', 'name': 'IELTS Prep', 'icon': '✈️'},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _fetchExamTypes();
+  }
+
+  Future<void> _fetchExamTypes() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      final response = await _dioClient.get(ApiEndpoints.examTypes);
+      final dataList = response.data['data'] as List;
+      setState(() {
+        _stacks = dataList.map((item) {
+          final code = item['code'] as String;
+          return {
+            'id': item['id'] as int,
+            'code': code,
+            'name': item['name'] as String,
+            'icon': _getExamTypeEmoji(code),
+          };
+        }).toList();
+        _isLoading = false;
+      });
+    } on DioException catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to load exam types: ${e.message}';
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'An unexpected error occurred: $e';
+        _isLoading = false;
+      });
+    }
+  }
+
+  String _getExamTypeEmoji(String code) {
+    switch (code.toUpperCase()) {
+      case 'BCS':
+      case 'BCS_PRELIM':
+        return '🎖️';
+      case 'SSC':
+        return '📚';
+      case 'HSC':
+        return '🏫';
+      case 'IELTS':
+        return '✈️';
+      default:
+        return '📝';
+    }
+  }
 
   void _onContinue() async {
-    if (_selectedStack == null) return;
+    final selectedItem = _stacks.firstWhere((s) => s['code'] == _selectedStack, orElse: () => null);
+    if (selectedItem == null) return;
     
-    if (_selectedStack == 'BCS') {
-      await HiveStorage.saveSelectedStack('BCS');
-      await HiveStorage.setExamTypeSelected(true);
-      if (mounted) {
-        context.go(AppRoutes.home);
-      }
-    } else {
-      context.push('/coming-soon', extra: {'title': _selectedStack});
+    final id = selectedItem['id'] as int;
+    final code = selectedItem['code'] as String;
+
+    await HiveStorage.saveActiveExamTypeId(id);
+    await HiveStorage.saveSelectedStack(code == 'BCS_PRELIM' ? 'BCS' : code);
+    await HiveStorage.setExamTypeSelected(true);
+    
+    if (mounted) {
+      context.go(AppRoutes.home);
     }
   }
 
@@ -87,37 +145,61 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
 
             // ── Stacks Grid ──────────────────
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.screenPadding),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 1.25,
-                  ),
-                  itemCount: _stacks.length,
-                  itemBuilder: (context, index) {
-                    final item = _stacks[index];
-                    final code = item['code'] as String;
-                    final name = item['name'] as String;
-                    final icon = item['icon'] as String;
-                    final isSelected = _selectedStack == code;
+              child: _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : _errorMessage != null
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(AppSizes.screenPadding),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  _errorMessage!,
+                                  style: AppTextStyles.bodyMedium.copyWith(color: AppColors.accent),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                AppButton(
+                                  label: 'Retry',
+                                  onTap: _fetchExamTypes,
+                                  height: AppSizes.buttonHeightMd,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppSizes.screenPadding),
+                          child: GridView.builder(
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              childAspectRatio: 1.25,
+                            ),
+                            itemCount: _stacks.length,
+                            itemBuilder: (context, index) {
+                              final item = _stacks[index];
+                              final code = item['code'] as String;
+                              final name = item['name'] as String;
+                              final icon = item['icon'] as String;
+                              final isSelected = _selectedStack == code;
 
-                    return _StackCard3D(
-                      name: name,
-                      icon: icon,
-                      isSelected: isSelected,
-                      onTap: () {
-                        setState(() {
-                          _selectedStack = code;
-                        });
-                      },
-                    );
-                  },
-                ),
-              ),
+                              return _StackCard3D(
+                                name: name,
+                                icon: icon,
+                                isSelected: isSelected,
+                                onTap: () {
+                                  setState(() {
+                                    _selectedStack = code;
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                        ),
             ),
 
             // ── Continue Button ─────────────
