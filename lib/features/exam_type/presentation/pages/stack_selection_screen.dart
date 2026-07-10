@@ -81,7 +81,9 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
   }
 
   void _onContinue() async {
-    final selectedItem = _stacks.firstWhere((s) => s['code'] == _selectedStack, orElse: () => null);
+    final selectedItem = _stacks.cast<Map<String, dynamic>?>().firstWhere(
+        (s) => s!['code'] == _selectedStack,
+        orElse: () => null);
     if (selectedItem == null) return;
     
     final id = selectedItem['id'] as int;

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import '../constants/api_endpoints.dart';
 import '../storage/secure_storage.dart';
+import '../services/app_toast.dart';
 
 final _logger = Logger();
 
@@ -150,18 +151,23 @@ class _LogInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     _logger.d('[API] ${options.method} ${options.path}');
+    AppToast.showInfo('📡 ${options.method} /api/v1/${options.path}');
     handler.next(options);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     _logger.d('[API] ✓ ${response.statusCode} ${response.requestOptions.path}');
+    AppToast.showSuccess(
+        '✅ ${response.statusCode} /api/v1/${response.requestOptions.path}');
     handler.next(response);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     _logger.e('[API] ✗ ${err.response?.statusCode} ${err.requestOptions.path}: ${err.message}');
+    AppToast.showError(
+        '❌ ${err.response?.statusCode} /api/v1/${err.requestOptions.path}: ${err.message}');
     handler.next(err);
   }
 }
