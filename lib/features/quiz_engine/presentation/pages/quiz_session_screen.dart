@@ -161,6 +161,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           }).toList(),
           correctOptionId: m['correctOptionId'] as int,
           subject: m['subject'] as String? ?? '',
+          explanation: m['explanation'] as String?,
         );
       }).toList();
       _isLoading = false;
@@ -395,16 +396,26 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
   int? _correctOptionId;
   bool _checking = false;
 
-  void _select(int index) async {
+  void _select(int index) {
     if (_answered || _checking) return;
+    setState(() {
+      if (_selectedIndex == index) {
+        _selectedIndex = null;
+      } else {
+        _selectedIndex = index;
+      }
+    });
+  }
+
+  void _check() async {
+    if (_selectedIndex == null || _answered || _checking) return;
     setState(() => _checking = true);
-    final selectedOption = widget.question.options[index];
+    final selectedOption = widget.question.options[_selectedIndex!];
     try {
       final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
       final isCorrect = result['is_correct'] as bool;
       final correctId = result['correct_option_id'] as int;
       setState(() {
-        _selectedIndex = index;
         _answered = true;
         _isCorrect = isCorrect;
         _correctOptionId = correctId;
@@ -417,7 +428,9 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
   }
 
   AnswerState _stateFor(int index) {
-    if (!_answered) return AnswerState.idle;
+    if (!_answered) {
+      return index == _selectedIndex ? AnswerState.selected : AnswerState.idle;
+    }
     final optionId = widget.question.options[index].id;
     if (optionId == _correctOptionId) return AnswerState.correct;
     if (index == _selectedIndex) return AnswerState.wrong;
@@ -449,46 +462,45 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
                 const SizedBox(height: 40),
 
                 // Options
-                if (_checking)
-                  const Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                else
-                  ...List.generate(
-                    widget.question.options.length,
-                    (i) => Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: AnswerOptionTile(
-                        text: widget.question.options[i].text,
-                        state: _stateFor(i),
-                        onTap: () => _select(i),
-                      ),
+                ...List.generate(
+                  widget.question.options.length,
+                  (i) => Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: AnswerOptionTile(
+                      text: widget.question.options[i].text,
+                      state: _stateFor(i),
+                      onTap: () => _select(i),
                     ),
                   ),
+                ),
               ],
             ),
           ),
         ),
 
-        // ── Bottom feedback + Continue ─────────
-        if (_answered)
-          _FeedbackBar(
-            isCorrect: _isCorrect!,
-            onContinue: () {
-              setState(() {
-                _selectedIndex = null;
-                _answered = false;
-                _isCorrect = null;
-                _correctOptionId = null;
-              });
-              widget.onNext();
-            },
-          )
-        else
-          _DisabledContinueBar(),
+        // Bottom interactive bar
+        QuizBottomBar(
+          answered: _answered,
+          isCorrect: _isCorrect,
+          hasSelection: _selectedIndex != null && !_checking,
+          onCheck: _check,
+          onSkip: widget.onNext,
+          onNext: () {
+            setState(() {
+              _selectedIndex = null;
+              _answered = false;
+              _isCorrect = null;
+              _correctOptionId = null;
+            });
+            widget.onNext();
+          },
+          explanation: widget.question.explanation,
+          onExplanation: () {
+            if (widget.question.explanation != null) {
+              _showExplanationBottomSheet(context, widget.question.explanation!);
+            }
+          },
+        ),
       ],
     );
   }
@@ -597,20 +609,28 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
           ),
         ),
         if (_hasError)
-          _ErrorBar(onGotIt: () => setState(() => _hasError = false)),
-        if (_allMatched)
-          _FeedbackBar(
+          _ErrorBar(onGotIt: () => setState(() => _hasError = false))
+        else
+          QuizBottomBar(
+            answered: _allMatched,
             isCorrect: true,
-            onContinue: () {
+            hasSelection: false,
+            onCheck: () {},
+            onSkip: widget.onNext,
+            onNext: () {
               setState(() {
                 _matched.clear();
                 _allMatched = false;
               });
               widget.onNext();
             },
-          )
-        else if (!_hasError)
-          _DisabledContinueBar(),
+            explanation: widget.question.explanation,
+            onExplanation: () {
+              if (widget.question.explanation != null) {
+                _showExplanationBottomSheet(context, widget.question.explanation!);
+              }
+            },
+          ),
       ],
     );
   }
@@ -646,15 +666,20 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
   bool _checking = false;
 
   void _selectWord(int index, String word) {
-    if (_selectedIndex != null || _checking) return;
+    if (_answered || _checking) return;
     setState(() {
-      _selectedWord = word;
-      _selectedIndex = index;
+      if (_selectedIndex == index) {
+        _selectedWord = null;
+        _selectedIndex = null;
+      } else {
+        _selectedWord = word;
+        _selectedIndex = index;
+      }
     });
   }
 
   void _submit() async {
-    if (_selectedIndex == null || _checking) return;
+    if (_selectedIndex == null || _answered || _checking) return;
     setState(() => _checking = true);
     final selectedOption = widget.question.options[_selectedIndex!];
     try {
@@ -716,45 +741,48 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
                 const SizedBox(height: 48),
 
                 // Word chips
-                if (_checking)
-                  const Center(child: CircularProgressIndicator())
-                else
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(widget.question.options.length, (i) {
-                      final word = widget.question.options[i];
-                      final isPlaced = i == _selectedIndex;
-                      return WordChip(
-                        word: word.text,
-                        isPlaced: isPlaced,
-                        isSelected: false,
-                        onTap: () => _selectWord(i, word.text),
-                      );
-                    }),
-                  ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: List.generate(widget.question.options.length, (i) {
+                    final word = widget.question.options[i];
+                    final isPlaced = i == _selectedIndex;
+                    return WordChip(
+                      word: word.text,
+                      isPlaced: isPlaced,
+                      isSelected: false,
+                      onTap: () => _selectWord(i, word.text),
+                    );
+                  }),
+                ),
               ],
             ),
           ),
         ),
-        if (_answered)
-          _FeedbackBar(
-            isCorrect: _isCorrect!,
-            onContinue: () {
-              setState(() {
-                _selectedWord = null;
-                _selectedIndex = null;
-                _answered = false;
-                _isCorrect = null;
-              });
-              widget.onNext();
-            },
-          )
-        else
-          _ActiveContinueBar(
-            enabled: _selectedWord != null && !_checking,
-            onContinue: _submit,
-          ),
+
+        // Bottom interactive bar
+        QuizBottomBar(
+          answered: _answered,
+          isCorrect: _isCorrect,
+          hasSelection: _selectedWord != null && !_checking,
+          onCheck: _submit,
+          onSkip: widget.onNext,
+          onNext: () {
+            setState(() {
+              _selectedWord = null;
+              _selectedIndex = null;
+              _answered = false;
+              _isCorrect = null;
+            });
+            widget.onNext();
+          },
+          explanation: widget.question.explanation,
+          onExplanation: () {
+            if (widget.question.explanation != null) {
+              _showExplanationBottomSheet(context, widget.question.explanation!);
+            }
+          },
+        ),
       ],
     );
   }
@@ -900,30 +928,230 @@ class _HearTouchQuestionWidgetState extends State<HearTouchQuestionWidget> {
             ),
           ),
         ),
-        if (_answered)
-          _FeedbackBar(
-            isCorrect: _selectedIndices.isNotEmpty,
-            onContinue: () {
-              setState(() {
-                _selectedIndices.clear();
-                _answered = false;
-                _isPlaying = false;
-              });
-              widget.onNext();
-            },
-          )
-        else
-          _ActiveContinueBar(
-            enabled: _selectedIndices.isNotEmpty,
-            onContinue: _submit,
-          ),
+        QuizBottomBar(
+          answered: _answered,
+          isCorrect: _selectedIndices.isNotEmpty,
+          hasSelection: _selectedIndices.isNotEmpty,
+          onCheck: _submit,
+          onSkip: widget.onNext,
+          onNext: () {
+            setState(() {
+              _selectedIndices.clear();
+              _answered = false;
+              _isPlaying = false;
+            });
+            widget.onNext();
+          },
+          explanation: widget.question.explanation,
+          onExplanation: () {
+            if (widget.question.explanation != null) {
+              _showExplanationBottomSheet(context, widget.question.explanation!);
+            }
+          },
+        ),
       ],
     );
   }
 }
 
+void _showExplanationBottomSheet(BuildContext context, String explanation) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    builder: (context) => Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSizes.radiusXxl)),
+      ),
+      padding: const EdgeInsets.all(AppSizes.screenPadding),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: AppColors.divider,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                const Icon(Icons.lightbulb_outline_rounded, color: AppColors.primary, size: 28),
+                const SizedBox(width: 8),
+                Text('Explanation', style: AppTextStyles.h2.copyWith(color: AppColors.primary)),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              explanation.isNotEmpty ? explanation : 'No explanation available for this question.',
+              style: AppTextStyles.bodyMedium.copyWith(height: 1.5, color: AppColors.textPrimary),
+            ),
+            const SizedBox(height: 24),
+            AppButton(
+              label: 'Got it',
+              onTap: () => Navigator.pop(context),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+class QuizBottomBar extends StatelessWidget {
+  final bool answered;
+  final bool? isCorrect;
+  final bool hasSelection;
+  final VoidCallback onCheck;
+  final VoidCallback onSkip;
+  final VoidCallback onNext;
+  final String? explanation;
+  final VoidCallback? onExplanation;
+
+  const QuizBottomBar({
+    super.key,
+    required this.answered,
+    this.isCorrect,
+    required this.hasSelection,
+    required this.onCheck,
+    required this.onSkip,
+    required this.onNext,
+    this.explanation,
+    this.onExplanation,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!answered) {
+      return Container(
+        padding: const EdgeInsets.fromLTRB(
+            AppSizes.screenPadding, 12, AppSizes.screenPadding, 0),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(top: BorderSide(color: AppColors.divider, width: 1.5)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton.outlined(
+                      label: 'Skip',
+                      onTap: onSkip,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: AppButton(
+                      label: 'Check',
+                      onTap: hasSelection ? onCheck : null,
+                      variant: hasSelection ? AppButtonVariant.primary : AppButtonVariant.disabled,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final correct = isCorrect ?? false;
+    final showExplanation = !correct && explanation != null && explanation!.trim().isNotEmpty;
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(
+          AppSizes.screenPadding, 16, AppSizes.screenPadding, 0),
+      decoration: BoxDecoration(
+        color: correct ? AppColors.feedbackCorrectBg : AppColors.feedbackWrongBg,
+        border: Border(
+          top: BorderSide(
+            color: correct ? AppColors.feedbackCorrectBorder : AppColors.feedbackWrongBorder,
+            width: 1.5,
+          ),
+        ),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 22,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    color: correct ? AppColors.primary : AppColors.accent,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      correct ? '✓' : '✕',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  correct ? 'Correct!' : 'Incorrect',
+                  style: AppTextStyles.h4.copyWith(
+                    color: correct ? AppColors.answerCorrectText : AppColors.answerWrongText,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                if (showExplanation) ...[
+                  Expanded(
+                    child: AppButton.outlined(
+                      label: 'Explanation',
+                      onTap: onExplanation,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                ],
+                Expanded(
+                  child: AppButton(
+                    label: 'Next',
+                    onTap: onNext,
+                    variant: correct ? AppButtonVariant.primary : AppButtonVariant.accent,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ─────────────────────────────────────────────
-// Shared bottom bar widgets
+// Shared bottom bar widgets (legacy/fallback)
 // ─────────────────────────────────────────────
 
 class _FeedbackBar extends StatelessWidget {

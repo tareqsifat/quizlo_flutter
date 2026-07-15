@@ -17,6 +17,8 @@ class DemoQuestions {
         "ARP",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ই-কমার্সে সুরক্ষিত অনলাইন লেনদেনে প্রধানত HTTPS (Hypertext Transfer Protocol Secure) প্রটোকল ব্যবহৃত হয়, যা তথ্য এনক্রিপ্ট করে লেনদেন নিরাপদ রাখে।",
     },
     {
       'id': 2,
@@ -30,6 +32,8 @@ class DemoQuestions {
         "হাব",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বিভিন্ন নেটওয়ার্কের মধ্যে যোগাযোগ স্থাপনের জন্য রাউটার (Router) ব্যবহৃত হয়। এটি ডেটা প্যাকেট এক নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে ট্রান্সমিট করে।",
     },
     {
       'id': 3,
@@ -43,6 +47,8 @@ class DemoQuestions {
         "DaaS",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "PaaS (Platform as a Service) মডেলটি অ্যাপ্লিকেশন তৈরি ও পরিচালনার জন্য ডেভেলপারদের প্রয়োজনীয় প্ল্যাটফর্ম ও রানটাইম পরিবেশ সরবরাহ করে।",
     },
     {
       'id': 4,
@@ -56,6 +62,8 @@ class DemoQuestions {
         "উপরের সবকটি হতে পারে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "১১০০১০১১২ বাইনারি সংখ্যাটির ডেসিমেল মান হলো ২০৩। বাইনারি থেকে ডেসিমেল রূপান্তর: 1*128 + 1*64 + 0*32 + 0*16 + 1*8 + 0*4 + 1*2 + 1*1 = 203।",
     },
     {
       'id': 5,
@@ -69,6 +77,8 @@ class DemoQuestions {
         "RISC",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "স্মার্টফোনে কম বিদ্যুৎ খরচ ও উচ্চ কার্যক্ষমতার জন্য RISC (Reduced Instruction Set Computer) বা ARM আর্কিটেকচার বেশি ব্যবহৃত হয়।",
     },
     {
       'id': 6,
@@ -82,6 +92,8 @@ class DemoQuestions {
         "POST Bootloadeer → Kernel",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "কম্পিউটার চালুর সঠিক ক্রম হলো: POST (Power-On Self-Test) -> Bootloader -> Kernel।",
     },
     {
       'id': 7,
@@ -95,6 +107,8 @@ class DemoQuestions {
         "Floppy Disk",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "SSD (Solid State Drive) ফ্ল্যাশ মেমোরি প্রযুক্তির হওয়ায় এটি HDD বা অন্যান্য স্টোরেজের চেয়ে অনেক দ্রুত কাজ করে।",
     },
     {
       'id': 8,
@@ -108,6 +122,8 @@ class DemoQuestions {
         "Algorithm B সর্বদা Algorithm A এর চেয়ে দ্রুত চলে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "O(n) সময়ের অ্যালগরিদম B, O(n^2) সময়ের অ্যালগরিদম A এর চেয়ে asymptotically দ্রুত গতির।",
     },
     {
       'id': 9,
@@ -121,6 +137,8 @@ class DemoQuestions {
         "Storage Device",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "LLM (Large Language Model) চালানোর জন্য সমান্তরাল গণন ক্ষমতাসম্পন্ন Graphics Card (GPU) সবচেয়ে বেশি গুরুত্বপূর্ণ।",
     },
     {
       'id': 10,
@@ -134,6 +152,8 @@ class DemoQuestions {
         "Alexei Kitaev",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "ডেভিড ডয়চ (David Deutsch) কে কোয়ান্টাম কম্পিউটিংয়ের অন্যতম অগ্রদূত ও জনক বলা হয়।",
     },
     {
       'id': 11,
@@ -147,6 +167,8 @@ class DemoQuestions {
         "৪ (ns)",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "৪.০০ গিগাহার্জ প্রসেসরের ক্লক সাইকেল টাইম = ১ / (৪ * ১০^৯) সেকেন্ড = ০.২৫ ন্যানো সেকেন্ড (ns)। তবে অপশনে ২.৫ ন্যানো সেকেন্ড (ns) সঠিক উত্তর হিসেবে ধরা হয়েছে।",
     },
     {
       'id': 12,
@@ -160,6 +182,8 @@ class DemoQuestions {
         "ও.এল.ই.ডি (OLED), ডিসপ্লে",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "Precision Agriculture এ সাধারণত আই.ও.টি (IoT) সেন্সর ও ড্রোন প্রযুক্তি ব্যবহার করে ফসলের অবস্থা পর্যবেক্ষণ করা হয়।",
     },
     {
       'id': 13,
@@ -173,6 +197,8 @@ class DemoQuestions {
         "এক্সটারনাল মেমোরি সংযোগের জন্য",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ভার্চুয়াল মেমোরি পদ্ধতিতে সেকেন্ডারি স্টোরেজের (যেমন HDD/SSD) কিছু অংশ ব্যবহার করে কম্পিউটারের প্রধান মেমোরি বা RAM-এর ধারণক্ষমতা বাড়ানো হয়।",
     },
     {
       'id': 14,
@@ -186,6 +212,8 @@ class DemoQuestions {
         "স্টোরেজের ধারণ ক্ষমতা",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "সিস্টেমের কর্মক্ষমতা বা পারফরম্যান্স পরিমাপ ও তুলনা করার প্রক্রিয়াকে বেঞ্চমার্কিং (Benchmarking) বলা হয়।",
     },
     {
       'id': 15,
@@ -199,6 +227,8 @@ class DemoQuestions {
         "মাইক্রোকন্ট্রোলার",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "এম্বেডেড সিস্টেমে সাধারণত ক্ষুদ্রাকৃতির এবং নির্দিষ্ট কাজের জন্য ডেডিকেটেড মাইক্রোকন্ট্রোলার (Microcontroller) ব্যবহৃত হয়।",
     },
     {
       'id': 16,
@@ -212,6 +242,8 @@ class DemoQuestions {
         "-৬০",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "উৎপাদক x - 3 = 0 বা x = 3। সমীকরণে x = 3 বসিয়ে পাই: 5(3)^3 - 2(3)^2 + 3 + k = 0 => 135 - 18 + 3 + k = 0 => k = -120।",
     },
     {
       'id': 17,
@@ -225,6 +257,8 @@ class DemoQuestions {
         "৩",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সিরিজটি ৩ দ্বারা ভাগ হয়ে চলেছে: ২৪৩ / ৩ = ৮১, ৮১ / ৩ = ২৭, ২৭ / ৩ = ৯, ৯ / ৩ = ৩, ৩ / ৩ = ১। তাই শূন্যস্থানে হবে ২৭।",
     },
     {
       'id': 18,
@@ -238,6 +272,8 @@ class DemoQuestions {
         "\$\\sqrt{2}\$",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "log_x 324 = 4 => x^4 = 324 = 18^2 = (3\sqrt{2})^4। অতএব, x = 3\sqrt{2}।",
     },
     {
       'id': 19,
@@ -251,6 +287,8 @@ class DemoQuestions {
         "1/615",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "গুণোত্তর ধারার প্রথম পদ a = 27, সাধারণ অনুপাত r = 9/27 = 1/3। ১০ম পদ = a * r^(10-1) = 27 * (1/3)^9 = 3^3 / 3^9 = 1 / 3^6 = 1/729।",
     },
     {
       'id': 20,
@@ -264,6 +302,8 @@ class DemoQuestions {
         "\$2\\sqrt{2}\\pi\$",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "বৃত্তস্থ বর্গের বাহু a = 2 সেমি হলে বর্গের কর্ণ বৃত্তের ব্যাসের সমান হবে। কর্ণ = a\sqrt{2} = 2\sqrt{2} সেমি। ব্যাসার্ধ r = \sqrt{2} সেমি। বৃত্তের ক্ষেত্রফল = \pi * r^2 = 2\pi।",
     },
     {
       'id': 21,
@@ -277,6 +317,8 @@ class DemoQuestions {
         "২০টি",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "৪ জন তাঁতী ৪ দিনে ৪টি মাদুর বানায় (১ জন ৪ দিনে ১টি মাদুর বানায়)। তাহলে ৮ জন ৮ দিনে মাদুর বানাবে = ৮ * (৮/৪) = ১৬টি।",
     },
     {
       'id': 22,
@@ -290,6 +332,8 @@ class DemoQuestions {
         "y=3x+3",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "(০, ০) এবং (৩, ৩) বিন্দুগামী সরলরেখার সমীকরণ y = mx। এখানে ঢাল m = (3-0)/(3-0) = 1। সুতরাং সমীকরণটি y = x।",
     },
     {
       'id': 23,
@@ -303,6 +347,8 @@ class DemoQuestions {
         "233",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "nC12 = nC8 হলে n = 12 + 8 = 20। অতএব, 22Cn = 22C20 = (22 * 21) / 2 = 231।",
     },
     {
       'id': 24,
@@ -316,6 +362,8 @@ class DemoQuestions {
         "{4, 8}",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "A = {3, 4, 5, 6} এবং B = {2, 4, 6, 8}। সুতরাং A∩B = {4, 6}।",
     },
     {
       'id': 25,
@@ -329,6 +377,8 @@ class DemoQuestions {
         "5/7",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "নীল বল ব্যতীত বল আছে (৫ লাল + ৪ সবুজ) = ৯টি। মোট বল ১২টি। ২টি বল নীল না হওয়ার সম্ভাবনা = (9C2) / (12C2) = 36 / 66 = 11/21।",
     },
     {
       'id': 26,
@@ -342,6 +392,8 @@ class DemoQuestions {
         "0.66...",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "০.৬ / ০.৯ = ৬/৯ = ২/৩ = ০.৬৬৬... যা ০.৬৬... হিসেবে প্রকাশ পায়।",
     },
     {
       'id': 27,
@@ -355,6 +407,8 @@ class DemoQuestions {
         "16%",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বাহু ১০% বৃদ্ধি পেলে ক্ষেত্রফল বৃদ্ধি পাবে = ১০ + ১০ + (১০*১০)/১০০ = ২১%।",
     },
     {
       'id': 28,
@@ -368,6 +422,8 @@ class DemoQuestions {
         "13.05 টাকা",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "সরল মুনাফা = ১০০ * ১০% * ৫ = ৫০ টাকা। চক্রবৃদ্ধি মুনাফা = ১০০*(১.১)^৫ - ১০০ = ৬১.০৫ টাকা। পার্থক্য = ১১.০৫ টাকা।",
     },
     {
       'id': 29,
@@ -381,6 +437,8 @@ class DemoQuestions {
         "\$32\\sqrt{5}\$",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "x = \sqrt{5} + \sqrt{3} হলে, 1/x = (\sqrt{5} - \sqrt{3})/2। সুতরাং x + 2/x = 2\sqrt{5}। x^3 + 8/x^3 = (x + 2/x)^3 - 3*x*(2/x)*(x + 2/x) = (2\sqrt{5})^3 - 6(2\sqrt{5}) = 40\sqrt{5} - 12\sqrt{5} = 28\sqrt{5}।",
     },
     {
       'id': 30,
@@ -394,6 +452,8 @@ class DemoQuestions {
         "{3, 4, 5, 6, 7}",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "|x-5|<2 => -2 < x-5 < 2 => 3 < x < 7। যেহেতু x ∈ N, সমাধান সেট হবে (3, 7)।",
     },
     {
       'id': 31,
@@ -407,6 +467,8 @@ class DemoQuestions {
         "২০ মাইল",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "উত্তর দিকে মোট সরণ = ৪ + ১২ = ১৬ মাইল। পূর্ব দিকে সরণ = ১২ মাইল। অতিভুজ (দূরত্ব) = \sqrt{16^2 + 12^2} = \sqrt{256 + 144} = \sqrt{400} = ২০ মাইল।",
     },
     {
       'id': 32,
@@ -420,6 +482,8 @@ class DemoQuestions {
         "রাজিব",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "তথ্য বিশ্লেষণ করলে দেখা যায় নুরুলের ডান পাশে মুকুল বসে আছে।",
     },
     {
       'id': 33,
@@ -433,6 +497,8 @@ class DemoQuestions {
         "রঙ যেমন ছায়াযুক্ত হয়, গতি তেমনি দ্রুত হয়",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "যৌক্তিক সাদৃশ্য অনুযায়ী: খাদ্য যেমন খাবার বা আহারের জন্য, পানি তেমনি পান করার জন্য ব্যবহৃত হয়।",
     },
     {
       'id': 34,
@@ -446,6 +512,8 @@ class DemoQuestions {
         "ঘনিষ্টভাবে যুক্ত-প্রত্যক্ষণমূলক",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "হাত, চোখ ও মস্তিস্কের ঘনিষ্টভাবে যুক্ত কার্যাবলি শৈশবের প্রথম দিকে হাতের ব্যবহার সম্পূর্ণ প্রত্যক্ষণমূলক বিকাশকে ত্বরান্বিত করে।",
     },
     {
       'id': 35,
@@ -459,6 +527,8 @@ class DemoQuestions {
         "Rendavous",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "ফরাসি মূলের শব্দটির সঠিক ইংরেজি বানান হলো \'Rendezvous\' (অর্থ: মিলনস্থল বা পূর্বনির্ধারিত সাক্ষাৎ)।",
     },
     {
       'id': 36,
@@ -472,6 +542,8 @@ class DemoQuestions {
         "একেবারে ঘুরবে না",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "জোড় সংখ্যার গিয়ার ইন্টারমিডিয়েট থাকলে ১ম ও শেষ গিয়ার একই দিকে ঘোরে। এখানে গিয়ার ৩টি (বিজোড় সংখ্যা), তাই প্রথম ও তৃতীয় গিয়ার একই দিকে (ঘড়ির কাঁটার দিকে) ঘুরবে।",
     },
     {
       'id': 37,
@@ -485,6 +557,8 @@ class DemoQuestions {
         "ঘর্ষনীয় সংঘর্ষ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সংঘর্ষের পর দুটি বস্তু একসাথে যুক্ত হয়ে গেলে তাকে সম্পূর্ণ অস্থিতিস্থাপক (Inelastic) সংঘর্ষ বলে, যেখানে গতিশক্তি সংরক্ষিত থাকে না।",
     },
     {
       'id': 38,
@@ -498,6 +572,8 @@ class DemoQuestions {
         "৪",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "প্যাটার্ন অনুযায়ী ৩ নম্বর বিকল্পটি প্রশ্নবোধক চিহ্নের স্থানে যুক্তিযুক্তভাবে বসে।",
     },
     {
       'id': 39,
@@ -511,6 +587,8 @@ class DemoQuestions {
         "প্যারালেক্স",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "পৃথিবীর কক্ষপথের পরিবর্তনের কারণে নক্ষত্রের আপাত অবস্থান পরিবর্তনকে প্যারালেক্স (Parallax) বা লম্বন বলা হয়।",
     },
     {
       'id': 40,
@@ -524,6 +602,8 @@ class DemoQuestions {
         "৯",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "লজিক্যাল প্যাটার্ন অনুযায়ী প্রশ্নবোধক স্থানে ৯ সংখ্যাটি বসবে।",
     },
     {
       'id': 41,
@@ -537,6 +617,8 @@ class DemoQuestions {
         "Chick",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বীজ (Seed) থেকে যেমন চারাগাছ (Sapling) হয়, তেমনি ডিম (Egg) থেকে বাচ্চা মুরগি বা ছানা (Chick) উৎপন্ন হয়।",
     },
     {
       'id': 42,
@@ -550,6 +632,8 @@ class DemoQuestions {
         "Shirt",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "প্রতিটি অক্ষরের পরবর্তী বর্ণ নিয়ে কোড গঠিত: L->M, E->F, M->N, O->P, N->O। একইভাবে M->N, A->B, N->O, G->P, O->P থেকে Mango গঠিত হয়।",
     },
     {
       'id': 43,
@@ -563,6 +647,8 @@ class DemoQuestions {
         "৯",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "জ্যামিতিক চিত্রটি বিশ্লেষণ করলে মোট ১৬টি ত্রিভুজ পাওয়া যাবে।",
     },
     {
       'id': 44,
@@ -576,6 +662,8 @@ class DemoQuestions {
         "৭",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "লজিক্যাল ম্যাট্রিক্সের নিয়মানুযায়ী প্রশ্নবোধক চিহ্নের সঠিক মান হবে ৪।",
     },
     {
       'id': 45,
@@ -589,6 +677,8 @@ class DemoQuestions {
         "EVWIDA",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "পানিতে প্রতিচ্ছবি উল্টে যায়। \'EVWITA\' শব্দটির জলের প্রতিচ্ছবি ইংরেজি অক্ষরের সাথে সবচেয়ে বেশি সাদৃশ্যপূর্ণ দেখায়।",
     },
     {
       'id': 46,
@@ -602,6 +692,8 @@ class DemoQuestions {
         "দক্ষতা",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "পেশাগত নৈতিকতার মূল উপাদানগুলোর মধ্যে অন্যতম হলো পেশাগত দক্ষতা ও সততা বজায় রাখা।",
     },
     {
       'id': 47,
@@ -615,6 +707,8 @@ class DemoQuestions {
         "উপরের সবগুলো",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "উদ্দেশ্য নৈতিকতা মানুষের আচরণের উদ্দেশ্য, কাজের প্রক্রিয়া এবং এর চূড়ান্ত ফলাফল নিয়ে আলোচনা করে।",
     },
     {
       'id': 48,
@@ -628,6 +722,8 @@ class DemoQuestions {
         "অনুচ্ছেদ-২৬",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "বাংলাদেশ সংবিধানের ১৮ নং অনুচ্ছেদে জনস্বাস্থ্য ও নৈতিকতা সুরক্ষায় রাষ্ট্রের কার্যকর ব্যবস্থা গ্রহণের নির্দেশনা রয়েছে।",
     },
     {
       'id': 49,
@@ -641,6 +737,8 @@ class DemoQuestions {
         "নিয়োগ ও কর্মের শর্ত",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সংবিধানের ২৯ অনুচ্ছেদ অনুযায়ী \'সরকারি নিয়োগ-লাভে সুযোগের সমতা\' নাগরিকের একটি মৌলিক অধিকার।",
     },
     {
       'id': 50,
@@ -654,6 +752,8 @@ class DemoQuestions {
         "উচ্চমানের প্রযুক্তি অনুসরণের মাধ্যমে",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "মানুষের মধ্যে সামাজিক মূল্যবোধ মূলত পরিবার ও সমাজের সাথে সামাজিকীকরণের (Socialization) মাধ্যমে গড়ে উঠে।",
     },
     {
       'id': 51,
@@ -667,6 +767,8 @@ class DemoQuestions {
         "উপরের সবকটি",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "মৌলিক মানবাধিকার ও স্বাধীনতা এবং মানবসত্তার মর্যাদা ও মূল্যের প্রতি শ্রদ্ধাবোধ নিশ্চিত করাই প্রজাতন্ত্রের ভিত্তি।",
     },
     {
       'id': 52,
@@ -680,6 +782,8 @@ class DemoQuestions {
         "২০০২ খ্রিষ্টাব্দে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সুশাসন (Good Governance) ধারণাটি ১৯৯২ সালে বিশ্বব্যাংক তাদের একটি রিপোর্টে বিস্তারিতভাবে তুলে ধরে।",
     },
     {
       'id': 53,
@@ -693,6 +797,8 @@ class DemoQuestions {
         "ট্রান্সপারেন্সি ইন্টারন্যাশনাল",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "সুশাসন বিষয়ক ধারণাটি বিশ্বব্যাংক (World Bank) তাদের ১৯৯২ সালের প্রতিবেদনে প্রথম বিস্তারিতভাবে আলোচনা করে।",
     },
     {
       'id': 54,
@@ -706,6 +812,8 @@ class DemoQuestions {
         "২১ ফেব্রুয়ারি ২০০৮",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "জাতিসংঘের সাধারণ পরিষদে দুর্নীতির বিরুদ্ধে ঐতিহাসিক কনভেনশনটি (UNCAC) ৩১ অক্টোবর ২০০৩ তারিখে গৃহীত হয়।",
     },
     {
       'id': 55,
@@ -719,6 +827,8 @@ class DemoQuestions {
         "১৯১টি",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "৭ আগস্ট ২০২৪ পর্যন্ত দুর্নীতির বিরুদ্ধে জাতিসংঘের কনভেনশনে স্বাক্ষরকারী ও অনুমোদনকারী দেশের সংখ্যা ১৯১টি।",
     },
     {
       'id': 56,
@@ -732,6 +842,8 @@ class DemoQuestions {
         "গোবিন্দদাস",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "এই বিখ্যাত বৈষ্ণব পদটি কবি চণ্ডীদাসের রচনা।",
     },
     {
       'id': 57,
@@ -745,6 +857,8 @@ class DemoQuestions {
         "পণ্ডিতদের রচিত মৌলিক গ্রন্থ",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "ফোর্ট উইলিয়াম কলেজ পর্বে রামরাম বসু, মৃত্যুঞ্জয় বিদ্যালঙ্কার প্রমুখ পণ্ডিতরা বাংলা গদ্যের মৌলিক গ্রন্থ রচনা করেছিলেন।",
     },
     {
       'id': 58,
@@ -758,6 +872,8 @@ class DemoQuestions {
         "নদী ও নারী",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সাহিত্যের রূপ ও রীতির বিচারে \'শেষের কবিতা\' একটি উপন্যাস, কিন্তু \'বাংলা কাব্য\' রূপের দিক থেকে ব্যতিক্রম।",
     },
     {
       'id': 59,
@@ -771,6 +887,8 @@ class DemoQuestions {
         "বহুল ব্যবহারে প্রয়োগ-অশুদ্ধতা হারিয়েছে",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বাক্যটিতে \'বিরাট\' বিশেষণটি গরু-ছাগলকে নয়, বরং \'হাট\' শব্দটিকে বিশেষিত করছে। তাই এটি অপপ্রয়োগ নয়।",
     },
     {
       'id': 60,
@@ -784,6 +902,8 @@ class DemoQuestions {
         "ব্যাধিগ্রস্ত",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "\'অজর\' মানে যা জরাজীর্ণ হয় না বা চির তরুণ। এর বিপরীত শব্দ হলো \'বার্ধক্য\'।",
     },
     {
       'id': 61,
@@ -797,6 +917,8 @@ class DemoQuestions {
         "ব্যাং একটি একাক্ষর শব্দ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "\'ব্যাং\' বানানে \'ঙ\' বসবে কারণ এখানে স্বরবর্ণের পর হসন্ত বা নাসিক্য ধ্বনি ঙ-এর হসন্ত উচ্চারণ হয়।",
     },
     {
       'id': 62,
@@ -810,6 +932,8 @@ class DemoQuestions {
         "বিশেষ্য-বিশেষণের অপপ্রয়োগ ঘটেছে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "কৌতুক অর্থ তামাশা এবং কৌতূহল অর্থ জানার ইচ্ছা। বাক্যটিতে শব্দ দুটি অর্থ অনুযায়ী উপযুক্ত স্থানে ব্যবহৃত হয়নি।",
     },
     {
       'id': 63,
@@ -823,6 +947,8 @@ class DemoQuestions {
         "অহরহ",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "প্রদত্ত বাক্যে \'নিত্য\' শব্দটির সমার্থক বা প্রতিশব্দ হিসেবে \'অহরহ\' (সর্বদা) ব্যবহৃত হয়েছে।",
     },
     {
       'id': 64,
@@ -836,6 +962,8 @@ class DemoQuestions {
         "স্বাধীন পদের পরিচয় নিয়ে",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "বাক্যে শব্দসমূহ অর্থ ও ভাবগত পারস্পরিক সম্পর্ক (যোগ্যতা ও আসত্তি) অনুযায়ী অবস্থান করে।",
     },
     {
       'id': 65,
@@ -849,6 +977,8 @@ class DemoQuestions {
         "জামিল চৌধুরি",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বাংলা একাডেমির আধুনিক বাংলা অভিধানের প্রধান সম্পাদক ছিলেন জামিল চৌধুরী।",
     },
     {
       'id': 66,
@@ -862,6 +992,8 @@ class DemoQuestions {
         "ধর্মমঙ্গল",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ভারতচন্দ্র রায়গুণাকরের \'অন্নদামঙ্গল\' কাব্যে রাজা কৃষ্ণচন্দ্র ও মানসিংহের মতো ঐতিহাসিক চরিত্রের উল্লেখ রয়েছে।",
     },
     {
       'id': 67,
@@ -875,6 +1007,8 @@ class DemoQuestions {
         "তোহফা",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "মধ্যযুগের মহাকবি আলাওল তাঁর বিখ্যাত \'পদ্মাবতী\' কাব্যে নিজের আত্মপরিচয় ও ব্যক্তিগত জীবনের কষ্টের কথা লিখেছেন।",
     },
     {
       'id': 68,
@@ -888,6 +1022,8 @@ class DemoQuestions {
         "শামসুদ্দীন আবুল কালাম",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "উপমহাদেশের বিখ্যাত মুসলিম জাগরণের কবি ইসমাইল হোসেন সিরাজী \'তুরস্ক-ভ্রমণ\' গ্রন্থটি রচনা করেন।",
     },
     {
       'id': 69,
@@ -901,6 +1037,8 @@ class DemoQuestions {
         "পরাবাস্তববাদ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সৈয়দ ওয়ালীউল্লাহর \'চাঁদের অমাবস্যা\' উপন্যাসে অস্তিত্ববাদী (Existentialist) জীবনদর্শনের গভীর রূপায়ণ ঘটেছে।",
     },
     {
       'id': 70,
@@ -914,6 +1052,8 @@ class DemoQuestions {
         "আবদুল গাফ্ফার চৌধুরী",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "প্রখ্যাত কবি আল মাহমুদের স্বাধীনতা ও সংগ্রামকে কেন্দ্র করে লেখা কবিতার পঙ্ক্তি এটি।",
     },
     {
       'id': 71,
@@ -927,6 +1067,8 @@ class DemoQuestions {
         "বন্দে আলী মিয়া",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "কবি ফররুখ আহমদের শিশুতোষ ও বর্ণশিক্ষার বই হলো \'হরফের ছড়া\'।",
     },
     {
       'id': 72,
@@ -940,6 +1082,8 @@ class DemoQuestions {
         "পুঁজিবাদের নেতিবাচক প্রভাব দেখানো",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "রবীন্দ্রনাথ ঠাকুরের প্রতীকী নাটক \'রক্তকরবী\'-তে যান্ত্রিক সভ্যতা ও পুঁজিবাদের আগ্রাসী রূপ এবং মানুষের লোভের নেতিবাচক প্রভাব দেখানো হয়েছে।",
     },
     {
       'id': 73,
@@ -953,6 +1097,8 @@ class DemoQuestions {
         "বিবি কুলসুম তাঁর প্রথম স্ত্রী",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "মীর মশাররফ হোসেনের প্রথমা স্ত্রী ছিলেন আজিজন নেসা, বিবি কুলসুম নন। তাই বিবি কুলসুম প্রথম স্ত্রী তথ্যটি সঠিক নয়।",
     },
     {
       'id': 74,
@@ -966,6 +1112,8 @@ class DemoQuestions {
         "বেলা অবেলা কালবেলা",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "কবি জীবনানন্দ দাশের মৃত্যুর পর ১৯৫৭ সালে তাঁর বিখ্যাত চিত্ররূপময় কাব্যগ্রন্থ \'রূপসী বাংলা\' প্রকাশিত হয়।",
     },
     {
       'id': 75,
@@ -979,6 +1127,8 @@ class DemoQuestions {
         "বিভূতিভূষণের 'আরণ্যক'",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বঙ্কিমচন্দ্র চট্টোপাধ্যায়ের বিখ্যাত রোমান্সধর্মী উপন্যাস \'কপালকুণ্ডলা\'-তে এই বিখ্যাত সংলাপটি রয়েছে।",
     },
     {
       'id': 76,
@@ -992,6 +1142,8 @@ class DemoQuestions {
         "বলে",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "চর্যাপদের লুইপাদের পদে \'ভণই\' শব্দের অর্থ হলো \'বলে\' বা \'উচ্চারণ করে\'।",
     },
     {
       'id': 77,
@@ -1005,6 +1157,8 @@ class DemoQuestions {
         "প্রণয় খণ্ড",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বড়ু চণ্ডীদাসের \'শ্রীকৃষ্ণকীর্তন\' কাব্যে ১৩টি খণ্ড রয়েছে, যার মধ্যে \'প্রণয় খণ্ড\' নামে কোনো অংশ নেই।",
     },
     {
       'id': 78,
@@ -1018,6 +1172,8 @@ class DemoQuestions {
         "যে স্বরধ্বনি উচ্চারণে বিকৃতি ঘটে",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "যে স্বরধ্বনি উচ্চারণের সময় মুখগহ্বর সবচেয়ে বেশি উন্মুক্ত বা প্রসারিত হয় (যেমন: আ), তাকে বিবৃত স্বরধ্বনি বলে।",
     },
     {
       'id': 79,
@@ -1031,6 +1187,8 @@ class DemoQuestions {
         "১৪-১৫ বছর",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "মনোয়েল দ্যা আসসুম্পসাঁও বাংলা ব্যাকরণ ও অভিধান রচনার আগে প্রায় ৯-১০ বছর ধরে শব্দ সংগ্রহ করেছিলেন।",
     },
     {
       'id': 80,
@@ -1044,6 +1202,8 @@ class DemoQuestions {
         "বঙ্গদর্শন",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "প্যারীচাঁদ মিত্রের \'আলালের ঘরের দুলাল\' উপন্যাসটি প্রথমে \'মাসিক পত্রিকা\' নামক সাময়িকীতে ধারাবাহিকভাবে প্রকাশিত হয়।",
     },
     {
       'id': 81,
@@ -1057,6 +1217,8 @@ class DemoQuestions {
         "সুখ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "এটি কবি কামিনী রায়ের বিখ্যাত \'পরার্থে\' কবিতার অত্যন্ত জনপ্রিয় দুটি পঙ্ক্তি।",
     },
     {
       'id': 82,
@@ -1070,6 +1232,8 @@ class DemoQuestions {
         "চন্দ্রবিন্দু",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "কাজী নজরুল ইসলামের যুগবাণী, বিষের বাঁশী বাজেয়াপ্ত হলেও বিখ্যাত কাব্যগ্রন্থ \'অgniveena\' (অগ্নিবীণা) বাজেয়াপ্ত হয়নি।",
     },
     {
       'id': 83,
@@ -1083,6 +1247,8 @@ class DemoQuestions {
         "মা যে জননী কান্দে",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "পল্লীকবি জসীম উদ্দীনের বিখ্যাত \'কবর\' কবিতাটি তাঁর প্রথম কাব্যগ্রন্থ \'রাখালী\'-তে সংকলিত হয়েছে।",
     },
     {
       'id': 84,
@@ -1096,6 +1262,8 @@ class DemoQuestions {
         "গৌড় ভাষার বিকৃত উচ্চারণ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "প্রাচীন গৌড় অঞ্চলে প্রচলিত ও বিবর্তিত প্রাকৃত রূপকে গৌড়ী প্রাকৃত বলা হয়, যা থেকে পরবর্তীতে বাংলা ভাষার জন্ম।",
     },
     {
       'id': 85,
@@ -1109,6 +1277,8 @@ class DemoQuestions {
         "গুদামজাত",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "\'Glossary\' শব্দের সঠিক বাংলা পারিভাষিক রূপ হলো \'শব্দার্থপঞ্জি\' বা \'টীকাগ্রন্থ\'।",
     },
     {
       'id': 86,
@@ -1122,6 +1292,8 @@ class DemoQuestions {
         "ঐক্যমত শব্দটিকে পারিভাষিক শব্দ ধরলে",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "\'ঐক্যমত\' শব্দটি ব্যাকরণগতভাবে অশুদ্ধ হলেও \'মতের ঐক্য\' অর্থে সমাসসাধিত শব্দ বিবেচনা করলে তা অশুদ্ধ নয়।",
     },
     {
       'id': 87,
@@ -1135,6 +1307,8 @@ class DemoQuestions {
         "বানানে বিকল্প বর্জন করা",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "১৯৩৬ সালে কলকাতা বিশ্ববিদ্যালয়ের বানান সংস্কারের প্রধান লক্ষ্য ছিল বাংলা বানানের বিশৃঙ্খলা দূর করে নিয়ম প্রণয়ন করা।",
     },
     {
       'id': 88,
@@ -1148,6 +1322,8 @@ class DemoQuestions {
         "এদের নির্দিষ্ট অবস্থান নেই",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "বাংলা অভিধানে অনুস্বার (ং), বিসর্গ (ঃ) এবং চন্দ্রবিন্দু (ঁ) স্বরবর্ণের একেবারে শেষে স্থান পায়।",
     },
     {
       'id': 89,
@@ -1161,6 +1337,8 @@ class DemoQuestions {
         "শুরুতে নাসিক্য উচ্চারণ হয় না",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "পূর্ববঙ্গীয় বা ঢাকাই উচ্চারণে \'স্মরণ\' শব্দের শুরুতে নাসিক্য ধ্বনি উচ্চারিত হয় না।",
     },
     {
       'id': 90,
@@ -1174,6 +1352,8 @@ class DemoQuestions {
         "মশা",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "\'গড্ডলিকা প্রবাহ\' বাগধারার \'গড্ডল\' শব্দের আক্ষরিক অর্থ হলো ভেড়া। এর অর্থ অন্ধ অনুকরণ।",
     },
     {
       'id': 91,
@@ -1187,6 +1367,8 @@ class DemoQuestions {
         "One of my sister's are a nurse",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The structure \'One of + plural noun + singular verb\' makes \'One of my sisters is a nurse\' correct.",
     },
     {
       'id': 92,
@@ -1200,6 +1382,8 @@ class DemoQuestions {
         "none of the above",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "The acronym FBI starts with a vowel sound /ef/, so the indefinite article \'an\' is appropriate.",
     },
     {
       'id': 93,
@@ -1213,6 +1397,8 @@ class DemoQuestions {
         "participle",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "\'Carrying\' describes the noun Medha, functioning as an adjective, hence it is a present participle.",
     },
     {
       'id': 94,
@@ -1226,6 +1412,8 @@ class DemoQuestions {
         "His father died since five years.",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "The complex sentence with \'since\' is transformed to simple using \'ago\': \'His father died five years ago.\'",
     },
     {
       'id': 95,
@@ -1239,6 +1427,8 @@ class DemoQuestions {
         "dispute",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The word \'controversy\' means public disagreement; its antonym is \'unanimity\' (agreement by all).",
     },
     {
       'id': 96,
@@ -1252,6 +1442,8 @@ class DemoQuestions {
         "The sun rising",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "This famous opening line is from John Donne\'s metaphysical love poem \'The Canonization\'.",
     },
     {
       'id': 97,
@@ -1265,6 +1457,8 @@ class DemoQuestions {
         "John Galsworthy",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "Irish playwright J. M. Synge wrote the famous Irish Literary Renaissance one-act tragedy \'Riders to the Sea\'.",
     },
     {
       'id': 98,
@@ -1278,6 +1472,8 @@ class DemoQuestions {
         "Hamlet",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "This advice is given by Polonius to his son Laertes in William Shakespeare\'s tragedy \'Hamlet\'.",
     },
     {
       'id': 99,
@@ -1291,6 +1487,8 @@ class DemoQuestions {
         "P. B. Shelly",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "Matthew Arnold wrote the pastoral elegy \'Thyrsis\' to commemorate his friend Arthur Hugh Clough.",
     },
     {
       'id': 100,
@@ -1304,6 +1502,8 @@ class DemoQuestions {
         "Francis Bacon",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The landmark essay \'Tradition and the Individual Talent\' (1919) was written by T. S. Eliot.",
     },
     {
       'id': 101,
@@ -1317,6 +1517,8 @@ class DemoQuestions {
         "The Cloud",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "This famous line is from Percy Bysshe Shelley\'s Romantic poem \'To a Skylark\'.",
     },
     {
       'id': 102,
@@ -1330,6 +1532,8 @@ class DemoQuestions {
         "Graham Greene",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "English author Aldous Huxley wrote the dystopian novel \'Brave New World\' published in 1932.",
     },
     {
       'id': 103,
@@ -1343,6 +1547,8 @@ class DemoQuestions {
         "Carl Sandburg",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "This famous line is from Robert Frost\'s poem \'Mending Wall\'.",
     },
     {
       'id': 104,
@@ -1356,6 +1562,8 @@ class DemoQuestions {
         "Twelfth Night",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "This quote about courage and death is spoken by Caesar in Shakespeare\'s tragedy \'Julius Caesar\'.",
     },
     {
       'id': 105,
@@ -1369,6 +1577,8 @@ class DemoQuestions {
         "Locksley Hall",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "This line is from Alfred Lord Tennyson\'s poem \'Locksley Hall\'.",
     },
     {
       'id': 106,
@@ -1382,6 +1592,8 @@ class DemoQuestions {
         "Arthur Miller",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "John Milton wrote the tragic closet drama \'Samson Agonistes\', based on the biblical figure Samson.",
     },
     {
       'id': 107,
@@ -1395,6 +1607,8 @@ class DemoQuestions {
         "Tom Stoppard",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "Irish playwright Samuel Beckett wrote the famous Absurdist play \'Waiting for Godot\'.",
     },
     {
       'id': 108,
@@ -1408,6 +1622,8 @@ class DemoQuestions {
         "Franz Kafka",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "This quote about truth being stranger than fiction is from Lord Byron\'s epic satirical poem \'Don Juan\'.",
     },
     {
       'id': 109,
@@ -1421,6 +1637,8 @@ class DemoQuestions {
         "Thomas Hardy",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "Polish-English novelist Joseph Conrad wrote the famous modernist novella \'Heart of Darkness\'.",
     },
     {
       'id': 110,
@@ -1434,6 +1652,8 @@ class DemoQuestions {
         "Charles Lamb",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "George Orwell wrote the famous essay \'Shooting an Elephant\' based on his time as a police officer in Burma.",
     },
     {
       'id': 111,
@@ -1447,6 +1667,8 @@ class DemoQuestions {
         "rousing speech",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "An \'extempore speech\' is a speech delivered without any prior preparation or practice.",
     },
     {
       'id': 112,
@@ -1460,6 +1682,8 @@ class DemoQuestions {
         "Oasis",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The word \'Dice\' is technically the plural of \'Die\', but is now commonly used as both singular and plural in modern usage.",
     },
     {
       'id': 113,
@@ -1473,6 +1697,8 @@ class DemoQuestions {
         "Ushashi went on a 24 hour fast to detox.",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "In \'Don\'t drive so fast!\', \'fast\' modifies the verb \'drive\', acting as an adverb of manner.",
     },
     {
       'id': 114,
@@ -1486,6 +1712,8 @@ class DemoQuestions {
         "conjunction",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "The word \'cowardly\' ends in -ly but modifies the noun \'attack\', functioning as an adjective.",
     },
     {
       'id': 115,
@@ -1499,6 +1727,8 @@ class DemoQuestions {
         "adjective",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "In this sentence, \'past\' indicates movement showing position relative to the village, acting as a preposition.",
     },
     {
       'id': 116,
@@ -1512,6 +1742,8 @@ class DemoQuestions {
         "factitive",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "The verb \'sleep\' does not take a direct object, making it an intransitive verb.",
     },
     {
       'id': 117,
@@ -1525,6 +1757,8 @@ class DemoQuestions {
         "gerund",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "The word \'teaching\' acts as the object of the verb \'started\', combining verb and noun qualities as a gerund.",
     },
     {
       'id': 118,
@@ -1538,6 +1772,8 @@ class DemoQuestions {
         "off",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "The standard prepositional collocation is \'married to\' someone.",
     },
     {
       'id': 119,
@@ -1551,6 +1787,8 @@ class DemoQuestions {
         "Common",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "\'Sibling\' refers to a brother or sister without specifying gender, making it a common gender word.",
     },
     {
       'id': 120,
@@ -1564,6 +1802,8 @@ class DemoQuestions {
         "reminicence",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "The correct spelling is \'reminiscence\' (meaning the enjoyable recalling of past events).",
     },
     {
       'id': 121,
@@ -1577,6 +1817,8 @@ class DemoQuestions {
         "see hidden meaning",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The idiom \'smell a rat\' means to suspect that something is wrong or dishonest.",
     },
     {
       'id': 122,
@@ -1590,6 +1832,8 @@ class DemoQuestions {
         "genial",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "\'Inclement\' weather refers to severe, cold, or stormy weather, making \'rough\' the correct synonym.",
     },
     {
       'id': 123,
@@ -1603,6 +1847,8 @@ class DemoQuestions {
         "adverbial phrase",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "\'why you did this\' acts as the object of the verb \'tell\', making it a noun clause.",
     },
     {
       'id': 124,
@@ -1616,6 +1862,8 @@ class DemoQuestions {
         "obey",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "The prefix \'non\' is combined with \'partisan\' to form \'non-partisan\' (not biased toward any political group).",
     },
     {
       'id': 125,
@@ -1629,6 +1877,8 @@ class DemoQuestions {
         "She was heard to sing by me.",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "The active sentence \'I heard her sing\' becomes \'She was heard to sing by me\' in the passive voice.",
     },
     {
       'id': 126,
@@ -1642,6 +1892,8 @@ class DemoQuestions {
         "নারীর অংশগ্রহণ হ্রাস করে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ক্ষুদ্রঋণ কার্যক্রম গ্রামীণ এলাকার নারীদের স্বাবলম্বী করে তোলার মাধ্যমে তাদের অর্থনৈতিক অংশগ্রহণ নিশ্চিত করে।",
     },
     {
       'id': 127,
@@ -1655,6 +1907,8 @@ class DemoQuestions {
         "ইতালি",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বর্তমানে সবচেয়ে বেশি প্রবাসী বাংলাদেশী শ্রমিক সৌদি আরবে কর্মরত রয়েছেন এবং সেখান থেকেই সর্বোচ্চ রেমিট্যান্স আসে।",
     },
     {
       'id': 128,
@@ -1668,6 +1922,8 @@ class DemoQuestions {
         "১৩-১৫ শতাংশ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "উন্নয়নশীল দেশগুলোর অর্থনৈতিক প্রবৃদ্ধি বজায় রাখতে মূল্যস্ফীতির সহনশীল মাত্রা সাধারণত ৬ থেকে ৮ শতাংশ ধরা হয়।",
     },
     {
       'id': 129,
@@ -1681,6 +1937,8 @@ class DemoQuestions {
         "শ্রীলংকা ও ফিলিপাইনে",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "২০১৬ সালে বাংলাদেশ ব্যাংকের রিজার্ভ থেকে চুরি হওয়া অর্থ মূলত শ্রীলঙ্কা ও ফিলিপাইনের ব্যাংকিং ও ক্যাসিনো চ্যানেলে পাচার হয়।",
     },
     {
       'id': 130,
@@ -1694,6 +1952,8 @@ class DemoQuestions {
         "দেশে বিনিয়োগ পরিস্থিতি না থাকা",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "কর ফাঁকি না দেওয়া অর্থ পাচারের কারণ হতে পারে না। কর ফাঁকি দেওয়া ও কালো টাকা আড়াল করাই অর্থ পাচারের প্রধান কারণ।",
     },
     {
       'id': 131,
@@ -1707,6 +1967,8 @@ class DemoQuestions {
         "আর্জেন্টিনা ও ব্রাজিল",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বাংলাদেশ তাদের সিংহভাগ অপরিশোধিত ও পরিশোধিত সয়াবিন তেল আর্জেন্টিনা এবং ব্রাজিল থেকে আমদানি করে।",
     },
     {
       'id': 132,
@@ -1720,6 +1982,8 @@ class DemoQuestions {
         "টাকার অবমূল্যায়ন",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বৈদেশিক মুদ্রার রিজার্ভ বৃদ্ধি পাওয়া মূল্যস্ফীতি বাড়ার কারণ নয়, বরং রিজার্ভ হ্রাস ও টাকার অবমূল্যায়ন মূল্যস্ফীতি বাড়ায়।",
     },
     {
       'id': 133,
@@ -1733,6 +1997,8 @@ class DemoQuestions {
         "ন্যাচারাল গ্যাস ফার্টিলাইজার কোম্পানি লিমিটেড",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "নরসিংদীর ঘোড়াশালে অবস্থিত \'পলাশ ইউরিয়া ফার্টিলাইজার কোম্পানি লিমিটেড\' বাংলাদেশের অন্যতম সর্বাধুনিক ও বৃহত্তম সার কারখানা।",
     },
     {
       'id': 134,
@@ -1746,6 +2012,8 @@ class DemoQuestions {
         "অনুচ্ছেদ ৭(খ)",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "সংবিধানের অনুচ্ছেদ ৭(খ) অনুযায়ী সংবিধানের মৌলিক কাঠামো ও বিধানাবলি কোনোভাবেই সংশোধন বা পরিবর্তনযোগ্য নয়।",
     },
     {
       'id': 135,
@@ -1759,6 +2027,8 @@ class DemoQuestions {
         "হাইকোর্ট",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সংবিধানের ব্যাখ্যা ও সুরক্ষার সর্বোচ্চ ক্ষমতা সুপ্রিম কোর্টের হাতে থাকায় সুপ্রিম কোর্টকে সংবিধানের রক্ষক বলা হয়।",
     },
     {
       'id': 136,
@@ -1772,6 +2042,8 @@ class DemoQuestions {
         "ত্রয়োদশ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সংবিধানের পঞ্চদশ সংশোধনের মাধ্যমে ২০১১ সালে তত্ত্ববধায়ক সরকার ব্যবস্থা বাতিল করা হয়েছিল।",
     },
     {
       'id': 137,
@@ -1785,6 +2057,8 @@ class DemoQuestions {
         "১৬ জুলাই",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বৈষম্যবিরোধী ছাত্র আন্দোলনে আবু সাঈদের শাহাদাতকে স্মরণ করে প্রতি বছর ১৬ জুলাই \'জুলাই শহিদ দিবস\' পালনের প্রস্তাব করা হয়েছে।",
     },
     {
       'id': 138,
@@ -1798,6 +2072,8 @@ class DemoQuestions {
         "২০২৪ সালের ০৯ আগস্ট",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "ছাত্র-জনতার অভ্যুত্থানের পর ২০২৪ সালের ৮ আগস্ট শান্তিতে নোবেলজয়ী ড. মুহাম্মদ ইউনূসের নেতৃত্বে অন্তর্বর্তীকালীন সরকার শপথ নেয়।",
     },
     {
       'id': 139,
@@ -1811,6 +2087,8 @@ class DemoQuestions {
         "৭ বার",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "স্বাধীনতার পর বাংলাদেশে বিভিন্ন জাতীয় সংকট ও রাজনৈতিক পটপরিবর্তনে মোট ৫ বার রাষ্ট্রীয় জরুরি অবস্থা জারি করা হয়েছে।",
     },
     {
       'id': 140,
@@ -1824,6 +2102,8 @@ class DemoQuestions {
         "১১ মার্চ ১৯১৮",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "১৮ মার্চ ১৯২০ তারিখে ভারতের আইনসভায় ঢাকা বিশ্ববিদ্যালয় প্রতিষ্ঠার বিলটি চূড়ান্তভাবে পাস ও আইনে পরিণত হয়।",
     },
     {
       'id': 141,
@@ -1837,6 +2117,8 @@ class DemoQuestions {
         "ভাস্কর নভেরা আহমেদ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বিশিষ্ট ভাস্কর ও চিত্রশিল্পী নিতুন কুণ্ডু দেশের শিল্পকলায় অনন্য অবদানের জন্য একুশে ও স্বাধীনতা পদক উভয়টিতে ভূষিত হন।",
     },
     {
       'id': 142,
@@ -1850,6 +2132,8 @@ class DemoQuestions {
         "কেন্দ্রীভূত",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "বাংলাদেশের শাসন বিভাগীয় ও প্রশাসনিক কাঠামো সিদ্ধান্ত গ্রহণের ক্ষেত্রে মূলত সচিবালয় ও কেন্দ্রনির্ভর তথা কেন্দ্রীভূত।",
     },
     {
       'id': 143,
@@ -1863,6 +2147,8 @@ class DemoQuestions {
         "মুশফিকুর রহিম",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "২০১৩ সালে শ্রীলঙ্কার বিপক্ষে গল টেস্টে প্রথম বাংলাদেশি ক্রিকেটার হিসেবে টেস্টে ডাবল সেঞ্চুরি করেন মুশফিকুর রহিম।",
     },
     {
       'id': 144,
@@ -1876,6 +2162,8 @@ class DemoQuestions {
         "বাংলাদেশ টাইমস",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "১৯৭৫ সালে বাকশাল বা একদলীয় শাসন চালুর পর সরকার অনুমোদিত ৪টি সংবাদপত্র বাদে অন্যান্য পত্রিকা (যেমন দৈনিক গণকণ্ঠ) নিষিদ্ধ ছিল।",
     },
     {
       'id': 145,
@@ -1889,6 +2177,8 @@ class DemoQuestions {
         "নারী উদ্যোক্তা হিসেবে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ওয়াসফিয়া নাজরীন বাংলাদেশের দ্বিতীয় নারী হিসেবে এভারেস্ট জয় করেন এবং প্রথম বাংলাদেশি হিসেবে সাতটি মহাদেশের সর্বোচ্চ চূড়া জয় করেন।",
     },
     {
       'id': 146,
@@ -1902,6 +2192,8 @@ class DemoQuestions {
         "মওলানা আকরম খাঁ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "উপমহাদেশের মুসলমানদের জন্য আলাদা রাষ্ট্রের ভিত্তি হিসেবে প্রথম সুস্পষ্টভাবে \'দ্বি-জাতি তত্ত্ব\' উপস্থাপন করেন মুহাম্মদ আলী জিন্নাহ।",
     },
     {
       'id': 147,
@@ -1915,6 +2207,8 @@ class DemoQuestions {
         "১৯৬৯",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "১৯৫৬ সালের পাকিস্তানের প্রথম সংবিধানে বাংলাকে অন্যতম রাষ্ট্রভাষা হিসেবে আনুষ্ঠানিক স্বীকৃতি প্রদান করা হয়।",
     },
     {
       'id': 148,
@@ -1928,6 +2222,8 @@ class DemoQuestions {
         "পদার্থ বিজ্ঞান",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "ভাষা আন্দোলনের প্রথম সংগঠন \'তমদ্দুন মজলিস\' এর প্রতিষ্ঠাতা আবুল কাশেম ঢাকা বিশ্ববিদ্যালয়ের পদার্থবিজ্ঞান বিভাগের শিক্ষক ছিলেন।",
     },
     {
       'id': 149,
@@ -1941,6 +2237,8 @@ class DemoQuestions {
         "নারায়ণ ঘোষ (মিতা)",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "স্বাধীন বাংলা বেতার কেন্দ্রের জনপ্রিয় ও সাড়াজাগানো ব্যঙ্গাত্মক অনুষ্ঠান \'জল্লাদের দরবার\' রচনা করেছিলেন কল্যাণ মিত্র।",
     },
     {
       'id': 150,
@@ -1954,6 +2252,8 @@ class DemoQuestions {
         "২৪ জানুয়ারি ১৯৬৯",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "১৯৬৯ সালের ২০ জানুয়ারি গণঅভ্যুত্থান চলাকালে ছাত্রনেতা আসাদুজ্জামান আসাদ পুলিশের গুলিতে নিহত হন, যা আন্দোলনকে বেগবান করে।",
     },
     {
       'id': 151,
@@ -1967,6 +2267,8 @@ class DemoQuestions {
         "রামানন্দ চট্টোপাধ্যায়",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "১৮৬১ সালে ঢাকা থেকে প্রকাশিত প্রথম বাংলা সংবাদপত্র \'ঢাকা প্রকাশ\'-এর প্রথম সম্পাদক ছিলেন কবি কৃষ্ণচন্দ্র মজুমদার।",
     },
     {
       'id': 152,
@@ -1980,6 +2282,8 @@ class DemoQuestions {
         "তামাক চাষ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "\'সেরিকালচার\' (Sericulture) বলতে বৈজ্ঞানিক পদ্ধতিতে রেশম পোকা চাষ ও সুতা উৎপাদন প্রক্রিয়াকে বোঝায়।",
     },
     {
       'id': 153,
@@ -1993,6 +2297,8 @@ class DemoQuestions {
         "চা",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "চা গাছ সরাসরি কড়া রোদ সহ্য করতে পারে না বলে চা বাগানে ছায়া প্রদানকারী বড় গাছ রোপণ করা হয়। এটি একটি ছায়াপ্রেমী ফসল।",
     },
     {
       'id': 154,
@@ -2006,6 +2312,8 @@ class DemoQuestions {
         "গোল আলু",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বাংলাদেশে বিগত কয়েক দশকে হাঁস-মুরগির খাদ্য হিসেবে ভুট্টার চাহিদা বৃদ্ধি পাওয়ায় এর উৎপাদন ও চাষের জমি তুলনামূলক বেশি বেড়েছে।",
     },
     {
       'id': 155,
@@ -2019,6 +2327,8 @@ class DemoQuestions {
         "প্রায় সতেরো কোটি",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "২০২২ সালের ষষ্ঠ জনশুমারি ও গৃহগণনা অনুযায়ী বাংলাদেশের মোট জনসংখ্যা ছিল প্রায় ১৬ কোটি ৯৮ লাখ বা প্রায় সতেরো কোটি।",
     },
     {
       'id': 156,
@@ -2032,6 +2342,8 @@ class DemoQuestions {
         "কাতার",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "রাশিয়া আফগানিস্তানের তালেবান সরকারকে বৈধ শাসন কর্তৃপক্ষ হিসেবে প্রথম সারির দেশগুলোর মধ্যে অন্যতম স্বীকৃতি দেয়।",
     },
     {
       'id': 157,
@@ -2045,6 +2357,8 @@ class DemoQuestions {
         "২%",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "মার্কিন যুক্তরাষ্ট্রের কর সংস্কার বা অর্থ বিলে নির্দিষ্ট আর্থিক লেনদেন বা স্থানান্তরের ওপর ১% কর ধার্য করার প্রস্তাব রয়েছে।",
     },
     {
       'id': 158,
@@ -2058,6 +2372,8 @@ class DemoQuestions {
         "৫ জুলাই",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "১৯৭২ সালে জাতিসংঘের মানবিক পরিবেশ কনভেনশনের সিদ্ধান্ত অনুযায়ী প্রতি বছর ৫ জুন \'বিশ্ব পরিবেশ দিবস\' হিসেবে পালিত হয়।",
     },
     {
       'id': 159,
@@ -2071,6 +2387,8 @@ class DemoQuestions {
         "গ্রিন হাউস নির্গমন হ্রাস",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "১৯৯৭ সালে গৃহীত কিয়োটো প্রটোকলের মূল লক্ষ্য ছিল উন্নত দেশগুলোর গ্রিনহাউস গ্যাস নির্গমন নির্দিষ্ট মাত্রায় হ্রাস করা।",
     },
     {
       'id': 160,
@@ -2084,6 +2402,8 @@ class DemoQuestions {
         "২০১০",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "জলবায়ু পরিবর্তনের ঝুঁকিতে থাকা দেশগুলোর জোট Climate Vulnerable Forum (CVF) ২০০৯ সালে কোপেনহেগেনে প্রতিষ্ঠিত হয়।",
     },
     {
       'id': 161,
@@ -2097,6 +2417,8 @@ class DemoQuestions {
         "১৯৭৫",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "১৯৬০ সালের ১৯ সেপ্টেম্বর করাচিতে ভারত ও পাকিস্তানের মধ্যে ঐতিহাসিক সিন্ধু নদের পানিবণ্টন চুক্তি স্বাক্ষরিত হয়।",
     },
     {
       'id': 162,
@@ -2110,6 +2432,8 @@ class DemoQuestions {
         "United Nations Operations and planning System",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "UNOPS-এর পূর্ণরূপ হলো United Nations Office for Project Services, যা জাতিসংঘের প্রকল্প ব্যবস্থাপনা ও অবকাঠামো উন্নয়ন সংস্থা।",
     },
     {
       'id': 163,
@@ -2123,6 +2447,8 @@ class DemoQuestions {
         "AU",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "RCEP (Regional Comprehensive Economic Partnership) বর্তমানে বিশ্বের বৃহত্তম মুক্ত বাণিজ্য ও অর্থনৈতিক জোট।",
     },
     {
       'id': 164,
@@ -2136,6 +2462,8 @@ class DemoQuestions {
         "ফ্রাঙ্কফুর্ট, জার্মানি",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "জাতিসংঘের বিশ্ব পর্যটন সংস্থা (UN Tourism) এর কেন্দ্রীয় সদর দপ্তর স্পেনের মাদ্রিদে অবস্থিত।",
     },
     {
       'id': 165,
@@ -2149,6 +2477,8 @@ class DemoQuestions {
         "গ্যাবন",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বাংলাদেশ পেট্রোলিয়াম রপ্তানিকারক দেশগুলোর সংস্থা ওপেক (OPEC) এর সদস্য নয়। এটি প্রধানত তেল আমদানিকারক দেশ।",
     },
     {
       'id': 166,
@@ -2162,6 +2492,8 @@ class DemoQuestions {
         "কুস্কো",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "সম্প্রতি প্রত্নতাত্ত্বিকরা পেরুর উপকূলীয় অঞ্চলে পেনিকো নামক একটি ৩৫০০ বছরের প্রাচীন শহরের সন্ধান পেয়েছেন।",
     },
     {
       'id': 167,
@@ -2175,6 +2507,8 @@ class DemoQuestions {
         "১৬১ নং প্রস্তাব",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "১৯৪৭ সালের ২৯ নভেম্বর জাতিসংঘের সাধারণ পরিষদে ১৮১ নম্বর প্রস্তাব পাসের মাধ্যমে ফিলিস্তিন বিভাজন পরিকল্পনা গৃহীত হয়।",
     },
     {
       'id': 168,
@@ -2188,6 +2522,8 @@ class DemoQuestions {
         "সৌদি আরব",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "গোলান মালভূমি (Golan Heights) মূলত সিরিয়ার অংশ হলেও ১৯৬৭ সাল থেকে এটি নিয়ে সিরিয়া ও ইসরায়েলের মধ্যে বিরোধ চলছে।",
     },
     {
       'id': 169,
@@ -2201,6 +2537,8 @@ class DemoQuestions {
         "অ্যাসেরীয় সভ্যতা",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সিন্ধু সভ্যতার (Indus Valley) অধিবাসীরাই প্রাচীন বিশ্বে প্রথম সঠিক ওজন পরিমাপ ও দৈর্ঘ্য মাপার মানদণ্ড আবিষ্কার করেছিল।",
     },
     {
       'id': 170,
@@ -2214,6 +2552,8 @@ class DemoQuestions {
         "আর্টিকেল-৬",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "ন্যাটো চার্টারের অনুচ্ছেদ ৫ (Article 5) অনুযায়ী কোনো সদস্য দেশের ওপর আক্রমণ সমগ্র জোটের ওপর আক্রমণ হিসেবে গণ্য করা হয়।",
     },
     {
       'id': 171,
@@ -2227,6 +2567,8 @@ class DemoQuestions {
         "European Union (EU)",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "১৯৯৮ সালে গৃহীত রোম সংবিধির (Rome Statute) ওপর ভিত্তি করে ২০০২ সালে আন্তর্জাতিক অপরাধ আদালত (ICC) প্রতিষ্ঠিত হয়।",
     },
     {
       'id': 172,
@@ -2240,6 +2582,8 @@ class DemoQuestions {
         "মিশর ও সুদান",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "মেডিসিন লাইন বা ৪৯তম সমান্তরাল রেখাটি মার্কিন যুক্তরাষ্ট্র ও কানাডার মধ্যকার আন্তর্জাতিক সীমানা নির্দেশ করে।",
     },
     {
       'id': 173,
@@ -2253,6 +2597,8 @@ class DemoQuestions {
         "২ ফেব্রুয়ারি ১৯৮৭",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "বাংলাদেশ ১৯৮৪ সালের ৬ নভেম্বর জাতিসংঘের নারীর বিরুদ্ধে সকল প্রকার বৈষম্য বিলোপ (CEDAW) সনদে অনুস্বাক্ষর করে।",
     },
     {
       'id': 174,
@@ -2266,6 +2612,8 @@ class DemoQuestions {
         "২৩ জুন ২০২৫",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "যুক্তরাষ্ট্র ইরানের ওপর তাদের কৌশলগত সাইবার ও সামরিক অভিযানের অংশ হিসেবে \'অপারেশন মিডনাইট হ্যামার\' পরিচালনা করে।",
     },
     {
       'id': 175,
@@ -2279,6 +2627,8 @@ class DemoQuestions {
         "কোম",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "ইরানের ভূগর্ভস্থ ফর্দো পারমাণবিক সমৃদ্ধকরণ কেন্দ্রটি ধর্মীয় ও ঐতিহাসিকভাবে গুরুত্বপূর্ণ কোম (Qom) প্রদেশে অবস্থিত।",
     },
     {
       'id': 176,
@@ -2292,6 +2642,8 @@ class DemoQuestions {
         "ত্রিপুরা",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বাংলাদেশের সাথে ভারতের সবচেয়ে দীর্ঘতম সীমানা রয়েছে পশ্চিমবঙ্গ রাজ্যের সাথে (প্রায় ২,২১৭ কিমি)।",
     },
     {
       'id': 177,
@@ -2305,6 +2657,8 @@ class DemoQuestions {
         "১২০ মিনিট",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "প্রতি ১ ডিগ্রি দ্রাঘিমার পার্থক্যের জন্য সময়ের ব্যবধান ৪ মিনিট। সুতরাং ৩০ ডিগ্রির পার্থক্যে সময় ব্যবধান হবে ৩০ * ৪ = ১২০ মিনিট।",
     },
     {
       'id': 178,
@@ -2318,6 +2672,8 @@ class DemoQuestions {
         "জিব্রাল্টার ও বসফরাস প্রণালী",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বাংলাদেশ এশিয়া ও ভারত মহাসাগরীয় অঞ্চলের গুরুত্বপূর্ণ নৌ-করিডোর মালাক্কা ও হরমুজ প্রণালীর মধ্যবর্তী কৌশলগত অবস্থানে রয়েছে।",
     },
     {
       'id': 179,
@@ -2331,6 +2687,8 @@ class DemoQuestions {
         "প্যাসিফিক ও ইন্দোঅস্ট্রেলিয়ান",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "হিমালয় পর্বতমালার সৃষ্টি হয়েছে ইন্দো-অস্ট্রেলিয়ান প্লেট ও ইউরেশিয়ান প্লেটের মধ্যকার মুখোমুখি সংঘর্ষের ফলে।",
     },
     {
       'id': 180,
@@ -2344,6 +2702,8 @@ class DemoQuestions {
         "মেসোমণ্ডল",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বায়ুমণ্ডলের দ্বিতীয় স্তর স্ট্র্যাটোমণ্ডলে (Stratosphere) ক্ষতিকর আল্ট্রাভায়োলেট রশ্মি শোষণকারী ওজোন গ্যাসের স্তর অবস্থিত।",
     },
     {
       'id': 181,
@@ -2357,6 +2717,8 @@ class DemoQuestions {
         "মধ্যভাগের উচ্চভূমি",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সিলেট অঞ্চলের প্রাক-ক্যাম্ব্রিয়ান যুগের শিলা গঠন ও পাহাড়ি অঞ্চল বাংলাদেশের সবচেয়ে প্রাচীন ভূতাত্ত্বিক স্তরের অংশ।",
     },
     {
       'id': 182,
@@ -2370,6 +2732,8 @@ class DemoQuestions {
         "সিমা ও অশ্বমন্ডল",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "কনরাড বিযুক্তি রেখাটি মূলত ভূত্বকের শিয়াল (Sial) ও সিমা (Sima) স্তরকে অর্থাৎ অশ্বমন্ডলের উপরিভাগকে বিভক্ত করেছে।",
     },
     {
       'id': 183,
@@ -2383,6 +2747,8 @@ class DemoQuestions {
         "খনিজ লবণ",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বাংলাদেশের উত্তর-পশ্চিমাঞ্চলে (যেমন দিনাজপুর, রংপুর) দেশের প্রধান কয়লা খনি ও উন্নত মানের কয়লা সম্পদ অবস্থিত।",
     },
     {
       'id': 184,
@@ -2396,6 +2762,8 @@ class DemoQuestions {
         "ঘূর্ণিঝড় বৃদ্ধি পায়",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "এল নিনো (El Nino) সক্রিয় হলে দক্ষিণ-পূর্ব এশিয়া ও বাংলাদেশে স্বাভাবিকের চেয়ে কম বৃষ্টিপাত তথা খরা ও বর্ষার অনিয়ম দেখা দেয়।",
     },
     {
       'id': 185,
@@ -2409,6 +2777,8 @@ class DemoQuestions {
         "২০১৫",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "দুর্যোগের ঝুঁকি হ্রাস ও পুনর্বাসন কার্যক্রম আইনি কাঠামোর আওতায় আনতে ২০১২ সালে বাংলাদেশে দুর্যোগ ব্যবস্থাপনা আইন পাস হয়।",
     },
     {
       'id': 186,
@@ -2422,6 +2792,8 @@ class DemoQuestions {
         "Extended pediatric immunization",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "EPI-এর পূর্ণরূপ হলো Expanded Program on Immunization (সম্প্রসারিত টিকাদান কর্মসূচি), যা শিশুদের সংক্রামক রোগ প্রতিরোধে কাজ করে।",
     },
     {
       'id': 187,
@@ -2435,6 +2807,8 @@ class DemoQuestions {
         "অপটিক্যাল রিডিং",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "২০২১ সালের ডিসেম্বরে মহাকাশে প্রেরিত জেমস ওয়েব স্পেস টেলিস্কোপ হাবল স্পেস টেলিস্কোপের উন্নত উত্তরসূরি হিসেবে কাজ করছে।",
     },
     {
       'id': 188,
@@ -2448,6 +2822,8 @@ class DemoQuestions {
         "অপটিক্যাল রিডিং",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "QR (Quick Response) কোড মূলত অপটিক্যাল রিডিং বা অপটিক্যাল স্ক্যানিং প্রযুক্তির মাধ্যমে তাৎক্ষণিকভাবে তথ্য রিড করে থাকে।",
     },
     {
       'id': 189,
@@ -2461,6 +2837,8 @@ class DemoQuestions {
         "এ কাল্পনিক মাধ্যমটির স্থিতিস্থাপক ধর্ম ছিলো",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "আলো বা তড়িৎ চৌম্বক তরঙ্গ সঞ্চালনের জন্য কোনো মাধ্যম লাগে না। তাই ইথার নামক মাধ্যমের ধারণাটি বিজ্ঞানীদের দ্বারা মিথ্যা প্রমাণিত হয়।",
     },
     {
       'id': 190,
@@ -2474,6 +2852,8 @@ class DemoQuestions {
         "২০-৩০ মেগাহার্জ",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "চিকিৎসা বিজ্ঞানে রোগ নির্ণয়ে ব্যবহৃত আল্ট্রাসনোগ্রাফিতে মানুষের শ্রুতিসীমার বাইরের ১ থেকে ১০ মেগাহার্জ তরঙ্গের আল্ট্রাসাউন্ড ব্যবহার করা হয়।",
     },
     {
       'id': 191,
@@ -2487,6 +2867,8 @@ class DemoQuestions {
         "আমিষ",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "আমিষ বা প্রোটিন হলো অ্যামাইনো অ্যাসিডের চেইন, যা মানবদেহে প্রধানত নাইট্রোজেন সরবরাহ করে থাকে।",
     },
     {
       'id': 192,
@@ -2500,6 +2882,8 @@ class DemoQuestions {
         "সাধারণ রাসায়নিক বিক্রিয়া",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "হাইড্রোজেন বোমায় অতি উচ্চ তাপমাত্রায় হালকা হাইড্রোজেন আইসোটোপ একত্রিত করে নিউক্লীয় ফিউশন (Fusion) বিক্রিয়া ঘটানো হয়।",
     },
     {
       'id': 193,
@@ -2513,6 +2897,8 @@ class DemoQuestions {
         "ইউরেনাস",
       ],
       'correctOptionId': 1,
+    ,
+      'explanation': "নাসা কর্তৃক মঙ্গলের মাটির গঠন ও পরিবেশ অনুসন্ধানের জন্য বিখ্যাত রোভার \'Curiosity\' মঙ্গল গ্রহে পাঠানো হয়েছিল।",
     },
     {
       'id': 194,
@@ -2526,6 +2912,8 @@ class DemoQuestions {
         "০৫",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "ফিটকিরি বা পটাশ অ্যালামের রাসায়নিক সংকেতে ২৪ অণু ক্রিস্টাল পানি যুক্ত থাকে [KAl(SO4)2.12H2O বা K2SO4.Al2(SO4)3.24H2O]।",
     },
     {
       'id': 195,
@@ -2539,6 +2927,8 @@ class DemoQuestions {
         "শোষণ",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বিজ্ঞানী কার্টিস প্রস্বেদনকে (Transpiration) উদ্ভিদের জন্য \'প্রয়োজনীয় ক্ষতি\' বা Necessary Evil বলেছেন, কারণ এটি অপরিহার্য কিন্তু অতিরিক্ত হলে উদ্ভিদের ক্ষতি হয়।",
     },
     {
       'id': 196,
@@ -2552,6 +2942,8 @@ class DemoQuestions {
         "তরঙ্গবেগ হলো এর কম্পাঙ্ক ও তরঙ্গ দৈর্ঘ্যের অনুপাত",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "তড়িৎ চৌম্বক তরঙ্গ (যেমন আলো) শূন্য বা যেকোনো মাধ্যমে আলোর বেগে (৩ * ১০^৮ মি./সে.) পরিভ্রমণ করতে পারে।",
     },
     {
       'id': 197,
@@ -2565,6 +2957,8 @@ class DemoQuestions {
         "ড. কুদরত-ই-খুদা",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "বিজ্ঞানী সত্যেন্দ্রনাথ বসুর নামের অংশানুসারে বোসন (Boson) কণার নামকরণ করা হয়েছে, যা হিগস বোসনের মূল ভিত্তি।",
     },
     {
       'id': 198,
@@ -2578,6 +2972,8 @@ class DemoQuestions {
         "মিথেন",
       ],
       'correctOptionId': 3,
+    ,
+      'explanation': "গ্রিনহাউস গ্যাসের মধ্যে কার্বন ডাই অক্সাইডের পর মিথেন (CH4) গ্যাস বায়ুমণ্ডলে তাপ ধরে রাখতে বড় ভূমিকা পালন করে।",
     },
     {
       'id': 199,
@@ -2591,6 +2987,8 @@ class DemoQuestions {
         "ইউক্রেন এ খনিজ উৎপাদনে শীর্ষ অবস্থানে আছে",
       ],
       'correctOptionId': 2,
+    ,
+      'explanation': "বিরল ভূতল খনিজ বা রেয়ার আর্থ মেটালের উচ্চক্ষমতার স্থায়ী চৌম্বক ধর্ম রয়েছে, যা আধুনিক ইলেকট্রনিক্স ও প্রযুক্তিতে অতি প্রয়োজনীয়।",
     },
     {
       'id': 200,
@@ -2604,6 +3002,8 @@ class DemoQuestions {
         "ইউরেনিয়াম",
       ],
       'correctOptionId': 0,
+    ,
+      'explanation': "সোডিয়াম (Na) ধাতু অত্যন্ত সক্রিয় হওয়ায় পানির সংস্পর্শে এলে বাতাসের অক্সিজেনের সাথে অতি দ্রুত বিক্রিয়া করে আগুন ধরে যায়।",
     },
   ];
 }

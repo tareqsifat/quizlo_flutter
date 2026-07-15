@@ -1,0 +1,2802 @@
+[
+  {
+    "id": 1,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১. ই-কমার্সে সুরক্ষিত অনলাইন লেনদেনে প্রধানত কোন প্রটোকল ব্যবহৃত হয়?",
+    "options": [
+      "DHCP",
+      "SMTP",
+      "HTTPS",
+      "ARP"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "HTTPS"
+  },
+  {
+    "id": 2,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "২. বিভিন্ন নেটওয়ার্কের মধ্যে যোগাযোগ স্থাপনের জন্য নিচের কোন ডিভাইসটি ব্যবহৃত হয়?",
+    "options": [
+      "রাউটার",
+      "সুইচ",
+      "ব্রিজ",
+      "হাব"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "রাউটার"
+  },
+  {
+    "id": 3,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৩. ক্লাউড কম্পিউটিং এর কোন মডেলটি অ্যাপ্লিকেশন তৈরি করার জন্য প্রোগ্রামারদেরকে প্লাটফর্ম সরবরাহ করে?",
+    "options": [
+      "IaaS",
+      "SaaS",
+      "PaaS",
+      "DaaS"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "PaaS"
+  },
+  {
+    "id": 4,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৪. একটি কম্পিউটার সিস্টেমে ১১০০১০১১২ বাইনারি সংখ্যাটির মান ডেসিমেল এ কত হবে?",
+    "options": [
+      "-৫২",
+      "-৫৩",
+      "২০৩",
+      "উপরের সবকটি হতে পারে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "২০৩"
+  },
+  {
+    "id": 5,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৫. কোন CPU আর্কিটেকচার স্মার্টফোনে বেশি ব্যবহৃত হয়?",
+    "options": [
+      "X86",
+      "X64",
+      "Qualcomm",
+      "RISC"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "RISC"
+  },
+  {
+    "id": 6,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৬. কম্পিউটার টার্ন অন এর সময় সঠিক অর্ডার নিচের কোনটি?",
+    "options": [
+      "POST->Kernel->Bootloadeer",
+      "Kernel->POST->Bootloadee",
+      "Kernel->Bootloadeer->POST",
+      "POST Bootloadeer → Kernel"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "POST Bootloadeer → Kernel"
+  },
+  {
+    "id": 7,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৭. কোন ধরনের Storage Device সবচেয়ে দ্রুত গতি সম্পন্ন?",
+    "options": [
+      "HDD",
+      "SSD",
+      "SSHD",
+      "Floppy Disk"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "SSD"
+  },
+  {
+    "id": 8,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৮. ধরা যাক Algorithm A এর running time \\$O(n^2)\\$ এবং Algorithm B এর running time \\$O(n)\\$। তাহলে নিচের কোনটি সবচেয়ে সঠিক?",
+    "options": [
+      "Algorithm A, Algorithm B এর চেয়ে ধীর গতির",
+      "Algorithm A, Algorithm B এর চেয়ে দ্রুত গতির",
+      "Algorithm A, Algorithm B এর চেয়ে asymptotically ধীর গতির",
+      "Algorithm B সর্বদা Algorithm A এর চেয়ে দ্রুত চলে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Algorithm A, Algorithm B এর চেয়ে asymptotically ধীর গতির"
+  },
+  {
+    "id": 9,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "৯. LLM চালানোর জন্য নিম্নোক্ত কম্পিউটারের কোন যন্ত্রাংশ সবচেয়ে বেশি গুরুত্বপূর্ণ?",
+    "options": [
+      "RAM",
+      "Processor",
+      "Graphics Card",
+      "Storage Device"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Graphics Card"
+  },
+  {
+    "id": 10,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১০. Quantum Computing এর জনক কাকে মনে করা হয়?",
+    "options": [
+      "David Deutsch",
+      "Richard Feynman",
+      "Paul Benloff",
+      "Alexei Kitaev"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "David Deutsch"
+  },
+  {
+    "id": 11,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১১. একটি কম্পিউটারের প্রোসেসর ক্লক স্পিড ৪.০০ গিগা হার্জ হলে এর ক্লক মাইকেল টাইম কত?",
+    "options": [
+      "২.৫ ন্যানো সেকেন্ড (ns)",
+      "২.৫ মাইক্রো সেকেন্ড (ms)",
+      "৪ (ms)",
+      "৪ (ns)"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "২.৫ ন্যানো সেকেন্ড (ns)"
+  },
+  {
+    "id": 12,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১২. Precision Agriculture এ সাধারণত নিচের কোন প্রযুক্তি ব্যবহৃত হয়?",
+    "options": [
+      "ইনফ্রা রেড ইমেজিং",
+      "আই.ও.টি (loT), সেন্সর",
+      "তার মাধ্যম সম্পন্ন নেটওয়ার্ক",
+      "ও.এল.ই.ডি (OLED), ডিসপ্লে"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "আই.ও.টি (loT), সেন্সর"
+  },
+  {
+    "id": 13,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৩. অপারেটিং সিস্টেমে ভার্চুয়াল মেমোরি ব্যবহার করা হয়-",
+    "options": [
+      "অনেক বেশি ডেটা সংরক্ষণের জন্য",
+      "ক্লাউডে ডেটা সংরক্ষণের জন্য",
+      "সেকেন্ডারি স্টোরেজ ব্যবহার করে RAM বাড়াতে",
+      "এক্সটারনাল মেমোরি সংযোগের জন্য"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "সেকেন্ডারি স্টোরেজ ব্যবহার করে RAM বাড়াতে"
+  },
+  {
+    "id": 14,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৪. কম্পিউটার সিস্টেমের বেঞ্চমার্কিং করা হয় কী পরিমাপের জন্য?",
+    "options": [
+      "সিস্টেমের দাম",
+      "সিস্টেমের কর্ম ক্ষমতা (Performance)",
+      "শুধু বিদ্যুৎ শক্তি খরচের পরিমাণ",
+      "স্টোরেজের ধারণ ক্ষমতা"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "সিস্টেমের কর্ম ক্ষমতা (Performance)"
+  },
+  {
+    "id": 15,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৫. নিচের কোন ডিভাইসটি প্রধানত এম্বেডেড সিস্টেম ব্যবহৃত হয়?",
+    "options": [
+      "রাউটার",
+      "সুপার কম্পিউটার",
+      "হাই-অ্যান্ড সার্ভার",
+      "মাইক্রোকন্ট্রোলার"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "মাইক্রোকন্ট্রোলার"
+  },
+  {
+    "id": 16,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "১৬. যদি \\$5x^3-2x^2+x+k=0\\$ এর একটি উৎপাদক (x - 3) হয়, তাহলে k এর মান কত?",
+    "options": [
+      "৫০",
+      "৬০",
+      "-১২০",
+      "-৬০"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "-১২০"
+  },
+  {
+    "id": 17,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "১৭. নিচের সিরিজের ফাঁকা জায়গায় কোন সংখ্যা হবে? 243, 81, -, 9, 3, 1",
+    "options": [
+      "২৭",
+      "১২",
+      "৬",
+      "৩"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "২৭"
+  },
+  {
+    "id": 18,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "১৮. যদি log_x 324=4 হয়, তবে x এর মান কত?",
+    "options": [
+      "\\$3\\\\sqrt{2}\\$",
+      "4/2",
+      "\\$5\\\\sqrt{2}\\$",
+      "\\$\\\\sqrt{2}\\$"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "\\$3\\\\sqrt{2}\\$"
+  },
+  {
+    "id": 19,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "১৯. একটি গুণোত্তর ধারার প্রথম ও দ্বিতীয় পদ যথাক্রমে 27 এবং 9, তাহলে ধারাটির দশম পদ কত?",
+    "options": [
+      "1/3",
+      "1/525",
+      "1/729",
+      "1/615"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "1/729"
+  },
+  {
+    "id": 20,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২০. একটি বৃত্তস্থ বর্গের প্রত্যেক বাহুর দৈর্ঘ্য 2 সে.মি. হলে, ঐ বৃত্তের ক্ষেত্রফল কত?",
+    "options": [
+      "π",
+      "2π",
+      "\\$\\\\sqrt{2}\\\\pi\\$",
+      "\\$2\\\\sqrt{2}\\\\pi\\$"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "2π"
+  },
+  {
+    "id": 21,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২১. 4 জন তাঁতী 4 দিনে 4টি মাদুর তৈরি করতে পারে। একই হারে 8 জন তাঁতী 8 দিনে কতটি মাদুর তৈরি করতে পারবে?",
+    "options": [
+      "৮টি",
+      "১২টি",
+      "১৬টি",
+      "২০টি"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "১৬টি"
+  },
+  {
+    "id": 22,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২২. (০, ০) এবং (3, 3) বিন্দুগামী সরলরেখার সমীকরণ কোনটি?",
+    "options": [
+      "y=x",
+      "y=3x",
+      "y=x+3",
+      "y=3x+3"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "y=x"
+  },
+  {
+    "id": 23,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৩. যদি nC12 = nC8 হয়, তবে 22Cn এর মান কত?",
+    "options": [
+      "230",
+      "231",
+      "232",
+      "233"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "231"
+  },
+  {
+    "id": 24,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৪. A={x∈IN: 2<x≤6} এবং B={x∈IN: x জোড় সংখ্যা এবং x≤8} হলে, A∩B এর মান কত?",
+    "options": [
+      "{3, 2}",
+      "{4, 6}",
+      "{5, 6}",
+      "{4, 8}"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "{4, 6}"
+  },
+  {
+    "id": 25,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৫. একটি ব্যাগে ৫ টি লাল, ৪ টি সবুজ এবং ৩ টি নীল বল আছে। যদি দৈবভাবে ২টি বল নেওয়া হয়, তাহলে বল দুটির কোনটিই নীল না হওয়ার সম্ভাবনা কত?",
+    "options": [
+      "10/21",
+      "11/21",
+      "2/7",
+      "5/7"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "11/21"
+  },
+  {
+    "id": 26,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৬. 0.6 কে 0.9 দ্বারা ভাগ করলে, নিচের কোনটি সঠিক?",
+    "options": [
+      "0.23",
+      "0.3",
+      "0.6",
+      "0.66..."
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "0.66..."
+  },
+  {
+    "id": 27,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৭. যদি কোনো বর্গক্ষেত্রের প্রত্যেক বাহুর পরিমাণ 10% বৃদ্ধি করা হয়, তবে তার ক্ষেত্রফল শতকরা কত বৃদ্ধি পাবে?",
+    "options": [
+      "20%",
+      "25%",
+      "21%",
+      "16%"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "21%"
+  },
+  {
+    "id": 28,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৮. 100 টাকা 10% হারে 5 বছরের জন্য বিনিয়োগ করা হলে, সরল ও চক্রবৃদ্ধি মুনাফার পার্থক্য কত?",
+    "options": [
+      "10.05 টাকা",
+      "11.05 টাকা",
+      "12.05 টাকা",
+      "13.05 টাকা"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "11.05 টাকা"
+  },
+  {
+    "id": 29,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "২৯. যদি x = √5 + √3 হয়, তবে \\$x^3 + 8/x^3\\$ এর মান কত?",
+    "options": [
+      "\\$18\\\\sqrt{5}\\$",
+      "\\$22\\\\sqrt{5}\\$",
+      "\\$28\\\\sqrt{5}\\$",
+      "\\$32\\\\sqrt{5}\\$"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "\\$28\\\\sqrt{5}\\$"
+  },
+  {
+    "id": 30,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "৩০. |x-5|<2, x ∈ N অসমতাটির সমাধান সেট কোনটি?",
+    "options": [
+      "(3, 7)",
+      "[3, 7]",
+      "{4, 5, 6}",
+      "{3, 4, 5, 6, 7}"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "(3, 7)"
+  },
+  {
+    "id": 31,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩১. একজন ব্যক্তি ৪ মাইল উত্তরে, ১২ মাইল পূর্বে এবং তারপরে ১২ মাইল উত্তরে ভ্রমণ করেন। তিনি শুরুর বিন্দু থেকে কত দূরে আছেন?",
+    "options": [
+      "২৮ মাইল",
+      "২৪ মাইল",
+      "২১ মাইল",
+      "২০ মাইল"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "২০ মাইল"
+  },
+  {
+    "id": 32,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩২. পাঁচজন ব্যক্তি গোল হয়ে বসে আছে এবং মাঝখানে তাকিয়ে তাস খেলছে। রাজিবের বামদিকে রয়েছে মুকুল, বিজয় রয়েছে অনিক ও নুরুলের মাঝখানে এবং অনিকের ডান দিকে। তাহলে নুরুলের ডান দিকে কে রয়েছে?",
+    "options": [
+      "অনিক",
+      "বিজয়",
+      "মুকুল",
+      "রাজিব"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "মুকুল"
+  },
+  {
+    "id": 33,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৩. A যদি B এর সাথে খাপখায় যেমনভাবে C, D এর সাথে, তাহলে নিচের জোড়াগুলোর মধ্যে কোন জোড়া যুক্তিযুক্তভাবে খাপ খায়?",
+    "options": [
+      "পাখিকে যেমন দৌড়াতে হয়, মাছকে তেমন সাঁতার কাটতে হয়",
+      "আঁধারের বিপরীত যেমন উজ্জল, তেমনি নীরবতার বিপরীত হলো উচ্চশব্দ",
+      "খাদ্য যেমন খাবারের জন্য, পানি তেমনি পান করার জন্য",
+      "রঙ যেমন ছায়াযুক্ত হয়, গতি তেমনি দ্রুত হয়"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "খাদ্য যেমন খাবারের জন্য, পানি তেমনি পান করার জন্য"
+  },
+  {
+    "id": 34,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৪. হাত, চোখ ও মস্তিস্কের কার্যাবলি এতটাই- যে শৈশব কালের প্রথম দিকে হাতের ব্যবহার সম্পূর্ণ- বিকাশকে ত্বরান্বিত করতে সাহায্য করে।",
+    "options": [
+      "অপরিবর্তনীয়-বুদ্ধিসম্পর্কিত",
+      "রহস্যময়-মনস্তাত্ত্বিক",
+      "নিয়ন্ত্রিত-কিশোর",
+      "ঘনিষ্টভাবে যুক্ত-প্রত্যক্ষণমূলক"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "নিয়ন্ত্রিত-কিশোর"
+  },
+  {
+    "id": 35,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৫. নিম্নে উল্লিখিত শব্দগুলোর মধ্যে কোন বানানটি সঠিক খুঁজে বের করুন?",
+    "options": [
+      "Randezvos",
+      "Rendezvous",
+      "Rondezvous",
+      "Rendavous"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "Rendezvous"
+  },
+  {
+    "id": 36,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৬. একটি গিয়ার ট্রেনে তিনটি গিয়ার আছে, গিয়ার 'এ'এর ১২টি দাঁত, গিয়ার 'বি' এর ৩৬টি দাঁত, এবং গিয়ার 'সি' এর ২৪টি দাঁত আছে। যদি গিয়ার 'এ' কে ঘড়ির কাঁটা যেদিকে ঘোরে সেদিকে ঘোরানো হয়, তাহলে গিয়ার 'সি' কোন দিকে ঘুরবে?",
+    "options": [
+      "ঘড়ির কাঁটার দিকে",
+      "ঘড়ির কাঁটার বিপরীত দিকে",
+      "স্থির",
+      "একেবারে ঘুরবে না"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "ঘড়ির কাঁটার দিকে"
+  },
+  {
+    "id": 37,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৭. যখন দুটি বস্তুর সংঘর্ষ হয় এবং তারা একসাথে লেগে থাকে, তখন তাকে কোন ধরনের সংঘর্ষ বলে?",
+    "options": [
+      "স্থিতিস্থাপক সংঘর্ষ",
+      "প্লাষ্টিক সংঘর্ষ",
+      "অস্থিতিস্থাপক সংঘর্ষ",
+      "ঘর্ষনীয় সংঘর্ষ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "অস্থিতিস্থাপক সংঘর্ষ"
+  },
+  {
+    "id": 38,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৮. নিচের ছবিগুলোর পাশের প্রশ্নবোধক চিহ্নের স্থানে কোন বিকল্পটি বসবে? (লজিক পাজল)",
+    "options": [
+      "১",
+      "২",
+      "৩",
+      "৪"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "৩"
+  },
+  {
+    "id": 39,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৩৯. পৃথিবীর কক্ষপথের বিভিন্ন বিন্দু থেকে দেখলে কোন ঘটনার কারণে একটি নক্ষত্রের অবস্থানের আপাত পরিবর্তন ঘটে?",
+    "options": [
+      "ডপলার ইফেক্ট",
+      "রেডশিক্ট",
+      "কসমিক",
+      "প্যারালেক্স"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "প্যারালেক্স"
+  },
+  {
+    "id": 40,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪০. প্রশ্নবোধক চিহ্নিত ঘরে কোন সংখ্যাটি বসবে? (প্যাটার্ন)",
+    "options": [
+      "৪",
+      "৫",
+      "৬",
+      "৯"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "৯"
+  },
+  {
+    "id": 41,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪১. Seed: Sapling:: Egg:?",
+    "options": [
+      "Omlette",
+      "Chicken",
+      "Yolk",
+      "Chick"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "Chick"
+  },
+  {
+    "id": 42,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪২. যদি MFNPO অর্থ 'Lemon' হয়, তবে NBOHP অর্থ কী?",
+    "options": [
+      "Mango",
+      "Table",
+      "Light",
+      "Shirt"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "Mango"
+  },
+  {
+    "id": 43,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪৩. প্রদত্ত চিত্রে ত্রিভুজের সংখ্যা নির্ণয় করুন?",
+    "options": [
+      "১৫",
+      "১৬",
+      "৭",
+      "৯"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "১৬"
+  },
+  {
+    "id": 44,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪৪. কোনটি প্রশ্নবোধক চিহ্নের স্থলাভিষিক্ত হবে? (ম্যাট্রিক্স)",
+    "options": [
+      "৪",
+      "৫",
+      "৬",
+      "৭"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "৪"
+  },
+  {
+    "id": 45,
+    "subject": "cognitive ability",
+    "type": "mcq",
+    "text": "৪৫. পানিতে প্রদত্ত প্রতিচ্ছবিগুলোর সাথে কোনটি ইংরেজিতে একটি শব্দের সাথে সাদৃশ্যপূর্ণ?",
+    "options": [
+      "EVMITA",
+      "EVWITA",
+      "AVWIJA",
+      "EVWIDA"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "EVWITA"
+  },
+  {
+    "id": 46,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৪৬. নিচের কোনটি পেশাগত নৈতিকতার উপাদান?",
+    "options": [
+      "স্বজনপ্রীতি",
+      "সাম্প্রদায়িকতা",
+      "দরিদ্রতা",
+      "দক্ষতা"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "দক্ষতা"
+  },
+  {
+    "id": 47,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৪৭. উদ্দেশ্য নৈতিকতার আলোচ্য বিষয় কোনটি?",
+    "options": [
+      "উদ্দেশ্য",
+      "ফলাফল",
+      "প্রক্রিয়া",
+      "উপরের সবগুলো"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "উপরের সবগুলো"
+  },
+  {
+    "id": 48,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৪৮. জনস্বাস্থ্য ও নৈতিকতা নিশ্চিতকরণে রাষ্ট্র কার্যকর ব্যবস্থা গ্রহণ করবে--এ বিষয়ে সংবিধানের কোন অনুচ্ছেদে উল্লেখ রয়েছে?",
+    "options": [
+      "অনুচ্ছেদ-২১",
+      "অনুচ্ছেদ-১৮",
+      "অনুচ্ছেদ-২৮",
+      "অনুচ্ছেদ-২৬"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "অনুচ্ছেদ-১৮"
+  },
+  {
+    "id": 49,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৪৯. 'সরকারি নিয়োগ-লাভে সুযোগের সমতা'- বিষয়টি সংবিধান মতে--",
+    "options": [
+      "নৈতিক বিষয়",
+      "মানবাধিকার",
+      "মৌলিক অধিকার",
+      "নিয়োগ ও কর্মের শর্ত"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "মৌলিক অধিকার"
+  },
+  {
+    "id": 50,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫০. মানুষের মধ্যে সামাজিক মূল্যবোধ গড়ে উঠে--",
+    "options": [
+      "আইনের বাধ্যবাধকতার মাধ্যমে",
+      "সামাজিকীকরণের মাধ্যমে",
+      "অর্থনৈতিক প্রণোদনার মাধ্যমে",
+      "উচ্চমানের প্রযুক্তি অনুসরণের মাধ্যমে"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "সামাজিকীকরণের মাধ্যমে"
+  },
+  {
+    "id": 51,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫১. বাংলাদেশ নামক প্রজাতন্ত্রের ভিত্তি--",
+    "options": [
+      "মৌলিক মানবাধিকার ও স্বাধীনতা নিশ্চিত করা",
+      "মানবসত্তার মর্যাদা ও মূল্যের প্রতি শ্রদ্ধাবোধ নিশ্চিত করা",
+      "প্রশাসনের সকল পর্যায়ে নির্বাচিত প্রতিনিধির মাধ্যমে জনগণের কার্যকর অংশগ্রহণ নিশ্চিত করা",
+      "উপরের সবকটি"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "উপরের সবকটি"
+  },
+  {
+    "id": 52,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫২. সুশাসন বিষয়ক ধারণাটির প্রথম কোন খ্রিষ্টাব্দে একটি আন্তর্জাতিক সংস্থা তাদের রিপোর্টে বিস্তারিতভাবে তুলে ধরে---",
+    "options": [
+      "১৯৯০ খ্রিষ্টাব্দে",
+      "২০০৫ খ্রিষ্টাব্দে",
+      "১৯৯২ খ্রিষ্টাব্দে",
+      "২০০২ খ্রিষ্টাব্দে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "১৯৯২ খ্রিষ্টাব্দে"
+  },
+  {
+    "id": 53,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫৩. সুশাসন বিষয়ক ধারণাটি কোন আন্তর্জাতিক সংস্থা প্রথম তাদের প্রতিবেদনে বিস্তারিতভাবে তুলে ধরে?",
+    "options": [
+      "ইউএনডিপি",
+      "বিশ্বব্যাংক",
+      "ইসলামি উন্নয়ন ব্যাংক",
+      "ট্রান্সপারেন্সি ইন্টারন্যাশনাল"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "বিশ্বব্যাংক"
+  },
+  {
+    "id": 54,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫৪. জাতিসংঘের সাধারণ পরিষদে দুর্নীতির বিরুদ্ধে আন্তর্জাতিক কনভেনশনটি গৃহীত হয়?",
+    "options": [
+      "৩১ জানুয়ারি ২০০৩",
+      "৩১ অক্টোবর ২০০৬",
+      "৩১ অক্টোবর ২০০৩",
+      "২১ ফেব্রুয়ারি ২০০৮"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "৩১ অক্টোবর ২০০৩"
+  },
+  {
+    "id": 55,
+    "subject": "Etics & Value",
+    "type": "mcq",
+    "text": "৫৫. ৭ আগস্ট ২০২৪ পর্যন্ত দুর্নীতির বিরুদ্ধে জাতিসংঘের আন্তর্জাতিক কনভেনশনে স্বাক্ষরকারী দেশের সংখ্যা-",
+    "options": [
+      "১৯২টি",
+      "১০৯টি",
+      "১৯০টি",
+      "১৯১টি"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "১৯১টি"
+  },
+  {
+    "id": 56,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৫৬. 'এমন পিরিতি কভু নাহি দেখি শুনি।/পরানে পরান বান্ধা আপনা আপনি।'- কার লেখা?",
+    "options": [
+      "বিদ্যাপতি",
+      "চণ্ডীদাস",
+      "জ্ঞানদাস",
+      "গোবিন্দদাস"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "চণ্ডীদাস"
+  },
+  {
+    "id": 57,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৫৭. ফোর্ট উইলিয়াম কলেজ পর্বে রচিত বাংলা বইগুলো-",
+    "options": [
+      "সংস্কৃত বইয়ের অনুবাদ",
+      "ফারসি বইয়ের অনুবাদ",
+      "ইংরেজি বইয়ের অনুবাদ",
+      "পণ্ডিতদের রচিত মৌলিক গ্রন্থ"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "পণ্ডিতদের রচিত মৌলিক গ্রন্থ"
+  },
+  {
+    "id": 58,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৫৮. সাহিত্যের রূপ ও রীতির বিচারে কোন গ্রন্থটি ব্যতিক্রম?",
+    "options": [
+      "বাংলা কাব্য",
+      "দিবারাত্রির কাব্য",
+      "শেষের কবিতা",
+      "নদী ও নারী"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "বাংলা কাব্য"
+  },
+  {
+    "id": 59,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৫৯. 'বিরাট গরু-ছাগলের হাট'- ব্যানারে লেখা এই শিরোনামকে অপপ্রয়োগ বলা যায় না কেন?",
+    "options": [
+      "বিরাট শব্দটি হাটকে বিশেষিত করছে",
+      "বিরাট শব্দটি গরু-ছাগলকে বিশেষিত করছে",
+      "বিশেষণের অবস্থান যে-কোনো জায়গায় হতে পারে",
+      "বহুল ব্যবহারে প্রয়োগ-অশুদ্ধতা হারিয়েছে"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "বিরাট শব্দটি হাটকে বিশেষিত করছে"
+  },
+  {
+    "id": 60,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬০. 'অজর' শব্দের বিপরীত কোনটি?",
+    "options": [
+      "অমলিন",
+      "বার্ধক্য",
+      "অমর",
+      "ব্যাধিগ্রস্ত"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "বার্ধক্য"
+  },
+  {
+    "id": 61,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬১. 'ব্যাং' শব্দটিং দিয়ে লিখতে হবে, কারণ-",
+    "options": [
+      "ঙ-এর হসস্ত উচ্চারণং হয়",
+      "্যা-এর পরং হয়",
+      "ং বাংলা ভাষার নিজস্ব বর্ণ",
+      "ব্যাং একটি একাক্ষর শব্দ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "ঙ-এর হসস্ত উচ্চারণং হয়"
+  },
+  {
+    "id": 62,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬২. 'সে কৌতুক করার কৌতূহল সংবরণ করতে পারল না'।- এই বাক্য কী কারণে ত্রুটিপূর্ণ?",
+    "options": [
+      "বানান ভুল আছে",
+      "বাক্যের পদবিন্যাস যথাযথ নয়",
+      "অর্থ অনুযায়ী শব্দের প্রয়োগ হয়নি",
+      "বিশেষ্য-বিশেষণের অপপ্রয়োগ ঘটেছে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "অর্থ অনুযায়ী শব্দের প্রয়োগ হয়নি"
+  },
+  {
+    "id": 63,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৩. 'নিত্য তোমার যে ফুল ফোটে ফুলবনে'- এখানে 'নিত্য' শব্দের প্রতিশব্দ কোনটি?",
+    "options": [
+      "অতিশয়",
+      "চিরন্তন",
+      "প্রকৃতি",
+      "অহরহ"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "অহরহ"
+  },
+  {
+    "id": 64,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৪. বাক্যের মধ্যে শব্দ অবস্থান করে কীভাবে?",
+    "options": [
+      "কর্তা ও ক্রিয়ার পদবিন্যাস অনুযায়ী",
+      "অর্থ ও ভাব অনুযায়ী",
+      "বর্গ বা গুচ্ছ আকারে",
+      "স্বাধীন পদের পরিচয় নিয়ে"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "অর্থ ও ভাব অনুযায়ী"
+  },
+  {
+    "id": 65,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৫. বাংলা একাডেমির আধুনিক 'বাংলা অভিধানে'র সম্পাদক কে?",
+    "options": [
+      "আনিসুজ্জামান",
+      "আবু ইসহাক",
+      "মনসুর মুসা",
+      "জামিল চৌধুরি"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "জামিল চৌধুরি"
+  },
+  {
+    "id": 66,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৬. কোন মঙ্গলকাব্যে ঐতিহাসিক চরিত্র আছে?",
+    "options": [
+      "মনসামঙ্গল",
+      "চণ্ডীমঙ্গল",
+      "অন্নদামঙ্গল",
+      "ধর্মমঙ্গল"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "অন্নদামঙ্গল"
+  },
+  {
+    "id": 67,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৭. কোন কাব্যে আলাওল ব্যক্তিগত জীবনের কথা লিখেছেন?",
+    "options": [
+      "পদ্মাবতী",
+      "হপ্তপয়কর",
+      "সিকান্দরনামা",
+      "তোহফা"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "পদ্মাবতী"
+  },
+  {
+    "id": 68,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৮. 'তুরস্ক-ভ্রমণ' কার লেখা?",
+    "options": [
+      "ইসমাইল হোসেন সিরাজী",
+      "সৈয়দ মুজতবা আলী",
+      "আবু জাফর শামসুদ্দীন",
+      "শামসুদ্দীন আবুল কালাম"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "ইসমাইল হোসেন সিরাজী"
+  },
+  {
+    "id": 69,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৬৯. সৈয়দ ওয়ালীউল্লাহ্ 'চাঁদের অমাবস্যা' উপন্যাসে কোন জীবনদর্শনের রূপায়ণ ঘটেছে?",
+    "options": [
+      "মার্কসবাদ",
+      "বাস্তববাদ",
+      "অস্তিত্ববাদ",
+      "পরাবাস্তববাদ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "অস্তিত্ববাদ"
+  },
+  {
+    "id": 70,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭০. 'প্রভাতফেরির মিছিল যাবে/ছড়াও ফুলের বন্যা,/বিষাগীতি গাইছে পথে/তিতুমীরের কন্যা'।- কার লেখা?",
+    "options": [
+      "শামসুর রাহমান",
+      "আল মাহমুদ",
+      "আহসান হাবীব",
+      "আবদুল গাফ্ফার চৌধুরী"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "আল মাহমুদ"
+  },
+  {
+    "id": 71,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭১. 'হরফের ছড়া' কার লেখা বর্ণশিক্ষার বই?",
+    "options": [
+      "ঈশ্বরচন্দ্র বিদ্যাসাগর",
+      "রবীন্দ্রনাথ ঠাকুর",
+      "ফরুখ আহমদ",
+      "বন্দে আলী মিয়া"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "ফরুখ আহমদ"
+  },
+  {
+    "id": 72,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭২. 'রক্তকরবী' নাটকের অন্তর্গত বিষয় কী?",
+    "options": [
+      "নতুনের জয়গান",
+      "সামন্তবাদের বিলুপ্তি দেখানো",
+      "শ্রমিদকের অপ্রাপ্তি তুলে ধরা",
+      "পুঁজিবাদের নেতিবাচক প্রভাব দেখানো"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "পুঁজিবাদের নেতিবাচক প্রভাব দেখানো"
+  },
+  {
+    "id": 73,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৩. মীর মশাররফ হোসেন সম্পর্কে কোন তথ্যটি যথার্থ নয়?",
+    "options": [
+      "তিন খণ্ডে 'বিষাদ-সিন্ধু' রচনা করেন",
+      "নিজের জীবনী রচনা করেন",
+      "জমিদারি দেখাশোনার কাজ করেছেন",
+      "বিবি কুলসুম তাঁর প্রথম স্ত্রী"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "বিবি কুলসুম তাঁর প্রথম স্ত্রী"
+  },
+  {
+    "id": 74,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৪. জীবনানন্দ দাশের মৃত্যুর পর কোন কাব্যগ্রন্থটি প্রকাশিত হয়?",
+    "options": [
+      "রূপসী বাংলা",
+      "বনলতা সেন",
+      "সাতটি তারার তিমির",
+      "বেলা অবেলা কালবেলা"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "রূপসী বাংলা"
+  },
+  {
+    "id": 75,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৫. 'তুমি অধম তাই বলিয়া আমি উত্তম না হইব কেন?'- কোন উপন্যাসে আছে?",
+    "options": [
+      "বঙ্কিমচন্দ্রের 'কপালকুণ্ডলা'",
+      "রবীন্দ্রনাথের 'গোরা'",
+      "শরৎচন্দ্রের 'চরিত্রহীন'",
+      "বিভূতিভূষণের 'আরণ্যক'"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "বঙ্কিমচন্দ্রের 'কপালকুণ্ডলা'"
+  },
+  {
+    "id": 76,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৬. 'লুই ভণই গুরু পুছিঅ জান'। এখানে 'ভণই' শব্দের অর্থ কী?",
+    "options": [
+      "পরার্থে",
+      "ভাবে",
+      "চায়",
+      "বলে"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "বলে"
+  },
+  {
+    "id": 77,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৭. 'শ্রীকৃষ্ণকীর্তন' কাব্যের অংশ নয় কোনটি?",
+    "options": [
+      "নৌকা খণ্ড",
+      "হার খণ্ড",
+      "রাধা বিরহ",
+      "প্রণয় খণ্ড"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "প্রণয় খণ্ড"
+  },
+  {
+    "id": 78,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৮. বিবৃত স্বরধ্বনি বলতে বোঝায়-",
+    "options": [
+      "যে স্বরধ্বনি উচ্চারণে ঠোঁট বেশি খোলে",
+      "যে স্বরধ্বনি উচ্চারণে জিভ উঁচু হয়",
+      "যে স্বরধ্বনি অবিকৃতভাবে উচ্চারিত হয়",
+      "যে স্বরধ্বনি উচ্চারণে বিকৃতি ঘটে"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "যে স্বরধ্বনি উচ্চারণে ঠোঁট বেশি খোলে"
+  },
+  {
+    "id": 79,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৭৯. মনোয়েল দ্যা আসসুম্পসাঁও অভিধান প্রকাশের আগে কত বছর ধরে শব্দ সংগ্রহ করেন?",
+    "options": [
+      "২-৩ বছর",
+      "৫-৭ বছর",
+      "৯-১০ বছর",
+      "১৪-১৫ বছর"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "৯-১০ বছর"
+  },
+  {
+    "id": 80,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮০. আলালের 'ঘরে দুলাল' প্রথমে কোন পত্রিকায় ধারাবাহিকভাবে প্রকাশিত হয়?",
+    "options": [
+      "বিবিধার্থ সংগ্রহ",
+      "সংবাদ প্রভাকর",
+      "মাসিক পত্রিকা",
+      "বঙ্গদর্শন"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "মাসিক পত্রিকা"
+  },
+  {
+    "id": 81,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮১. 'সকলের তরে সকলে আমরা/प्रत्यেক আমরা পরের তরে'।- কোন কবিতার অংশ?",
+    "options": [
+      "পরার্থে",
+      "পাছে লোকে কিছু বলে",
+      "বড় কে",
+      "সুখ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "পরার্থে"
+  },
+  {
+    "id": 82,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮২. কাজী নজরুল ইসলামের কোন গ্রন্থটি বাজেয়াপ্ত হয়নি?",
+    "options": [
+      "অগ্নিবীণা",
+      "বিষের বাঁশি",
+      "ভাঙার গান",
+      "চন্দ্রবিন্দু"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "অগ্নিবীণা"
+  },
+  {
+    "id": 83,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৩. জসীম উদ্দীনের 'কবর' কবিতাটি কোন কাব্যের অন্তর্গত?",
+    "options": [
+      "বালুচর",
+      "রাখালী",
+      "ধানক্ষেত",
+      "মা যে জননী কান্দে"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "রাখালী"
+  },
+  {
+    "id": 84,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৪. গৌড়ী প্রাকৃত বলতে বোঝায়-",
+    "options": [
+      "গৌড় অঞ্চলের মুখের ভাষা",
+      "গৌড় সাহিত্যের স্বাভাবিক রীতি",
+      "গৌড় ভাষার লিখিত নমুনা",
+      "গৌড় ভাষার বিকৃত উচ্চারণ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "গৌড় অঞ্চলের মুখের ভাষা"
+  },
+  {
+    "id": 85,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৫. 'Glossary' শব্দের বাংলা পরিভাষা-",
+    "options": [
+      "জ্ঞাপনপত্র",
+      "সর্বসাকল্যে",
+      "শব্দার্থপঞ্জি",
+      "গুদামজাত"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "শব্দার্থপঞ্জি"
+  },
+  {
+    "id": 86,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৬. 'ঐক্যমত' শব্দটি কোন বিবেচনায় অশুদ্ধ নয়?",
+    "options": [
+      "মতের ঐক্য-এভাবে সমাসসাধিত ধরলে",
+      "একমত য-এভাবে প্রত্যয়সাধিত ধরলে",
+      "ঐক্য মত-এভাবে উপসর্গসাধিত ধরলে",
+      "ঐক্যমত শব্দটিকে পারিভাষিক শব্দ ধরলে"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "মতের ঐক্য-এভাবে সমাসসাধিত ধরলে"
+  },
+  {
+    "id": 87,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৭. ১৯৩৬ সালে কলিকাতা বিশ্ববিদ্যালয়ের বানান সংস্কারের মূল উদ্দেশ্য ছিল-",
+    "options": [
+      "বানানকে উচ্চারণের কাছাকাছি নেওয়া",
+      "বানানের ঐতিহ্যকে বজায় রাখা",
+      "বানানের নিয়ম প্রণয়ন করা",
+      "বানানে বিকল্প বর্জন করা"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "বানানের নিয়ম প্রণয়ন করা"
+  },
+  {
+    "id": 88,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৮. অভিধানে ং, ঃ, ঁ বর্ণগুলোর অবস্থান কোথায়?",
+    "options": [
+      "স্বরবর্ণের আগে",
+      "স্বরবর্ণের শেষে",
+      "ব্যঞ্জনবর্ণের শেষে",
+      "এদের নির্দিষ্ট অবস্থান নেই"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "স্বরবর্ণের শেষে"
+  },
+  {
+    "id": 89,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৮৯. পূর্ববঙ্গীয় উচ্চারণে 'স্মরণ' শব্দের ক্ষেত্রে কোনটি ঘটে?",
+    "options": [
+      "স-এর উচ্চারণ শ হয়ে যায়",
+      "ণ-এর উচ্চারণ ন হয়ে যায়",
+      "ম-ফলার উচ্চারণ ম হয়ে যায়",
+      "শুরুতে নাসিক্য উচ্চারণ হয় না"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "শুরুতে নাসিক্য উচ্চারণ হয় না"
+  },
+  {
+    "id": 90,
+    "subject": "bangla",
+    "type": "mcq",
+    "text": "৯০. 'গড্ডলিকা প্রবাহ' বাগধারার 'গড্ডল' শব্দের অর্থ কী?",
+    "options": [
+      "নদী",
+      "স্রোত",
+      "ভেড়া",
+      "মশা"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "ভেড়া"
+  },
+  {
+    "id": 91,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯১. Which sentence is correct?",
+    "options": [
+      "One of my sisters are a nurse",
+      "One of my sister is a nurse",
+      "One of my sisters is a nurse",
+      "One of my sister's are a nurse"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "One of my sisters is a nurse"
+  },
+  {
+    "id": 92,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯২. Select the right determiner: 'She works as ___ FBI analyst.'",
+    "options": [
+      "a",
+      "an",
+      "the",
+      "none of the above"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "an"
+  },
+  {
+    "id": 93,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৩. We met Medha carrying a bouquet of red roses. Here 'carrying' is a/an-----.",
+    "options": [
+      "gerund",
+      "infinitive",
+      "verbal noun",
+      "participle"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "participle"
+  },
+  {
+    "id": 94,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৪. 'Five years have passed since his father died'. Identify the correct simple form of the sentence",
+    "options": [
+      "His father has died five years ago",
+      "His father died five years ago.",
+      "His father has died for five years.",
+      "His father died since five years."
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "His father died five years ago."
+  },
+  {
+    "id": 95,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৫. Choose the antonym of 'controversy'",
+    "options": [
+      "contention",
+      "bickering",
+      "unanimity",
+      "dispute"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "unanimity"
+  },
+  {
+    "id": 96,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৬. 'For God's sake hold your tongue, and let me love.' This line is taken from the poem-------.",
+    "options": [
+      "To His Coy Mistress",
+      "The Canonization",
+      "The Definition of Love",
+      "The sun rising"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "The Canonization"
+  },
+  {
+    "id": 97,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৭. The one-act play 'Riders to the Sea' was written by-----.",
+    "options": [
+      "G. B. Shaw",
+      "Oscar Wilde",
+      "J. M. Synge",
+      "John Galsworthy"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "J. M. Synge"
+  },
+  {
+    "id": 98,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৮. 'Neither a borrower nor a lender be, For loan oft loses both itself and friend.' This extract is taken from Shakespeare's play.....",
+    "options": [
+      "Macbeth",
+      "King Lear",
+      "Measure for Measure",
+      "Hamlet"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "Hamlet"
+  },
+  {
+    "id": 99,
+    "subject": "english",
+    "type": "mcq",
+    "text": "৯৯. Who composed the elegiac poem 'Thyrsis'?",
+    "options": [
+      "Thomas Gray",
+      "Matthew Arnold",
+      "John Milton",
+      "P. B. Shelly"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "Matthew Arnold"
+  },
+  {
+    "id": 100,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০০. Who is the writer of the famous essay 'Tradition and the Individual Talent'?",
+    "options": [
+      "George Orwell",
+      "Aldous Leonard Huxley",
+      "T. S. Eliot",
+      "Francis Bacon"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "T. S. Eliot"
+  },
+  {
+    "id": 101,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০১. 'Our sweetest songs are those that tell of saddest thought.' This oft-quoted line occurs in Sheley's notable poem.....",
+    "options": [
+      "To a Skylark",
+      "Ode to the West Wind",
+      "Adonais",
+      "The Cloud"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "To a Skylark"
+  },
+  {
+    "id": 102,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০২. Who authored the futuristic novel 'Brave New World'?",
+    "options": [
+      "E. M Forster",
+      "Virginia Woolf",
+      "Aldous Leonard Huxley",
+      "Graham Greene"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Aldous Leonard Huxley"
+  },
+  {
+    "id": 103,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৩. 'Good fences make good neighbors'.---The line was written by.......",
+    "options": [
+      "Robert Graves",
+      "Robert Frost",
+      "Ezra Pound",
+      "Carl Sandburg"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "Robert Frost"
+  },
+  {
+    "id": 104,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৪. 'Cowards die many times before their deaths: The valiant never taste of death but once'. In which play of Shakespeare do you find this quote?",
+    "options": [
+      "Julius Caesar",
+      "Romeo and Juliet",
+      "The Tempest",
+      "Twelfth Night"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "Julius Caesar"
+  },
+  {
+    "id": 105,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৫. 'Knowledge comes but wisdom lingers' This quote is extracted from Tennyson's poem titled__.",
+    "options": [
+      "Morte d' Arthur",
+      "The Lotos-Eaters",
+      "Tithonus",
+      "Locksley Hall"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "Locksley Hall"
+  },
+  {
+    "id": 106,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৬. The tragedy 'Samson Agonistes was penned by___.",
+    "options": [
+      "Christopher Marlowe",
+      "Henrick Ibsen",
+      "Jonh Milton",
+      "Arthur Miller"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Jonh Milton"
+  },
+  {
+    "id": 107,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৭. Who is the playwright of the absurd drama 'Waiting for Godot?'",
+    "options": [
+      "Jean Genet",
+      "Samuel Beckett",
+      "Harold Printer",
+      "Tom Stoppard"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "Samuel Beckett"
+  },
+  {
+    "id": 108,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৮. It's strange-but true; for truth is always strange; Stranger than fiction.' This is taken from a poem of.",
+    "options": [
+      "Mark Twain",
+      "Robert Herrick",
+      "Lord Byron",
+      "Franz Kafka"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Lord Byron"
+  },
+  {
+    "id": 109,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১০৯. Who wrote the novella 'Heart of Darkness'?",
+    "options": [
+      "Joseph Conrad",
+      "Doris Lessing",
+      "Jonh Osborne",
+      "Thomas Hardy"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "Joseph Conrad"
+  },
+  {
+    "id": 110,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১০. Who was the writer of the autobiographical as well as political easy 'Shooting and Elephant'?",
+    "options": [
+      "Francis Bacon",
+      "George Orwell",
+      "Joseph Addison",
+      "Charles Lamb"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "George Orwell"
+  },
+  {
+    "id": 111,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১১. A speech made without any previous thought, preparation or practice is called a/an ---.",
+    "options": [
+      "free speech",
+      "extempore speech",
+      "maiden speech",
+      "rousing speech"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "extempore speech"
+  },
+  {
+    "id": 112,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১২. Which one has the identical singular and plural form?",
+    "options": [
+      "Memorandum",
+      "Stimulus",
+      "Dice",
+      "Oasis"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "Dice"
+  },
+  {
+    "id": 113,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৩. Select the sentence in which 'fast' is an adverb:",
+    "options": [
+      "Don't drive so fast!",
+      "Technology is expanding at a fast pace.",
+      "Muslims fast dueing Ramadan.",
+      "Ushashi went on a 24 hour fast to detox."
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "Don't drive so fast!"
+  },
+  {
+    "id": 114,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৪. 'It was a cowardly attack on a defenceless man'. Here 'cowardly' is a/an ---.",
+    "options": [
+      "adverb",
+      "adjective",
+      "noun",
+      "conjunction"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "adjective"
+  },
+  {
+    "id": 115,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৫. 'The river flows past the village'. Here 'past' is a/an-",
+    "options": [
+      "verb",
+      "adverb",
+      "preposition",
+      "adjective"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "preposition"
+  },
+  {
+    "id": 116,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৬. 'Ihana sleeps only for four hours a night.' In this sentence the verb 'sleeps' is",
+    "options": [
+      "causative",
+      "intransitive",
+      "transitive",
+      "factitive"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "intransitive"
+  },
+  {
+    "id": 117,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৭. 'He started teaching Hamlet'. Here 'teaching' is a/an-",
+    "options": [
+      "participle",
+      "infinitive",
+      "verbal noun",
+      "gerund"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "gerund"
+  },
+  {
+    "id": 118,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৮. Fill in the blank with the appropriate preposition: 'She was married ___ a rich man'.",
+    "options": [
+      "with",
+      "to",
+      "of",
+      "off"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "to"
+  },
+  {
+    "id": 119,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১১৯. Which gender is the word 'sibling'?",
+    "options": [
+      "Masculine",
+      "Feminine",
+      "Neuter",
+      "Common"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "Common"
+  },
+  {
+    "id": 120,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২০. Find out the correctly spelt word.",
+    "options": [
+      "reminiscence",
+      "reminescence",
+      "remeniscence",
+      "reminicence"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "reminiscence"
+  },
+  {
+    "id": 121,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২১. The idiom 'smell a rat' means to",
+    "options": [
+      "detect bad smell",
+      "be in a bad mood",
+      "suspect something wrong",
+      "see hidden meaning"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "suspect something wrong"
+  },
+  {
+    "id": 122,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২২. Select the synonym for 'inclement':",
+    "options": [
+      "affable",
+      "mild",
+      "rough",
+      "genial"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "rough"
+  },
+  {
+    "id": 123,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২৩. Tell me frankly why you did this. the underlined part is a/an",
+    "options": [
+      "adjective clause",
+      "noun clause",
+      "adverbial clause",
+      "adverbial phrase"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "noun clause"
+  },
+  {
+    "id": 124,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২৪. The prefix 'non' can be added to ---.",
+    "options": [
+      "office",
+      "regular",
+      "partisan",
+      "obey"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "partisan"
+  },
+  {
+    "id": 125,
+    "subject": "english",
+    "type": "mcq",
+    "text": "১২৫. Identify the correct passive form: 'I heard her sing'",
+    "options": [
+      "She was heard sing by me",
+      "She was heard to be sung by me.",
+      "She was heard sung by me.",
+      "She was heard to sing by me."
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "She was heard to sing by me."
+  },
+  {
+    "id": 126,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১২৬. ক্ষুদ্রঋণ কার্যক্রম বাংলাদেশের গ্রামীণ অর্থনীতিতে প্রধানত-",
+    "options": [
+      "দারিদ্র্য হ্রাস করে",
+      "ভিক্ষাবৃত্তি হ্রাস করে",
+      "নারীর অংশগ্রহণ বৃদ্ধি করে",
+      "নারীর অংশগ্রহণ হ্রাস করে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "নারীর অংশগ্রহণ বৃদ্ধি করে"
+  },
+  {
+    "id": 127,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১২৭. বর্তমানে পৃথিবীর কোন দেশে বেশি প্রবাসী বাংলাদেশী কর্মরত রয়েছে?",
+    "options": [
+      "সৌদি আরব",
+      "মালয়েশিয়া",
+      "সংযুক্ত আরব আমিরাত",
+      "ইতালি"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "সৌদি আরব"
+  },
+  {
+    "id": 128,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১২৮. বাংলাদেশের মতো উন্নয়নশীল দেশগুলোর ক্ষেত্রে মূল্যস্ফীতির সহনশীল মাত্রা হলো-",
+    "options": [
+      "০৬-০৮ শতাংশ",
+      "০১-০৫ শতাংশ",
+      "০৯-১২ শতাংশ",
+      "১৩-১৫ শতাংশ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "০৬-০৮ শতাংশ"
+  },
+  {
+    "id": 129,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১২৯. বাংলাদেশ ব্যাংকের রিজার্ভ থেকে চুরি করা অর্থ পাচার করা হয়-",
+    "options": [
+      "যুক্তরাষ্ট্র ও ইন্দোনেশিয়ায়",
+      "যুক্তরাষ্ট্র ও ভারতে",
+      "যুক্তরাষ্ট্র ও ফিলিপাইনে",
+      "শ্রীলংকা ও ফিলিপাইনে"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "শ্রীলংকা ও ফিলিপাইনে"
+  },
+  {
+    "id": 130,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩০. অর্থ পাচারের কারণ নয় কোনটি?",
+    "options": [
+      "অবৈধভাবে উপার্জিত অর্থ গোপন করা?",
+      "কর ফাঁকি না দেওয়া",
+      "কোম্পানির মুনাফা লুকানো",
+      "দেশে বিনিয়োগ পরিস্থিতি না থাকা"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "কর ফাঁকি না দেওয়া"
+  },
+  {
+    "id": 131,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩১. বাংলাদেশ কোন দুটি দেশ হতে সিংহভাগ সয়াবিন তেল আমদানী করে?",
+    "options": [
+      "মালয়েশিয়া ও ইন্দোনেশিয়া",
+      "ভারত ও চীন",
+      "জার্মানি ও ভিয়েতনাম",
+      "আর্জেন্টিনা ও ব্রাজিল"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "আর্জেন্টিনা ও ব্রাজিল"
+  },
+  {
+    "id": 132,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩২. বিশ্বব্যাংকের মতে বাংলাদেশের মূল্যস্ফীতি বাড়ার কারণ নয় কোনটি?",
+    "options": [
+      "বৈদেশিক মুদ্রা বৃদ্ধি পাওয়া",
+      "অভ্যন্তরীণ জ্বালানীর মূল্যবৃদ্ধি",
+      "দুর্বল মুদ্রানীতি",
+      "টাকার অবমূল্যায়ন"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "বৈদেশিক মুদ্রা বৃদ্ধি পাওয়া"
+  },
+  {
+    "id": 133,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৩. বাংলাদেশের বৃহত্তম সার কারখানার নাম-",
+    "options": [
+      "ইউরিয়া ফার্টিলাইজার ফ্যাক্টরি লিমিটেড",
+      "যমুনা ফার্টিলাইজার কোম্পানি লিমিটেড",
+      "পলাশ ইউরিয়া ফার্টিলাইজার কোম্পানি লিমিটেড",
+      "ন্যাচারাল গ্যাস ফার্টিলাইজার কোম্পানি লিমিটেড"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "পলাশ ইউরিয়া ফার্টিলাইজার কোম্পানি লিমিটেড"
+  },
+  {
+    "id": 134,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৪. কোন অনুচ্ছেদ মূলে বাংলাদেশের সংবিধানের মৌলিক বিধানাবলি পরিবর্তনযোগ্য নয়?",
+    "options": [
+      "অনুচ্ছেদ ৭",
+      "অনুচ্ছেদ ৮",
+      "অনুচ্ছেদ (ক)",
+      "অনুচ্ছেদ ৭(খ)"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "অনুচ্ছেদ ৭(খ)"
+  },
+  {
+    "id": 135,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৫. বাংলাদেশের সংবিধানের রক্ষাকর্তা-",
+    "options": [
+      "প্রেসিডেন্ট",
+      "জাতীয় সংসদ",
+      "বাংলাদেশ সুপ্রীম কোর্ট",
+      "হাইকোর্ট"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "বাংলাদেশ সুপ্রীম কোর্ট"
+  },
+  {
+    "id": 136,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৬. তত্ত্বাবধায়ক সরকার ব্যবস্থা পুনঃপ্রবর্তনের জন্য সংবিধানের যে সংশোধন বাতিল করতে হবে-",
+    "options": [
+      "পঞ্চদশ",
+      "দ্বাদশ",
+      "একাদশ",
+      "ত্রয়োদশ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "পঞ্চদশ"
+  },
+  {
+    "id": 137,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৭. জুলাই শহিদ দিবস কোনটি?",
+    "options": [
+      "০১ জুলাই",
+      "২৯ জুলাই",
+      "০৫ আগস্ট",
+      "১৬ জুলাই"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "১৬ জুলাই"
+  },
+  {
+    "id": 138,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৮. বর্তমান অন্তর্বর্তী সরকারের প্রধান উপদেষ্টা কবে শপথ গ্রহণ করেন?",
+    "options": [
+      "২০২৪ সালের ০৫ আগস্ট",
+      "২০২৪ সালের ০৮ আগস্ট",
+      "২০২৪ সালের ০৬ আগস্ট",
+      "২০২৪ সালের ০৯ আগস্ট"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "২০২৪ সালের ০৮ আগস্ট"
+  },
+  {
+    "id": 139,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৩৯. বাংলাদেশে মোট কতবার জরুরি অবস্থা জারী করা হয়েছে?",
+    "options": [
+      "৫ বার",
+      "৩ বার",
+      "৪ বার",
+      "৭ বার"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "৫ বার"
+  },
+  {
+    "id": 140,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪০. ঢাকা বিশ্ববিদ্যালয় বিল কত সালে আইনে পরিণত হয়?",
+    "options": [
+      "০৭ মার্চ ১৯১৭",
+      "১৮ মার্চ ১৯২০",
+      "২১ মার্চ ১৯১৯",
+      "১১ মার্চ ১৯১৮"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "১৮ মার্চ ১৯২০"
+  },
+  {
+    "id": 141,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪১. একুশে পদক ও স্বাধীনতা পদক দুটোই পেয়েছেন-",
+    "options": [
+      "ভাস্কর শামীম শিকদার",
+      "ভাস্কর হামিদুর রহমান",
+      "ভাস্কর নিতুন কুন্ডু",
+      "ভাস্কর নভেরা আহমেদ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "ভাস্কর নিতুন কুন্ডু"
+  },
+  {
+    "id": 142,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪২. বাংলাদেশের প্রশাসনিক কাঠামো-",
+    "options": [
+      "বিকেন্দ্রীভূত",
+      "ফেডারেল",
+      "রাজতান্ত্রিক",
+      "কেন্দ্রীভূত"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "কেন্দ্রীভূত"
+  },
+  {
+    "id": 143,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৩. টেস্ট ক্রিকেটে প্রথম বাংলাদেশি হিসেবে ডাবল সেঞ্চুরি করেন-",
+    "options": [
+      "সাকিব-আল-হাসান",
+      "মমিনুল হক",
+      "নাজমুল হোসেন শান্ত",
+      "মুশফিকুর রহিম"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "মুশফিকুর রহিম"
+  },
+  {
+    "id": 144,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৪. ১৯৭৫ সালে একদলীয় শাসন ব্যবস্থায় কোন পত্রিকাটি নিষিদ্ধ ছিল?",
+    "options": [
+      "দৈনিক ইত্তেফাক",
+      "বাংলাদেশ অবজার্ভার",
+      "দৈনিক গণকণ্ঠ",
+      "বাংলাদেশ টাইমস"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "দৈনিক গণকণ্ঠ"
+  },
+  {
+    "id": 145,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৫. ওয়াসফিয়া নাজরীন বিখ্যাত-",
+    "options": [
+      "অ্যাথলেট হিসেবে",
+      "ক্রিকেটার হিসেবে",
+      "এভারেস্টজয়ী হিসেবে",
+      "নারী উদ্যোক্তা হিসেবে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "এভারেস্টজয়ী হিসেবে"
+  },
+  {
+    "id": 146,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৬. কোন মুসলিম চিন্তাবিদ প্রথম 'দ্বি-জাতি তত্ত্ব' সম্পর্কে স্পষ্ট ধারণা দেন?",
+    "options": [
+      "আল্লামা ইকবাল",
+      "সৈয়দ আহমদ খান",
+      "মোহাম্মদ আলী জিন্নাহ",
+      "মওলানা আকরম খাঁ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "মোহাম্মদ আলী জিন্নাহ"
+  },
+  {
+    "id": 147,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৭. কোন বছর পাকিস্তান সরকার বাংলাকে অন্যতম রাষ্ট্রভাষা হিসেবে স্বীকৃতি দেয়?",
+    "options": [
+      "১৯৫২",
+      "১৯৫৪",
+      "১৯৫৬",
+      "১৯৬৯"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "১৯৫৬"
+  },
+  {
+    "id": 148,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৮. 'তমদ্দুন মজলিস'- এর নেতা জনাব আবুল কাশেম ঢাকা বিশ্ববিদ্যালয়ের কোন বিষয়ের শিক্ষক ছিলেন?",
+    "options": [
+      "রসায়ন বিজ্ঞান",
+      "গণিত",
+      "ইতিহাস",
+      "পদার্থ বিজ্ঞান"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "পদার্থ বিজ্ঞান"
+  },
+  {
+    "id": 149,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৪৯. স্বাধীন বাংলা বেতার কেন্দ্রের জনপ্রিয় অনুষ্ঠান 'জল্লাদের দরবার' এর রচয়িতা কে ছিলেন?",
+    "options": [
+      "কল্যাণ মিত্র",
+      "রাজু আহমেদ",
+      "এম আর আকতার মুকুল",
+      "নারায়ণ ঘোষ (মিতা)"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "কল্যাণ মিত্র"
+  },
+  {
+    "id": 150,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫০. কোন তারিখে আসাদুজ্জামান আসাদ পুলিশের গুলিতে শহিদ হন?",
+    "options": [
+      "১৮ জানুয়ারি ১৯৬৯",
+      "২০ জানুয়ারি ১৯৬৯",
+      "২২ জানুয়ারী ১৯৬৯",
+      "২৪ জানুয়ারি ১৯৬৯"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "২০ জানুয়ারি ১৯৬৯"
+  },
+  {
+    "id": 151,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫১. 'ঢাকা প্রকাশ' সাপ্তাহিক পত্রিকাটির প্রথম সম্পাদক কে?",
+    "options": [
+      "কৃষ্ণচন্দ্র মজুমদার",
+      "সিকান্দর আবু জাফর",
+      "শামসুর রাহমান",
+      "রামানন্দ চট্টোপাধ্যায়"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "কৃষ্ণচন্দ্র মজুমদার"
+  },
+  {
+    "id": 152,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫২. সেরিকালচার বলতে বোঝায়---",
+    "options": [
+      "তুলা চাষ",
+      "নীল চাষ",
+      "রেশম পোকা চাষ",
+      "তামাক চাষ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "রেশম পোকা চাষ"
+  },
+  {
+    "id": 153,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫৩. ছায়া প্রেমী (Shadow loving) অর্থনৈতিক ফসল কোনটি?",
+    "options": [
+      "আখ",
+      "তামাক",
+      "ধান",
+      "চা"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "চা"
+  },
+  {
+    "id": 154,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫৪. বিগত ৫০ বছরে বাংলাদেশে কোন ফসলের চাষ তুলনামূলকভাবে সবচেয়ে বেশি বৃদ্ধি পেয়েছে?",
+    "options": [
+      "ভুট্টা",
+      "পাট",
+      "ধান",
+      "গোল আলু"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "ভুট্টা"
+  },
+  {
+    "id": 155,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৫৫. ২০২২ সালের জনশুমারি অনুযায়ী বাংলাদেশের জনসংখ্যা-",
+    "options": [
+      "প্রায় ঊনিশ কোটি",
+      "প্রায় সাড়ে ষোলো কোটি",
+      "প্রায় আঠারো কোটি",
+      "প্রায় সতেরো কোটি"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "প্রায় সতেরো কোটি"
+  },
+  {
+    "id": 156,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৫৬. আফগানিস্তানের তালেবান সরকারকে বৈধ কর্তৃপক্ষ হিসেবে স্বীকৃতি প্রদানকারী প্রথম রাষ্ট্র কোনটি?",
+    "options": [
+      "চীন",
+      "পাকিস্তান",
+      "রাশিয়া",
+      "কাতার"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "রাশিয়া"
+  },
+  {
+    "id": 157,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৫৭. 'The One Big Beautiful Bill Act' এ USA প্রেরণ করতে কী পরিমাণ কর ধার্য করা হয়েছে?",
+    "options": [
+      "৫%",
+      "৩%",
+      "১%",
+      "২%"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "১%"
+  },
+  {
+    "id": 158,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৫৮. বিশ্ব পরিবেশ দিবস কোনটি?",
+    "options": [
+      "৫ জুন",
+      "২২ এপ্রিল",
+      "৬ জুলাই",
+      "৫ জুলাই"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "৫ জুন"
+  },
+  {
+    "id": 159,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৫৯. কিয়োটো প্রটোকলের বিষয়বস্তু কী?",
+    "options": [
+      "ওজোনস্তরের ক্ষয় হ্রাস",
+      "জৈব নিরাপত্তা",
+      "জীববৈচিত্র্যের সুরক্ষা",
+      "গ্রিন হাউস নির্গমন হ্রাস"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "গ্রিন হাউস নির্গমন হ্রাস"
+  },
+  {
+    "id": 160,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬০. Climate Vulnerable Form (CVF) কবে প্রতিষ্ঠিত হয়?",
+    "options": [
+      "২০০৮",
+      "২০০৯",
+      "২০১১",
+      "২০১০"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "২০০৯"
+  },
+  {
+    "id": 161,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬১. ভারত ও পাকিস্তানের মধ্যে সিন্ধু নদের পানিবণ্টন চুক্তি কবে সম্পাদিত হয়?",
+    "options": [
+      "১৯৬০",
+      "১৯৬৬",
+      "১৯৭৪",
+      "১৯৭৫"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "১৯৬০"
+  },
+  {
+    "id": 162,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬২. UNOPS - এর পূর্ণরূপ কী?",
+    "options": [
+      "United Nations Organization for Peace and Security",
+      "United Nations Office for Public Service",
+      "United Nations Office for Project Service",
+      "United Nations Operations and planning System"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "United Nations Office for Project Service"
+  },
+  {
+    "id": 163,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৩. বর্তমানে অর্থনীতির ব্যাপ্তি অনুসারে বিশ্বের বৃহত্তম অর্থনৈতিক জোট কোনটি?",
+    "options": [
+      "EU",
+      "WTO",
+      "RCEP",
+      "AU"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "RCEP"
+  },
+  {
+    "id": 164,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৪. জাতিসংঘের বিশ্ব পর্যটন সংস্থা বা জাতিসংঘ পর্যটন (পূর্বতন UNWTO) এর সদর দপ্তর কোথায়?",
+    "options": [
+      "তুরিন, ইতালি",
+      "মাদ্রিদ, স্পেন",
+      "প্যারিস, ফ্রান্স",
+      "ফ্রাঙ্কফুর্ট, জার্মানি"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "মাদ্রিদ, স্পেন"
+  },
+  {
+    "id": 165,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৫. কোন দেশটি OPEC এর সদস্য নয়?",
+    "options": [
+      "ইন্দোনেশিয়া",
+      "নাইজেরিয়া",
+      "বাংলাদেশ",
+      "গ্যাবন"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "বাংলাদেশ"
+  },
+  {
+    "id": 166,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৬. সম্প্রতি পেরুতে খুঁজে পাওয়া ৩৫০০ বছরের পুরোনো শহরের নাম কী?",
+    "options": [
+      "মাচুপিচু",
+      "কোরাল",
+      "পেনিকো",
+      "কুস্কো"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "পেনিকো"
+  },
+  {
+    "id": 167,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৭. ১৯৪৭ সালে প্যালেস্টাইনকে বিভাজনের পরিকল্পনা জাতিসংঘের কোন প্রস্তাবের মাধ্যমে গৃহীত হয়?",
+    "options": [
+      "১৮০ নং প্রস্তাব",
+      "১৮১ নং প্রস্তাব",
+      "১৬০ নং প্রস্তাব",
+      "১৬১ নং প্রস্তাব"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "১৮১ নং প্রস্তাব"
+  },
+  {
+    "id": 168,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৮. নিম্নের কোন দেশটি 'গোলান হাইটস্' বিরোধের একটি পক্ষ?",
+    "options": [
+      "লেবানন",
+      "জর্ডান",
+      "সিরিয়া",
+      "সৌদি আরব"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "সিরিয়া"
+  },
+  {
+    "id": 169,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৬৯. নিচের কোন সভ্যতার সময়কালে ওজন পরিমাপ ও দৈর্ঘ্য মাপার পদ্ধতি আবিষ্কার হয়েছিল?",
+    "options": [
+      "সিন্ধু সভ্যতা",
+      "মিশরীয় সভ্যতা",
+      "গ্রিক সভ্যতা",
+      "অ্যাসেরীয় সভ্যতা"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "সিন্ধু সভ্যতা"
+  },
+  {
+    "id": 170,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭০. ন্যাটো (NATO) চার্টারের কোন ধারায় সম্মিলিত প্রতিরক্ষার কথা উল্লেখ আছে?",
+    "options": [
+      "আর্টিকেল-২",
+      "আর্টিকেল-৩",
+      "আর্টিকেল-৫",
+      "আর্টিকেল-৬"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "আর্টিকেল-৫"
+  },
+  {
+    "id": 171,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭১. রোম সংবিধি এর ফলে কোন সংস্থাটি প্রতিষ্ঠিত হয়?",
+    "options": [
+      "International Court of Justice (ICJ)",
+      "International Criminal Court (ICC)",
+      "International Atomic Energy Agency (IAEA)",
+      "European Union (EU)"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "International Criminal Court (ICC)"
+  },
+  {
+    "id": 172,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭২. কোন দেশগুলো মেডিসিন লাইন/ সীমানা দ্বারা বিভক্ত?",
+    "options": [
+      "ব্রাজিল ও বলিভিয়া",
+      "যুক্তরাষ্ট্র ও কানাডা",
+      "জার্মানি ও পোল্যান্ড",
+      "মিশর ও সুদান"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "যুক্তরাষ্ট্র ও কানাডা"
+  },
+  {
+    "id": 173,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭৩. বাংলাদেশ কখন 'নারীর বিরুদ্ধে সকল প্রকার বৈষম্য দূরীকরণ' সনদে সম্মতি জানায়?",
+    "options": [
+      "১০ ডিসেম্বর ১৯৪৮",
+      "৬ নভেম্বর ১৯৮৪",
+      "৫ আগষ্ট ১৯৮৫",
+      "২ ফেব্রুয়ারি ১৯৮৭"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "৬ নভেম্বর ১৯৮৪"
+  },
+  {
+    "id": 174,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭৪. যুক্তরাষ্ট্রের পরিচালিত 'অপারেশন মিডনাইট হ্যামার' ইরানে কবে হামলা করে?",
+    "options": [
+      "২০ জুন ২০২৫",
+      "২১ জুন ২০২৫",
+      "২২ জুন ২০২৫",
+      "২৩ জুন ২০২৫"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "২২ জুন ২০২৫"
+  },
+  {
+    "id": 175,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৭৫. ইরানের ফর্দো (Fordow) পারমাণবিক সমৃদ্ধকরণ কেন্দ্রটি কোন প্রদেশে অবস্থিত?",
+    "options": [
+      "ইসফাহান",
+      "ইলাম",
+      "বুমেহর",
+      "কোম"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "কোম"
+  },
+  {
+    "id": 176,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৭৬. বাংলাদেশে দীর্ঘতম স্থলসীমান্ত ভারতের কোন রাজ্যের সাথে?",
+    "options": [
+      "মেঘালয়",
+      "আসাম",
+      "পশ্চিমবঙ্গ",
+      "ত্রিপুরা"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "পশ্চিমবঙ্গ"
+  },
+  {
+    "id": 177,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৭৭. প্রতি ৩০০ দ্রাঘিমার স্থানান্তরে সময়ের ব্যবধান কত মিনিট হয়?",
+    "options": [
+      "১৫ মিনিট",
+      "৩০ মিনিট",
+      "৬০ মিনিট",
+      "১২০ মিনিট"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "১২০ মিনিট"
+  },
+  {
+    "id": 178,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৭৮. বাংলাদেশের ভৌগোলিক অবস্থান কোন দুটি গুরুত্বপূর্ণ সামুদ্রিক করিডরের মাঝখানে?",
+    "options": [
+      "মালাক্কা ও হরমুজ প্রণালী",
+      "হরমুজ ও পক প্রণালী",
+      "সুয়েজ খাল ও জিব্রাল্টার প্রণালী",
+      "জিব্রাল্টার ও বসফরাস প্রণালী"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "মালাক্কা ও হরমুজ প্রণালী"
+  },
+  {
+    "id": 179,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৭৯. হিমালয় পবর্তমালার উদ্ভব কোন দুটি টেকটোনিক প্লেটের সংঘর্ষে হয়েছে?",
+    "options": [
+      "ইউরেশিয়ান ও আফ্রিকান",
+      "ইন্দোঅস্ট্রেলিয়ান ও ইউরেশিয়ান",
+      "আমেরিকান ও ইউরেশিয়ান",
+      "প্যাসিফিক ও ইন্দোঅস্ট্রেলিয়ান"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "ইন্দোঅস্ট্রেলিয়ান ও ইউরেশিয়ান"
+  },
+  {
+    "id": 180,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮০. বায়ুমণ্ডলের কোন স্তরে ওজোন গ্যাসের স্তর অবস্থান করে?",
+    "options": [
+      "ট্রপোমণ্ডল",
+      "থার্মোমণ্ডল",
+      "স্ট্র্যাটোমণ্ডল",
+      "মেসোমণ্ডল"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "স্ট্র্যাটোমণ্ডল"
+  },
+  {
+    "id": 181,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮১. ভূতাত্ত্বিক গঠন অনুযায়ী বাংলাদেশের কোন অঞ্চলে সবচেয়ে পুরাতন শিলা গঠন পাওয়া যায়?",
+    "options": [
+      "সিলেট",
+      "দিনাজপুর",
+      "পার্বত্য চট্টগ্রাম",
+      "মধ্যভাগের উচ্চভূমি"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "সিলেট"
+  },
+  {
+    "id": 182,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮২. কনরাড বিযুক্তি ভূ-অভ্যন্তরের কোন স্তরসমূহের মাঝে স্থলাভিষিক্ত হয়?",
+    "options": [
+      "সিয়াল ও সিমা",
+      "অশ্বমন্ডল ও গুরুমন্ডল",
+      "গুরুমন্ডল ও কেন্দ্রমন্ডল",
+      "সিমা ও অশ্বমন্ডল"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "অশ্বমন্ডল ও গুরুমন্ডল"
+  },
+  {
+    "id": 183,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮৩. বাংলাদেশের উত্তর পশ্চিমাঞ্চলের প্রধান খনিজ সম্পদ কোনটি?",
+    "options": [
+      "চুনাপাথর",
+      "কাঁচাবালি",
+      "কয়লা",
+      "খনিজ লবণ"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "কয়লা"
+  },
+  {
+    "id": 184,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮৪. এল নিনো বাংলাদেশ ও দক্ষিণ পূর্ব এশিয়ার আঞ্চলিক আবহাওয়ায় কীভাবে প্রভাব ফেলে?",
+    "options": [
+      "শীতকালীন তাপমাত্রা বৃদ্ধি",
+      "বর্ষার বৃষ্টিপাতের ধরনে অনিয়ম সৃষ্টি করে",
+      "গ্রীষ্মকালীন তাপমাত্রা কমায়",
+      "ঘূর্ণিঝড় বৃদ্ধি পায়"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "বর্ষার বৃষ্টিপাতের ধরনে অনিয়ম সৃষ্টি করে"
+  },
+  {
+    "id": 185,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৮৫. বাংলাদেশের 'দুর্যোগ ব্যবস্থাপনা আইন' কবে প্রণীত হয়?",
+    "options": [
+      "২০০৫",
+      "২০০৮",
+      "২০১২",
+      "২০১৫"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "২০১২"
+  },
+  {
+    "id": 186,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৮৬. EPI -এর পূর্ণরূপ কী?",
+    "options": [
+      "Extended Program on immunization",
+      "Expanded program on immunization",
+      "Essential polio immunization",
+      "Extended pediatric immunization"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "Expanded program on immunization"
+  },
+  {
+    "id": 187,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৮৭. কোন স্পেস টেলিস্কোপ ২০২১ সালে হাবল টেলিস্কোপের স্থলাভিষিক্ত হয়?",
+    "options": [
+      "জেমস ওয়েব",
+      "স্পিটজার",
+      "জন কেপলার",
+      "অপটিক্যাল রিডিং"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "জেমস ওয়েব"
+  },
+  {
+    "id": 188,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৮৮. QR কোডে ব্যবহৃত হয়-",
+    "options": [
+      "তড়িৎ চৌম্বকত্ব",
+      "রেডিও ফ্রিকুয়েন্সি",
+      "স্পিটজার",
+      "অপটিক্যাল রিডিং"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "অপটিক্যাল রিডিং"
+  },
+  {
+    "id": 189,
+    "subject": "Math & logic",
+    "type": "mcq",
+    "text": "১৮৯. ইথার সম্বন্ধে কোন্টি মিথ্যা?",
+    "options": [
+      "এটি একটি রাসায়নিক তরল পদার্থ",
+      "এটি একটি কাল্পনিক মাধ্যম যা মহাবিশ্বে সর্বত্র বিরাজমান ছিল",
+      "এ মাধ্যম ছাড়া তাড়িৎ চৌম্বক তরঙ্গ সঞ্চালন সম্ভব নয়",
+      "এ কাল্পনিক মাধ্যমটির স্থিতিস্থাপক ধর্ম ছিলো"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "এ মাধ্যম ছাড়া তাড়িৎ চৌম্বক তরঙ্গ সঞ্চালন সম্ভব নয়"
+  },
+  {
+    "id": 190,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৯০. আল্ট্রাসনোগ্রাফিতে ব্যবহৃত শব্দের কম্পাঙ্ক কত?",
+    "options": [
+      "০.০১-০১ মেগাহার্জ",
+      "০১-১০ মেগাহার্জ",
+      "১০-২০ মেগাহার্জ",
+      "২০-৩০ মেগাহার্জ"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "০১-১০ মেগাহার্জ"
+  },
+  {
+    "id": 191,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৯১. কোনটি শরীরে নাইট্রোজেন সরবরাহ করে?",
+    "options": [
+      "খনিজ লবণ",
+      "ভিটামিন",
+      "স্নেহ",
+      "আমিষ"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "আমিষ"
+  },
+  {
+    "id": 192,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৯২. হাইড্রোজেন বোমায় ক্রিয়া করে-",
+    "options": [
+      "ফিশন বিক্রিয়া",
+      "ফিউশন বিক্রিয়া",
+      "ফিশন ও ফিউশন উভয়টিই",
+      "সাধারণ রাসায়নিক বিক্রিয়া"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "ফিউশন বিক্রিয়া"
+  },
+  {
+    "id": 193,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৯৩. কোন গ্রহে 'Curiosity' মহাকাশযানটি প্রেরণ করা হয়?",
+    "options": [
+      "শনি",
+      "মঙ্গল",
+      "বৃহস্পতি",
+      "ইউরেনাস"
+    ],
+    "correctOptionId": 1,
+    "correctOptionText": "মঙ্গল"
+  },
+  {
+    "id": 194,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "১৯৪. ফিটকিরিতে কত অণু পানি থাকে?",
+    "options": [
+      "২৪",
+      "১৫",
+      "০৭",
+      "০৫"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "২৪"
+  },
+  {
+    "id": 195,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৯৫. 'Necessary evil' কোনটি?",
+    "options": [
+      "প্রস্বেদন",
+      "অভিস্রবন",
+      "ব্যাপন",
+      "শোষণ"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "প্রস্বেদন"
+  },
+  {
+    "id": 196,
+    "subject": "ICT",
+    "type": "mcq",
+    "text": "১৯৬. তরঙ্গের বেলায় কোনটি সত্য?",
+    "options": [
+      "তড়িৎ চৌম্বকতরঙ্গ আলোর বেগে গমন করে",
+      "শব্দ তরঙ্গ এক ধরনের তড়িৎ চৌম্বকতরঙ্গ",
+      "সকল তরঙ্গেই প্রতিফলন-প্রতিসরণ হয় না",
+      "তরঙ্গবেগ হলো এর কম্পাঙ্ক ও তরঙ্গ দৈর্ঘ্যের অনুপাত"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "তড়িৎ চৌম্বকতরঙ্গ আলোর বেগে গমন করে"
+  },
+  {
+    "id": 197,
+    "subject": "GK (Bangladesh)",
+    "type": "mcq",
+    "text": "১৯৭. হিগের কণার (Higgs Particle) প্রকৃতির সাথে কোন বাংলাদেশি বিজ্ঞানীর নাম জড়িয়ে আছে?",
+    "options": [
+      "স্যার জগদীশ চন্দ্র বসু",
+      "সত্যেন্দ্র নাথ বসু",
+      "প্রফেসর জামাল নজরুল ইসলাম",
+      "ড. কুদরত-ই-খুদা"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "স্যার জগদীশ চন্দ্র বসু"
+  },
+  {
+    "id": 198,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৯৮. কোন গ্যাস গ্রিন হাউস ইফেক্ট ঘটায়?",
+    "options": [
+      "হাইড্রোজেন",
+      "নাইট্রোজেন",
+      "অক্সিজেন",
+      "মিথেন"
+    ],
+    "correctOptionId": 3,
+    "correctOptionText": "মিথেন"
+  },
+  {
+    "id": 199,
+    "subject": "Geography",
+    "type": "mcq",
+    "text": "১৯৯. বিরল ভূতল খনিজ (Rare-Earth Minerals) সম্পর্কিত কোন তথ্যটি সঠিক?",
+    "options": [
+      "এর মধ্যে ১৫টি ধাতু রয়েছে",
+      "লিথিয়াম এই খনিজের মধ্যে অন্যতম সদস্য",
+      "এর অসাধারণ চৌম্বক ধর্ম রয়েছে",
+      "ইউক্রেন এ খনিজ উৎপাদনে শীর্ষ অবস্থানে আছে"
+    ],
+    "correctOptionId": 2,
+    "correctOptionText": "এর অসাধারণ চৌম্বক ধর্ম রয়েছে"
+  },
+  {
+    "id": 200,
+    "subject": "GK (International)",
+    "type": "mcq",
+    "text": "২০০. কোন ধাতু পানিতে ফেললে আগুন ধরে যায়?",
+    "options": [
+      "সোডিয়াম",
+      "ম্যাগনেসিয়াম",
+      "রেডিয়াম",
+      "ইউরেনিয়াম"
+    ],
+    "correctOptionId": 0,
+    "correctOptionText": "সোডিয়াম"
+  }
+]

@@ -51,7 +51,7 @@ class AnswerOptionTile extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: state == AnswerState.idle ? onTap : null,
+          onTap: (state == AnswerState.idle || state == AnswerState.selected) ? onTap : null,
           borderRadius: BorderRadius.circular(AppSizes.radiusMd),
           child: Center(
             child: Padding(
