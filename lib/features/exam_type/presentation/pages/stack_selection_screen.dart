@@ -8,6 +8,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
+import '../../../../core/services/app_toast.dart';
 import 'package:dio/dio.dart';
 
 class StackSelectionScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
   List<Map<String, dynamic>> _stacks = [];
   bool _isLoading = true;
   String? _errorMessage;
+  bool _isDemoModeFallback = false;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
     setState(() {
       _isLoading = true;
       _errorMessage = null;
+      _isDemoModeFallback = false;
     });
 
     try {
@@ -52,13 +55,43 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
         _isLoading = false;
       });
     } on DioException catch (e) {
+      AppToast.showError('API failed. Loading default exam types.');
       setState(() {
-        _errorMessage = 'Failed to load exam types: ${e.message}';
+        _stacks = [
+          {
+            'id': 1,
+            'code': 'BCS',
+            'name': 'BCS',
+            'icon': '🎖️',
+          },
+          {
+            'id': 2,
+            'code': 'NTRCA',
+            'name': 'NTRCA',
+            'icon': '📝',
+          },
+        ];
+        _isDemoModeFallback = true;
         _isLoading = false;
       });
     } catch (e) {
+      AppToast.showError('An unexpected error occurred. Loading default exam types.');
       setState(() {
-        _errorMessage = 'An unexpected error occurred: $e';
+        _stacks = [
+          {
+            'id': 1,
+            'code': 'BCS',
+            'name': 'BCS',
+            'icon': '🎖️',
+          },
+          {
+            'id': 2,
+            'code': 'NTRCA',
+            'name': 'NTRCA',
+            'icon': '📝',
+          },
+        ];
+        _isDemoModeFallback = true;
         _isLoading = false;
       });
     }
@@ -92,6 +125,7 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
     await HiveStorage.saveActiveExamTypeId(id);
     await HiveStorage.saveSelectedStack(code == 'BCS_PRELIM' ? 'BCS' : code);
     await HiveStorage.setExamTypeSelected(true);
+    await HiveStorage.setDemoMode(_isDemoModeFallback);
     
     if (mounted) {
       context.go(AppRoutes.home);
@@ -143,7 +177,37 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
               ),
             ),
 
-            const SizedBox(height: 32),
+            if (_isDemoModeFallback) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.wifi_off_rounded, color: AppColors.warning, size: 20),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Connection offline. Running in Demo Mode with local default stacks.',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.warning,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+
+            const SizedBox(height: 16),
 
             // ── Stacks Grid ──────────────────
             Expanded(

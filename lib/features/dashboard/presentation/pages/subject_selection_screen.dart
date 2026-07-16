@@ -8,6 +8,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
+import '../../../../core/services/app_toast.dart';
 import 'package:dio/dio.dart';
 
 class SubjectSelectionScreen extends StatefulWidget {
@@ -30,6 +31,11 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
   }
 
   Future<void> _fetchSubjects() async {
+    if (HiveStorage.isDemoMode()) {
+      _loadDemoSubjects();
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -55,16 +61,31 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
         _isLoading = false;
       });
     } on DioException catch (e) {
-      setState(() {
-        _errorMessage = 'Failed to load subjects: ${e.message}';
-        _isLoading = false;
-      });
+      AppToast.showError('API failed. Loading default subjects.');
+      await HiveStorage.setDemoMode(true);
+      _loadDemoSubjects();
     } catch (e) {
-      setState(() {
-        _errorMessage = 'An unexpected error occurred: $e';
-        _isLoading = false;
-      });
+      AppToast.showError('An unexpected error occurred. Loading default subjects.');
+      await HiveStorage.setDemoMode(true);
+      _loadDemoSubjects();
     }
+  }
+
+  void _loadDemoSubjects() {
+    final List<Map<String, dynamic>> demoSubjects = [
+      {'name': 'bangla', 'displayName': 'Bangla Literature', 'icon': '🇧🇩', 'total': 35},
+      {'name': 'english', 'displayName': 'English Grammar', 'icon': '🇬🇧', 'total': 35},
+      {'name': 'Math & logic', 'displayName': 'Math & logic', 'icon': '📐', 'total': 16},
+      {'name': 'ICT', 'displayName': 'ICT', 'icon': '💻', 'total': 18},
+      {'name': 'cognitive ability', 'displayName': 'cognitive ability', 'icon': '🧠', 'total': 15},
+      {'name': 'Etics & Value', 'displayName': 'Ethics & Values', 'icon': '⚖️', 'total': 10},
+    ];
+
+    setState(() {
+      _subjects = demoSubjects;
+      _isLoading = false;
+      _errorMessage = null;
+    });
   }
 
   String _getEmojiIcon(String slug) {
@@ -162,6 +183,36 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
                 ],
               ),
             ),
+
+            if (HiveStorage.isDemoMode()) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: AppColors.warning.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.warning.withOpacity(0.3)),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.wifi_off_rounded, color: AppColors.warning, size: 20),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Connection offline. Running in Demo Mode with local default subjects.',
+                          style: AppTextStyles.bodySmall.copyWith(
+                            color: AppColors.warning,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
 
             const SizedBox(height: 16),
 
