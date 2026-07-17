@@ -147,23 +147,33 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: const TextSpan(children: [
-                      TextSpan(
-                          text: 'Quiz',
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 22,
-                              fontWeight: FontWeight.w800,
-                              color: Color(0xFF1A1A2E))),
-                      TextSpan(
-                          text: 'Lo',
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 22,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.accent)),
-                    ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                        text: const TextSpan(children: [
+                          TextSpan(
+                              text: 'Quiz',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: Color(0xFF1A1A2E))),
+                          TextSpan(
+                              text: 'Lo',
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.accent)),
+                        ]),
+                      ),
+                      if (Navigator.of(context).canPop())
+                        IconButton(
+                          icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 24),
                   Text('Choose your path', style: AppTextStyles.h1),

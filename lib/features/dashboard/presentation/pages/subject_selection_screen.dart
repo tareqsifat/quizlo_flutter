@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/global_top_bar.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/network/dio_client.dart';
@@ -117,62 +118,39 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedStack = HiveStorage.getSelectedStack() ?? 'BCS';
-
     return Scaffold(
       backgroundColor: AppColors.scaffoldBg,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const GlobalTopBar(),
             // ── Header ──────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(
-                  AppSizes.screenPadding, 24, AppSizes.screenPadding, 0),
+                  AppSizes.screenPadding, 8, AppSizes.screenPadding, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: const TextSpan(children: [
-                          TextSpan(
-                              text: 'Quiz',
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w800,
-                                  color: Color(0xFF1A1A2E))),
-                          TextSpan(
-                              text: 'Lo',
-                              style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w800,
-                                  color: AppColors.accent)),
-                        ]),
-                      ),
-                      // Badge showing active stack
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: AppColors.primarySurface,
-                          borderRadius: BorderRadius.circular(AppSizes.radiusPill),
-                          border: Border.all(color: AppColors.primary, width: 1),
-                        ),
-                        child: Text(
-                          selectedStack,
-                          style: AppTextStyles.labelMedium.copyWith(
-                            color: AppColors.primary,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
-                    ],
+                  RichText(
+                    text: const TextSpan(children: [
+                      TextSpan(
+                          text: 'Quiz',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: Color(0xFF1A1A2E))),
+                      TextSpan(
+                          text: 'Lo',
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.accent)),
+                    ]),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
                   Text('Choose a Subject', style: AppTextStyles.h1),
                   const SizedBox(height: 6),
                   Text(

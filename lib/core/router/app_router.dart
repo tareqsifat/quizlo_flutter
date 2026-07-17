@@ -22,6 +22,7 @@ import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../storage/secure_storage.dart';
 import '../storage/hive_storage.dart';
+import '../widgets/global_top_bar.dart';
 import '../services/app_toast.dart';
 
 /// ─────────────────────────────────────────────
@@ -250,7 +251,16 @@ class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
   @override
   Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Library — Coming Soon')),
+    body: SafeArea(
+      child: Column(
+        children: [
+          GlobalTopBar(),
+          Expanded(
+            child: Center(child: Text('Library — Coming Soon')),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
@@ -258,6 +268,15 @@ class RankScreen extends StatelessWidget {
   const RankScreen({super.key});
   @override
   Widget build(BuildContext context) => const Scaffold(
-    body: Center(child: Text('Rankings — Coming Soon')),
+    body: SafeArea(
+      child: Column(
+        children: [
+          GlobalTopBar(),
+          Expanded(
+            child: Center(child: Text('Rankings — Coming Soon')),
+          ),
+        ],
+      ),
+    ),
   );
 }

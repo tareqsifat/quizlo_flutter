@@ -66,10 +66,7 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
   }
 
   Widget _buildLessonCompletePage() {
-    final dailyGoal = HiveStorage.getDailyGoal();
     final pointsEarned = widget.points;
-    final remainingXp = (dailyGoal - pointsEarned).clamp(0, dailyGoal);
-    final progressFraction = (pointsEarned / dailyGoal).clamp(0.0, 1.0);
 
     return SafeArea(
       child: Padding(
@@ -82,8 +79,8 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
             Container(
               width: 140,
               height: 140,
-              decoration: BoxDecoration(
-                color: AppColors.primarySurface,
+              decoration: const BoxDecoration(
+                color: Color(0xFFE1F5FE), // light blue
                 shape: BoxShape.circle,
               ),
               child: const Center(
@@ -102,49 +99,41 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 12),
-            Text(
-              '+$pointsEarned XP',
-              style: AppTextStyles.h2.copyWith(
-                color: AppColors.accent,
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 48),
 
-            // Progress bar to daily goal
-            Container(
-              width: double.infinity,
-              height: 16,
-              decoration: BoxDecoration(
-                color: AppColors.divider,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: progressFraction,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [AppColors.accent, AppColors.accentLight],
-                    ),
-                    borderRadius: BorderRadius.circular(50),
+            // 3 Info Cards Row
+            Row(
+              children: [
+                Expanded(
+                  child: _buildInfoCard(
+                    icon: Icons.flash_on_rounded,
+                    iconColor: const Color(0xFFFFB300),
+                    value: '$pointsEarned',
+                    label: 'TOTAL XP',
+                    bgColor: const Color(0xFFFFF8E1),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              remainingXp > 0
-                  ? 'Earn another $remainingXp XP today to reach your daily goal'
-                  : 'Daily goal achieved! Excellent work!',
-              style: AppTextStyles.bodyMedium.copyWith(
-                color: AppColors.textSecondary,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildInfoCard(
+                    icon: Icons.adjust_rounded,
+                    iconColor: const Color(0xFFE53935),
+                    value: '${widget.accuracy}%',
+                    label: 'ACCURACY',
+                    bgColor: const Color(0xFFE1F5FE),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildInfoCard(
+                    icon: Icons.timer_outlined,
+                    iconColor: const Color(0xFF5C6BC0),
+                    value: widget.timeTaken,
+                    label: 'TIME',
+                    bgColor: const Color(0xFFEDE7F6),
+                  ),
+                ),
+              ],
             ),
 
             const Spacer(flex: 3),
@@ -166,6 +155,51 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
     );
   }
 
+  Widget _buildInfoCard({
+    required IconData icon,
+    required Color iconColor,
+    required String value,
+    required String label,
+    required Color bgColor,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border, width: 1.5),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: iconColor, size: 28),
+          const SizedBox(height: 12),
+          Text(
+            value,
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: AppColors.textPrimary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 9,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textSecondary.withOpacity(0.8),
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildStreakPage() {
     final streakCount = HiveStorage.getStreakCount();
     final practicedDays = StreakService.getPracticedDaysOfWeek(); // List of 7 booleans
@@ -178,38 +212,86 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
           children: [
             const Spacer(flex: 2),
 
-            // Large Flame Badge with Streak Number
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                const Icon(
-                  Icons.local_fire_department_rounded,
-                  size: 160,
-                  color: AppColors.streakOrange,
-                ),
-                Positioned(
-                  bottom: 30,
-                  child: Text(
-                    '$streakCount',
-                    style: const TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 36,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
+            // Redesigned Blue Flame Badge
+            Container(
+              width: 150,
+              height: 150,
+              decoration: const BoxDecoration(
+                color: Color(0xFFE1F5FE), // light blue background
+                shape: BoxShape.circle,
+              ),
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Outer Flame (darker blue)
+                  const Icon(
+                    Icons.local_fire_department_rounded,
+                    size: 96,
+                    color: Color(0xFF0288D1),
+                  ),
+                  // Inner Flame (cyan)
+                  const Positioned(
+                    top: 42,
+                    child: Icon(
+                      Icons.local_fire_department_rounded,
+                      size: 60,
+                      color: Color(0xFF29B6F6),
                     ),
                   ),
-                ),
-              ],
+                  // White Circle with Streak Number Overlay
+                  Positioned(
+                    bottom: 24,
+                    child: Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        '$streakCount',
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: Color(0xFF0288D1),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-            // Streak Title
+            // Redesigned Streak Titles
             Text(
-              '$streakCount Day Streak!',
-              style: AppTextStyles.display1.copyWith(
-                color: AppColors.streakOrange,
-                fontSize: 32,
+              '$streakCount',
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 64,
+                fontWeight: FontWeight.w900,
+                color: Color(0xFF1A1A2E),
+                height: 1.1,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const Text(
+              'DAY STREAK',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
                 fontWeight: FontWeight.w800,
+                color: Color(0xFF0288D1),
+                letterSpacing: 1.2,
               ),
               textAlign: TextAlign.center,
             ),
@@ -222,7 +304,7 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 48),
 
             // Weekly day indicators (Saturday to Friday)
             Row(
@@ -230,28 +312,33 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
               children: List.generate(7, (index) {
                 final isPracticed = practicedDays[index];
                 return Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Stack(
+                    Text(
+                      dayLetters[index],
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: isPracticed ? const Color(0xFF0288D1) : AppColors.textHint,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isPracticed ? const Color(0xFF0288D1) : const Color(0xFFECEFF1),
+                      ),
                       alignment: Alignment.center,
-                      children: [
-                        Icon(
-                          Icons.local_fire_department_rounded,
-                          size: 38,
-                          color: isPracticed ? AppColors.streakOrange : AppColors.divider,
-                        ),
-                        Positioned(
-                          bottom: 7,
-                          child: Text(
-                            dayLetters[index],
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 9,
-                              fontWeight: FontWeight.w900,
-                              color: isPracticed ? Colors.white : AppColors.textHint,
-                            ),
-                          ),
-                        ),
-                      ],
+                      child: isPracticed
+                          ? const Icon(
+                              Icons.check_rounded,
+                              color: Colors.white,
+                              size: 20,
+                            )
+                          : null,
                     ),
                   ],
                 );

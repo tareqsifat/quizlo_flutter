@@ -6,6 +6,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/widgets/app_button.dart';
+import '../../../../core/widgets/global_top_bar.dart';
 
 /// ─────────────────────────────────────────────
 /// Discover Screen — Search + Vertical Quiz List
@@ -41,49 +42,55 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffoldBg,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-          onPressed: () => context.go(AppRoutes.home),
-        ),
-        title: Text('Discover', style: AppTextStyles.h3),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-            child: Container(
-              height: 44,
-              decoration: BoxDecoration(
-                color: AppColors.scaffoldBg,
-                borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const GlobalTopBar(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding, vertical: 8),
+              child: Text(
+                'Discover',
+                style: AppTextStyles.h1,
               ),
-              child: TextField(
-                controller: _searchCtrl,
-                onChanged: (v) => setState(() => _query = v),
-                style: AppTextStyles.bodyMedium,
-                decoration: InputDecoration(
-                  hintText: 'Search....',
-                  hintStyle: AppTextStyles.bodySmall.copyWith(color: AppColors.textHint),
-                  prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textHint, size: 20),
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                  filled: true,
-                  fillColor: AppColors.scaffoldBg,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(AppSizes.screenPadding, 0, AppSizes.screenPadding, 12),
+              child: Container(
+                height: 44,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                  border: Border.all(color: AppColors.border, width: 1.5),
+                ),
+                child: TextField(
+                  controller: _searchCtrl,
+                  onChanged: (v) => setState(() => _query = v),
+                  style: AppTextStyles.bodyMedium,
+                  decoration: InputDecoration(
+                    hintText: 'Search....',
+                    hintStyle: AppTextStyles.bodySmall.copyWith(color: AppColors.textHint),
+                    prefixIcon: const Icon(Icons.search_rounded, color: AppColors.textHint, size: 20),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-      body: ListView.separated(
-        padding: const EdgeInsets.all(AppSizes.screenPadding),
-        itemCount: _filtered.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 12),
-        itemBuilder: (context, i) => _DiscoverListCard(
-          item: _filtered[i],
-          onTap: () => _showQuizSheet(context, _filtered[i]),
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenPadding, vertical: 8),
+                itemCount: _filtered.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                itemBuilder: (context, i) => _DiscoverListCard(
+                  item: _filtered[i],
+                  onTap: () => _showQuizSheet(context, _filtered[i]),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
