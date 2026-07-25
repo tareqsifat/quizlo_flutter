@@ -85,6 +85,15 @@ class HiveStorage {
 
   static Future<void> clearUser() => _user.clear();
 
+  // ── Local XP ────────────────────────────────
+  static int getXp() => _user.get('local_xp', defaultValue: 0) as int;
+
+  static Future<int> addXp(int amount) async {
+    final updated = getXp() + amount;
+    await _user.put('local_xp', updated);
+    return updated;
+  }
+
   // ── Streak Cache ────────────────────────────
   static Future<void> setStreakCount(int count) => _user.put('streak_count', count);
   static int getStreakCount() => _user.get('streak_count', defaultValue: 0) as int;

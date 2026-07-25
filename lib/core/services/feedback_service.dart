@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:vibration/vibration.dart';
 
@@ -6,10 +7,17 @@ class FeedbackService {
   static final AudioPlayer _wrongPlayer = AudioPlayer();
   static final AudioPlayer _completePlayer = AudioPlayer();
   static bool _initialized = false;
+  // Tracks an in-flight init() call so concurrent callers await the same
+  // Future instead of racing to setAsset() the same players in parallel.
+  static Future<void>? _initFuture;
 
   /// Pre-loads correct and wrong sound files to ensure low latency playback.
-  static Future<void> init() async {
-    if (_initialized) return;
+  static Future<void> init() {
+    if (_initialized) return Future.value();
+    return _initFuture ??= _doInit().whenComplete(() => _initFuture = null);
+  }
+
+  static Future<void> _doInit() async {
     try {
       // Pre-load assets
       await _correctPlayer.setAsset('assets/audio/correct.mp3');
@@ -21,8 +29,8 @@ class FeedbackService {
       await _completePlayer.setLoopMode(LoopMode.off);
 
       _initialized = true;
-    } catch (_) {
-      // Silent catch or simple log
+    } catch (e) {
+      debugPrint('[FeedbackService] init failed: $e');
     }
   }
 
@@ -32,8 +40,8 @@ class FeedbackService {
       await init();
       await _correctPlayer.seek(Duration.zero);
       await _correctPlayer.play();
-    } catch (_) {
-      // Ignore audio playback errors
+    } catch (e) {
+      debugPrint('[FeedbackService] playCorrect failed: $e');
     }
   }
 
@@ -41,15 +49,15 @@ class FeedbackService {
   static Future<void> playWrong() async {
     try {
       await init();
-      // Play audio concurrently
-      _wrongPlayer.seek(Duration.zero).then((_) => _wrongPlayer.play());
+      await _wrongPlayer.seek(Duration.zero);
+      await _wrongPlayer.play();
 
       // Trigger vibration for 0.7 seconds
       if (await Vibration.hasVibrator() ?? false) {
         Vibration.vibrate(duration: 700);
       }
-    } catch (_) {
-      // Ignore vibration/audio errors
+    } catch (e) {
+      debugPrint('[FeedbackService] playWrong failed: $e');
     }
   }
 
@@ -59,8 +67,8 @@ class FeedbackService {
       await init();
       await _completePlayer.seek(Duration.zero);
       await _completePlayer.play();
-    } catch (_) {
-      // Ignore audio playback errors
+    } catch (e) {
+      debugPrint('[FeedbackService] playLessonComplete failed: $e');
     }
   }
 
@@ -70,5 +78,6 @@ class FeedbackService {
     _wrongPlayer.dispose();
     _completePlayer.dispose();
     _initialized = false;
+    _initFuture = null;
   }
 }

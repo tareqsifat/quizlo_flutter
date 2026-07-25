@@ -10,6 +10,7 @@ import '../../../../core/router/app_router.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/constants/demo_questions.dart';
 import '../../../../core/services/feedback_service.dart';
+import '../../../../core/widgets/floating_xp_text.dart';
 import '../../../../core/services/streak_service.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
@@ -216,10 +217,16 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     }
   }
 
+  static const int _xpPerCorrectAnswer = 10;
+
   void _onAnswer(bool isCorrect) {
     if (isCorrect) {
       setState(() => _score++);
       FeedbackService.playCorrect();
+      HiveStorage.addXp(_xpPerCorrectAnswer);
+      if (mounted) {
+        FloatingXpText.show(context, xp: _xpPerCorrectAnswer);
+      }
       final q = _questions[_currentIndex];
       if (q.subject.isNotEmpty) {
         HiveStorage.incrementCorrectQuestionsCount(q.subject);
@@ -413,6 +420,7 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
     final selectedOption = widget.question.options[_selectedIndex!];
     try {
       final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
+      if (!mounted) return;
       final isCorrect = result['is_correct'] as bool;
       final correctId = result['correct_option_id'] as int;
       setState(() {
@@ -423,6 +431,7 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
       });
       widget.onAnswer(isCorrect);
     } catch (e) {
+      if (!mounted) return;
       setState(() => _checking = false);
     }
   }
@@ -684,6 +693,7 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
     final selectedOption = widget.question.options[_selectedIndex!];
     try {
       final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
+      if (!mounted) return;
       final isCorrect = result['is_correct'] as bool;
       setState(() {
         _isCorrect = isCorrect;
@@ -692,6 +702,7 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
       });
       widget.onAnswer(isCorrect);
     } catch (e) {
+      if (!mounted) return;
       setState(() => _checking = false);
     }
   }

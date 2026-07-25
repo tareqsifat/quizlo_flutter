@@ -42,6 +42,11 @@ abstract class AppColors {
   static const Color answerWrongBorder = Color(0xFFF39C12);
   static const Color answerWrongText = Color(0xFFB87A00);
 
+  // Transient tap-feedback flash (pastel tints of green/red, blended
+  // toward white so the flash reads as gentle rather than alarming).
+  static const Color answerFlashCorrect = Color(0xFFC9E7CB);
+  static const Color answerFlashWrong = Color(0xFFFCC7C3);
+
   // ── Status ─────────────────────────────────
   static const Color success = Color(0xFF27AE60);
   static const Color error = Color(0xFFE74C3C);

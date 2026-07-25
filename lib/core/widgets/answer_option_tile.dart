@@ -10,7 +10,7 @@ import '../constants/app_sizes.dart';
 /// ─────────────────────────────────────────────
 enum AnswerState { idle, selected, correct, wrong }
 
-class AnswerOptionTile extends StatelessWidget {
+class AnswerOptionTile extends StatefulWidget {
   final String text;
   final AnswerState state;
   final VoidCallback? onTap;
@@ -27,37 +27,99 @@ class AnswerOptionTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final colors = _resolveColors();
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeOut,
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: colors.bg,
-        borderRadius: BorderRadius.circular(AppSizes.radiusMd),
-        border: Border.all(color: colors.border, width: 1.5),
-        boxShadow: state == AnswerState.idle
-            ? [
-                BoxShadow(
-                  color: AppColors.shadowColor,
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ]
-            : null,
+  State<AnswerOptionTile> createState() => _AnswerOptionTileState();
+}
+
+class _AnswerOptionTileState extends State<AnswerOptionTile>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _feedbackController;
+  Animation<double> _scaleAnimation = const AlwaysStoppedAnimation(1.0);
+  Animation<Offset> _shakeAnimation = const AlwaysStoppedAnimation(Offset.zero);
+  Animation<double> _flashOpacity = const AlwaysStoppedAnimation(0.0);
+
+  @override
+  void initState() {
+    super.initState();
+    _feedbackController = AnimationController(vsync: this);
+    if (widget.state == AnswerState.correct || widget.state == AnswerState.wrong) {
+      _startFeedback(widget.state);
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant AnswerOptionTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    final justRevealed = oldWidget.state != widget.state &&
+        (widget.state == AnswerState.correct || widget.state == AnswerState.wrong);
+    if (justRevealed) {
+      _startFeedback(widget.state);
+    }
+  }
+
+  // Kicks off the tap-feedback animation. Purely visual and self-contained —
+  // it never awaits or blocks the caller, so the quiz flow (queueing the
+  // next question, showing the celebration screen) proceeds independently.
+  void _startFeedback(AnswerState state) {
+    final isCorrect = state == AnswerState.correct;
+    _feedbackController.duration = Duration(milliseconds: isCorrect ? 350 : 375);
+
+    _flashOpacity = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 12),
+      TweenSequenceItem(
+        tween: Tween(begin: 1.0, end: 0.0).chain(CurveTween(curve: Curves.easeOut)),
+        weight: 88,
       ),
+    ]).animate(_feedbackController);
+
+    if (isCorrect) {
+      _scaleAnimation = TweenSequence<double>([
+        TweenSequenceItem(tween: Tween<double>(begin: 1.0, end: 1.05), weight: 50),
+        TweenSequenceItem(tween: Tween<double>(begin: 1.05, end: 1.0), weight: 50),
+      ]).animate(CurvedAnimation(parent: _feedbackController, curve: Curves.easeOut));
+      _shakeAnimation = const AlwaysStoppedAnimation(Offset.zero);
+    } else {
+      _scaleAnimation = const AlwaysStoppedAnimation(1.0);
+      _shakeAnimation = TweenSequence<Offset>([
+        TweenSequenceItem(tween: Tween<Offset>(begin: Offset.zero, end: const Offset(-8, 0)), weight: 20),
+        TweenSequenceItem(tween: Tween<Offset>(begin: const Offset(-8, 0), end: const Offset(8, 0)), weight: 20),
+        TweenSequenceItem(tween: Tween<Offset>(begin: const Offset(8, 0), end: const Offset(-4, 0)), weight: 20),
+        TweenSequenceItem(tween: Tween<Offset>(begin: const Offset(-4, 0), end: const Offset(4, 0)), weight: 20),
+        TweenSequenceItem(tween: Tween<Offset>(begin: const Offset(4, 0), end: Offset.zero), weight: 20),
+      ]).animate(_feedbackController);
+    }
+
+    _feedbackController.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _feedbackController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = _resolveColors(widget.state);
+    final flashColor =
+        widget.state == AnswerState.wrong ? AppColors.answerFlashWrong : AppColors.answerFlashCorrect;
+
+    // The tap target (Material/InkWell/Text) is passed as `child` so it's
+    // built once and reused across animation ticks; only the transform and
+    // flash overlay — read fresh from their Animations — rebuild every frame.
+    return AnimatedBuilder(
+      animation: _feedbackController,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: (state == AnswerState.idle || state == AnswerState.selected) ? onTap : null,
+          onTap: (widget.state == AnswerState.idle || widget.state == AnswerState.selected)
+              ? widget.onTap
+              : null,
           borderRadius: BorderRadius.circular(AppSizes.radiusMd),
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
-                text,
+                widget.text,
                 style: AppTextStyles.answerOption.copyWith(color: colors.text),
                 textAlign: TextAlign.center,
                 maxLines: 2,
@@ -67,10 +129,55 @@ class AnswerOptionTile extends StatelessWidget {
           ),
         ),
       ),
+      builder: (context, child) {
+        return Transform.translate(
+          offset: _shakeAnimation.value,
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut,
+              width: widget.width,
+              height: widget.height,
+              decoration: BoxDecoration(
+                color: colors.bg,
+                borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                border: Border.all(color: colors.border, width: 1.5),
+                boxShadow: widget.state == AnswerState.idle
+                    ? [
+                        BoxShadow(
+                          color: AppColors.shadowColor,
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ]
+                    : null,
+              ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  child!,
+                  IgnorePointer(
+                    child: Opacity(
+                      opacity: _flashOpacity.value,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: flashColor,
+                          borderRadius: BorderRadius.circular(AppSizes.radiusMd),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
-  _AnswerColors _resolveColors() {
+  _AnswerColors _resolveColors(AnswerState state) {
     switch (state) {
       case AnswerState.selected:
         return _AnswerColors(
