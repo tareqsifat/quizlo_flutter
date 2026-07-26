@@ -19,7 +19,7 @@ class SubjectSelectionScreen extends StatefulWidget {
   State<SubjectSelectionScreen> createState() => _SubjectSelectionScreenState();
 }
 
-class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
+class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> with RouteAware {
   final _dioClient = DioClient();
   List<Map<String, dynamic>> _subjects = [];
   bool _isLoading = true;
@@ -29,6 +29,28 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
   void initState() {
     super.initState();
     _fetchSubjects();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) {
+      routeObserver.subscribe(this, route);
+    }
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() {
+    // Returning from the quiz flow (or any pushed route) — the per-subject
+    // "solved" counts in Hive may have changed, so rebuild to re-read them.
+    setState(() {});
   }
 
   Future<void> _fetchSubjects() async {

@@ -27,6 +27,15 @@ import 'package:dio/dio.dart';
 ///   - fill_blank   → FillBlankQuestion
 ///   - hear_touch   → HearTouchQuestion
 /// ─────────────────────────────────────────────
+///
+/// `xpEarned`/`totalXp` are the backend's authoritative values from the
+/// answer-submission response — the single source of truth for XP, so the
+/// floating popup, the session total, and the cached profile XP never
+/// drift apart. They're null for answer paths with no backend call (demo
+/// mode, match/hear-touch questions), in which case callers fall back to
+/// [_QuizSessionScreenState._xpPerCorrectAnswer].
+typedef AnswerCallback = void Function(bool isCorrect, [int? xpEarned, int? totalXp]);
+
 class QuizSessionScreen extends StatefulWidget {
   final int lessonId;
   final String? subject;
@@ -40,6 +49,7 @@ class QuizSessionScreen extends StatefulWidget {
 class _QuizSessionScreenState extends State<QuizSessionScreen> {
   int _currentIndex = 0;
   int _score = 0;
+  int _totalXpEarned = 0;
   final _stopwatch = Stopwatch();
 
   List<_Question> _questions = [];
@@ -196,6 +206,10 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       return {
         'is_correct': isCorrect,
         'correct_option_id': q.correctOptionId,
+        // No backend to confirm XP in demo/local mode — fall back to the
+        // same 10-per-correct rule the backend uses.
+        'xp_earned': isCorrect ? _xpPerCorrectAnswer : 0,
+        'total_xp': null,
       };
     } else {
       final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
@@ -213,19 +227,34 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       return {
         'is_correct': data['is_correct'] as bool,
         'correct_option_id': data['correct_option_id'] as int,
+        // Authoritative XP for this answer and the user's running total —
+        // this is the single source of truth the popup/summary/profile all use.
+        'xp_earned': data['xp_earned'] as int? ?? _xpPerCorrectAnswer,
+        'total_xp': data['total_xp'] as int?,
       };
     }
   }
 
   static const int _xpPerCorrectAnswer = 10;
 
-  void _onAnswer(bool isCorrect) {
+  void _onAnswer(bool isCorrect, [int? xpEarned, int? totalXp]) {
     if (isCorrect) {
-      setState(() => _score++);
+      final earned = xpEarned ?? _xpPerCorrectAnswer;
+      setState(() {
+        _score++;
+        _totalXpEarned += earned;
+      });
       FeedbackService.playCorrect();
-      HiveStorage.addXp(_xpPerCorrectAnswer);
+      HiveStorage.addXp(earned);
+      if (totalXp != null) {
+        final profile = HiveStorage.getUserProfile();
+        if (profile != null) {
+          profile['xp'] = totalXp;
+          HiveStorage.saveUserProfile(profile);
+        }
+      }
       if (mounted) {
-        FloatingXpText.show(context, xp: _xpPerCorrectAnswer);
+        FloatingXpText.show(context, xp: earned);
       }
       final q = _questions[_currentIndex];
       if (q.subject.isNotEmpty) {
@@ -246,7 +275,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       final timeStr =
           '${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
       final accuracy = _questions.isEmpty ? 0 : ((_score / _questions.length) * 100).round();
-      final points = _score * 2;
+      final points = _totalXpEarned;
 
       // Update the user's daily streak count
       await StreakService.updateStreak(
@@ -381,7 +410,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
 class McqQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
-  final ValueChanged<bool> onAnswer;
+  final AnswerCallback onAnswer;
   final Future<Map<String, dynamic>> Function(int questionId, int optionId) onCheckAnswer;
 
   const McqQuestionWidget({
@@ -423,13 +452,15 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
       if (!mounted) return;
       final isCorrect = result['is_correct'] as bool;
       final correctId = result['correct_option_id'] as int;
+      final xpEarned = result['xp_earned'] as int?;
+      final totalXp = result['total_xp'] as int?;
       setState(() {
         _answered = true;
         _isCorrect = isCorrect;
         _correctOptionId = correctId;
         _checking = false;
       });
-      widget.onAnswer(isCorrect);
+      widget.onAnswer(isCorrect, xpEarned, totalXp);
     } catch (e) {
       if (!mounted) return;
       setState(() => _checking = false);
@@ -521,7 +552,7 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
 class MatchQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
-  final ValueChanged<bool> onAnswer;
+  final AnswerCallback onAnswer;
 
   const MatchQuestionWidget(
       {super.key,
@@ -651,7 +682,7 @@ class _MatchQuestionWidgetState extends State<MatchQuestionWidget> {
 class FillBlankQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
-  final ValueChanged<bool> onAnswer;
+  final AnswerCallback onAnswer;
   final Future<Map<String, dynamic>> Function(int questionId, int optionId) onCheckAnswer;
 
   const FillBlankQuestionWidget({
@@ -695,12 +726,14 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
       final result = await widget.onCheckAnswer(widget.question.id, selectedOption.id);
       if (!mounted) return;
       final isCorrect = result['is_correct'] as bool;
+      final xpEarned = result['xp_earned'] as int?;
+      final totalXp = result['total_xp'] as int?;
       setState(() {
         _isCorrect = isCorrect;
         _answered = true;
         _checking = false;
       });
-      widget.onAnswer(isCorrect);
+      widget.onAnswer(isCorrect, xpEarned, totalXp);
     } catch (e) {
       if (!mounted) return;
       setState(() => _checking = false);
@@ -805,7 +838,7 @@ class _FillBlankQuestionWidgetState extends State<FillBlankQuestionWidget> {
 class HearTouchQuestionWidget extends StatefulWidget {
   final _Question question;
   final VoidCallback onNext;
-  final ValueChanged<bool> onAnswer;
+  final AnswerCallback onAnswer;
 
   const HearTouchQuestionWidget(
       {super.key,

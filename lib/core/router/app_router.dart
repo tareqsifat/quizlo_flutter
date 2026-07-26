@@ -50,6 +50,12 @@ abstract class AppRoutes {
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
+/// Lets screens (e.g. [SubjectSelectionScreen]) subscribe via [RouteAware]
+/// to find out when they've become visible again after a pushed route
+/// (like the quiz flow) is popped/replaced back to them, so they can
+/// refresh state that was updated while they were hidden.
+final RouteObserver<PageRoute<dynamic>> routeObserver = RouteObserver<PageRoute<dynamic>>();
+
 /// ─────────────────────────────────────────────
 /// App Router Provider
 /// ─────────────────────────────────────────────
@@ -58,6 +64,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     navigatorKey: rootNavigatorKey,
     initialLocation: AppRoutes.splash,
     debugLogDiagnostics: true,
+    observers: [routeObserver],
 
     // Route guard — redirect unauthenticated users
     redirect: (context, state) async {
