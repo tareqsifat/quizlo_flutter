@@ -31,8 +31,11 @@ class AnswerOptionTile extends StatefulWidget {
 }
 
 class _AnswerOptionTileState extends State<AnswerOptionTile>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late final AnimationController _feedbackController;
+  // Own controller for the flash tint so slowing it down to stay visible
+  // longer doesn't also slow the bounce/shake, which read better snappy.
+  late final AnimationController _flashController;
   Animation<double> _scaleAnimation = const AlwaysStoppedAnimation(1.0);
   Animation<Offset> _shakeAnimation = const AlwaysStoppedAnimation(Offset.zero);
   Animation<double> _flashOpacity = const AlwaysStoppedAnimation(0.0);
@@ -41,6 +44,7 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
   void initState() {
     super.initState();
     _feedbackController = AnimationController(vsync: this);
+    _flashController = AnimationController(vsync: this);
     if (widget.state == AnswerState.correct || widget.state == AnswerState.wrong) {
       _startFeedback(widget.state);
     }
@@ -63,13 +67,18 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
     final isCorrect = state == AnswerState.correct;
     _feedbackController.duration = Duration(milliseconds: isCorrect ? 350 : 375);
 
+    // ~700ms total: quick fade in, a solid hold at full opacity so the
+    // green/red tint is clearly visible (not mid-transition), then fade out.
+    const flashDuration = Duration(milliseconds: 700);
+    _flashController.duration = flashDuration;
     _flashOpacity = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 12),
+      TweenSequenceItem(tween: Tween(begin: 0.0, end: 1.0), weight: 120), // ~120ms fade in
+      TweenSequenceItem(tween: ConstantTween(1.0), weight: 430), // ~430ms fully visible
       TweenSequenceItem(
         tween: Tween(begin: 1.0, end: 0.0).chain(CurveTween(curve: Curves.easeOut)),
-        weight: 88,
+        weight: 150, // ~150ms fade out
       ),
-    ]).animate(_feedbackController);
+    ]).animate(_flashController);
 
     if (isCorrect) {
       _scaleAnimation = TweenSequence<double>([
@@ -89,11 +98,13 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
     }
 
     _feedbackController.forward(from: 0);
+    _flashController.forward(from: 0);
   }
 
   @override
   void dispose() {
     _feedbackController.dispose();
+    _flashController.dispose();
     super.dispose();
   }
 
@@ -107,7 +118,7 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
     // built once and reused across animation ticks; only the transform and
     // flash overlay — read fresh from their Animations — rebuild every frame.
     return AnimatedBuilder(
-      animation: _feedbackController,
+      animation: Listenable.merge([_feedbackController, _flashController]),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
