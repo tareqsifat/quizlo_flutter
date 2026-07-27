@@ -52,6 +52,7 @@ abstract class ApiEndpoints {
 
   // ── League ─────────────────────────────────
   static const String leagueCurrent = 'league/current';
+  static const String leagueLeaderboard = 'league/leaderboard';
   static const String leagueHistory = 'league/history';
 
   // ── Model Tests ────────────────────────────

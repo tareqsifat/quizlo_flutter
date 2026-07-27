@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -69,13 +67,6 @@ class _FloatingXpAnimationState extends State<_FloatingXpAnimation>
   static const double _fadeStart = 0.8;
   // Elastic pop-in finishes in the first 150ms.
   static const double _popInEnd = 0.15;
-  // Eases travel along the arc with a slight overshoot past the end point
-  // before settling — reads as a snap rather than a perfectly smooth glide.
-  static const Curve _flightCurve = Curves.easeOutBack;
-  // Side-to-side wobble riding perpendicular to the arc, decaying to zero
-  // by the end so the path isn't a mathematically perfect curve.
-  static const double _wobbleAmplitude = 14.0;
-  static const double _wobbleCycles = 2.5;
 
   late final AnimationController _controller;
   late final Offset _start;
@@ -117,9 +108,6 @@ class _FloatingXpAnimationState extends State<_FloatingXpAnimation>
   }
 
   /// Quadratic Bezier: B(t) = (1-t)^2 P0 + 2(1-t)t P1 + t^2 P2
-  /// `t` isn't clamped to [0, 1] here — [_flightCurve] briefly overshoots
-  /// past 1.0, and the Bezier formula extrapolates smoothly past `_end` in
-  /// that case, giving the little overshoot-then-settle "snap".
   Offset _bezierPoint(double t) {
     final oneMinusT = 1 - t;
     final a = oneMinusT * oneMinusT;
@@ -129,16 +117,6 @@ class _FloatingXpAnimationState extends State<_FloatingXpAnimation>
       a * _start.dx + b * _control.dx + c * _end.dx,
       a * _start.dy + b * _control.dy + c * _end.dy,
     );
-  }
-
-  /// Small decaying wobble perpendicular to the straight start→end line, so
-  /// the flight isn't a perfectly smooth arc.
-  Offset _wobbleOffset(double t) {
-    final delta = _end - _start;
-    final normal = Offset(-delta.dy, delta.dx) / delta.distance;
-    final decay = (1 - t).clamp(0.0, 1.0);
-    final wiggle = math.sin(t * _wobbleCycles * 2 * math.pi) * _wobbleAmplitude * decay;
-    return normal * wiggle;
   }
 
   @override
@@ -151,8 +129,7 @@ class _FloatingXpAnimationState extends State<_FloatingXpAnimation>
       animation: _controller,
       builder: (context, child) {
         final t = _controller.value;
-        final curvedT = _flightCurve.transform(t);
-        final position = _bezierPoint(curvedT) + _wobbleOffset(t);
+        final position = _bezierPoint(t);
 
         final opacity = t <= _fadeStart
             ? 1.0

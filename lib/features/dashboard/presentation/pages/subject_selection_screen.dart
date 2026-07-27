@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
@@ -19,7 +20,7 @@ class SubjectSelectionScreen extends StatefulWidget {
   State<SubjectSelectionScreen> createState() => _SubjectSelectionScreenState();
 }
 
-class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> with RouteAware {
+class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
   final _dioClient = DioClient();
   List<Map<String, dynamic>> _subjects = [];
   bool _isLoading = true;
@@ -29,28 +30,6 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> with Ro
   void initState() {
     super.initState();
     _fetchSubjects();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final route = ModalRoute.of(context);
-    if (route is PageRoute) {
-      routeObserver.subscribe(this, route);
-    }
-  }
-
-  @override
-  void dispose() {
-    routeObserver.unsubscribe(this);
-    super.dispose();
-  }
-
-  @override
-  void didPopNext() {
-    // Returning from the quiz flow (or any pushed route) — the per-subject
-    // "solved" counts in Hive may have changed, so rebuild to re-read them.
-    setState(() {});
   }
 
   Future<void> _fetchSubjects() async {
@@ -242,40 +221,45 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> with Ro
                             ),
                           ),
                         )
-                      : GridView.builder(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: AppSizes.screenPadding, vertical: 8),
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 12,
-                            mainAxisSpacing: 16, // Extra vertical space for 3D card layout
-                            childAspectRatio: 1.25,
-                          ),
-                          itemCount: _subjects.length,
-                          itemBuilder: (context, index) {
-                            final sub = _subjects[index];
-                            final name = sub['name'] as String;
-                            final displayName = sub['displayName'] as String;
-                            final icon = sub['icon'] as String;
-                            final total = sub['total'] as int;
+                      : ValueListenableBuilder<Box>(
+                          valueListenable: HiveStorage.userBoxListenable,
+                          builder: (context, box, _) {
+                            return GridView.builder(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: AppSizes.screenPadding, vertical: 8),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 12,
+                                mainAxisSpacing: 16, // Extra vertical space for 3D card layout
+                                childAspectRatio: 1.25,
+                              ),
+                              itemCount: _subjects.length,
+                              itemBuilder: (context, index) {
+                                final sub = _subjects[index];
+                                final name = sub['name'] as String;
+                                final displayName = sub['displayName'] as String;
+                                final icon = sub['icon'] as String;
+                                final total = sub['total'] as int;
 
-                            // Get correct answers count from Hive
-                            final correctCount = HiveStorage.getCorrectQuestionsCount(name);
-                            final progress = (correctCount / total).clamp(0.0, 1.0);
+                                // Get correct answers count from Hive
+                                final correctCount = HiveStorage.getCorrectQuestionsCount(name);
+                                final progress = (correctCount / total).clamp(0.0, 1.0);
 
-                            return _SubjectCard3D(
-                              name: name,
-                              displayName: displayName,
-                              icon: icon,
-                              correctCount: correctCount,
-                              total: total,
-                              progress: progress,
-                              onTap: () {
-                                context.push(AppRoutes.quizLoading, extra: {
-                                  'lesson_id': 0,
-                                  'title': displayName,
-                                  'subject': name,
-                                });
+                                return _SubjectCard3D(
+                                  name: name,
+                                  displayName: displayName,
+                                  icon: icon,
+                                  correctCount: correctCount,
+                                  total: total,
+                                  progress: progress,
+                                  onTap: () {
+                                    context.push(AppRoutes.quizLoading, extra: {
+                                      'lesson_id': 0,
+                                      'title': displayName,
+                                      'subject': name,
+                                    });
+                                  },
+                                );
                               },
                             );
                           },

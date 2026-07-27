@@ -167,7 +167,6 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
               child: Stack(
                 fit: StackFit.expand,
                 children: [
-                  child!,
                   IgnorePointer(
                     child: Opacity(
                       opacity: _flashOpacity.value,
@@ -179,6 +178,7 @@ class _AnswerOptionTileState extends State<AnswerOptionTile>
                       ),
                     ),
                   ),
+                  child!,
                 ],
               ),
             ),

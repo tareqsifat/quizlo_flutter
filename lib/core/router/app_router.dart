@@ -20,6 +20,7 @@ import '../../features/quiz_engine/presentation/pages/quiz_loading_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_session_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
+import '../../features/leaderboard/presentation/pages/rank_screen.dart';
 import '../storage/secure_storage.dart';
 import '../storage/hive_storage.dart';
 import '../widgets/global_top_bar.dart';
@@ -271,19 +272,3 @@ class LibraryScreen extends StatelessWidget {
   );
 }
 
-class RankScreen extends StatelessWidget {
-  const RankScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Scaffold(
-    body: SafeArea(
-      child: Column(
-        children: [
-          GlobalTopBar(),
-          Expanded(
-            child: Center(child: Text('Rankings — Coming Soon')),
-          ),
-        ],
-      ),
-    ),
-  );
-}

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 /// ─────────────────────────────────────────────
@@ -20,6 +21,8 @@ class HiveStorage {
 
   // ── User Box ───────────────────────────────
   static Box get _user => Hive.box(_boxUser);
+
+  static ValueListenable<Box> get userBoxListenable => _user.listenable();
 
   static Future<void> saveUserProfile(Map<String, dynamic> data) =>
       _user.put('profile', data);

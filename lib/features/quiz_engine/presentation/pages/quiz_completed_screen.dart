@@ -8,10 +8,12 @@ import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/services/streak_service.dart';
 import '../../../../core/services/feedback_service.dart';
+import '../../../leaderboard/presentation/pages/leaderboard_reveal_page.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Completed Screen
 /// Multi-step flow: Page 1 (Lesson Complete) -> Page 2 (Streak Screen)
+/// -> Page 3 (Leaderboard Reveal, Demo Mode only) -> Home
 /// ─────────────────────────────────────────────
 class QuizCompletedScreen extends StatefulWidget {
   final String timeTaken;
@@ -60,6 +62,8 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
         children: [
           _buildLessonCompletePage(),
           _buildStreakPage(),
+          if (HiveStorage.isDemoMode())
+            LeaderboardRevealPage(onContinue: () => context.go(AppRoutes.home)),
         ],
       ),
     );
@@ -347,11 +351,19 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
 
             const Spacer(flex: 3),
 
-            // Continue Button (routes to Home / Discover)
+            // Continue Button — Demo Mode advances to the leaderboard
+            // reveal page; real accounts go straight home.
             AppButton(
               label: 'CONTINUE',
               onTap: () {
-                context.go(AppRoutes.home);
+                if (HiveStorage.isDemoMode()) {
+                  _pageController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                  );
+                } else {
+                  context.go(AppRoutes.home);
+                }
               },
             ),
             const SizedBox(height: 24),
