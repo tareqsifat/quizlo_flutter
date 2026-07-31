@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  LOCAL WIFI TESTING ONLY.
+  Permits plain HTTP (cleartext) traffic to the dev machine's LAN IP so the
+  app can talk to `php artisan serve` inside Docker without HTTPS. All other
+  domains (including the production Railway API) still require HTTPS via the
+  base-config default below. Remove the domain-config block, or the whole
+  file + the networkSecurityConfig reference in AndroidManifest.xml, once
+  local testing is done.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">192.168.0.105</domain>
+    </domain-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

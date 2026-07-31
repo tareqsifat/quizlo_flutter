@@ -104,7 +104,13 @@ class _LeaderboardRevealPageState extends State<LeaderboardRevealPage> {
             SizedBox(
               height: _rowHeight * _totalSlots,
               child: Stack(
-                children: _standings.map((entry) {
+                // Demo User's row must stay painted on top of the others
+                // while they reflow past each other mid-animation, so it's
+                // ordered last in the Stack regardless of current rank.
+                children: [
+                  ..._standings.where((entry) => !entry.isCurrentUser),
+                  ..._standings.where((entry) => entry.isCurrentUser),
+                ].map((entry) {
                   return AnimatedPositioned(
                     key: ValueKey(entry.name),
                     duration: const Duration(milliseconds: 700),
