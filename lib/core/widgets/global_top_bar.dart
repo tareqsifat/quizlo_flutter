@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_sizes.dart';
 import '../storage/hive_storage.dart';
@@ -58,6 +59,13 @@ class GlobalTopBar extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(width: 12),
+
+          // ── XP badge ───────────────────────────────────────
+          // Wrapped so it updates the moment XP changes (e.g. right after
+          // finishing a lesson and returning here) without needing a
+          // rebuild/restart — same fix as the correct-answer count on home.
+          const _XpBadge(),
 
           const Spacer(),
 
@@ -94,6 +102,42 @@ class GlobalTopBar extends StatelessWidget {
       Icons.person_rounded,
       color: Color(0xFF0288D1),
       size: 24,
+    );
+  }
+}
+
+/// Persistent total-XP display, shared by every screen that includes
+/// [GlobalTopBar]. Demo mode and live mode both read the same
+/// `HiveStorage.getTotalXp()` source of truth (`profile['xp']`, 10 × correct
+/// answers) — live mode's value is kept current by the API responses already
+/// consumed elsewhere (login, answer submission, lesson completion), so this
+/// widget never makes its own network call.
+class _XpBadge extends StatelessWidget {
+  const _XpBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<Box>(
+      valueListenable: HiveStorage.userBoxListenable,
+      builder: (context, box, _) {
+        final xp = HiveStorage.getTotalXp();
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('⭐', style: TextStyle(fontSize: 18)),
+            const SizedBox(width: 4),
+            Text(
+              '$xp',
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: AppColors.xpPurple,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -246,13 +246,14 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       });
       FeedbackService.playCorrect();
       HiveStorage.addXp(earned);
-      if (totalXp != null) {
-        final profile = HiveStorage.getUserProfile();
-        if (profile != null) {
-          profile['xp'] = totalXp;
-          HiveStorage.saveUserProfile(profile);
-        }
-      }
+      // Keep `profile['xp']` — the single source of truth read by the
+      // profile screen and the persistent XP header — up to date in both
+      // modes: live mode gets the backend's authoritative running total,
+      // demo mode (no backend total) accumulates the same 10-per-correct
+      // rule locally on top of whatever profile map already exists.
+      final profile = HiveStorage.getUserProfile() ?? <String, dynamic>{};
+      profile['xp'] = totalXp ?? ((profile['xp'] as num?)?.toInt() ?? 0) + earned;
+      HiveStorage.saveUserProfile(profile);
       if (mounted) {
         FloatingXpText.show(context, xp: earned);
       }

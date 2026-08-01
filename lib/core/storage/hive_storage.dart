@@ -32,6 +32,17 @@ class HiveStorage {
     return data != null ? Map<String, dynamic>.from(data as Map) : null;
   }
 
+  /// The single source of truth for the user's total XP (10 × correct
+  /// answers), used by the profile screen and the persistent XP header.
+  /// Kept in sync with `profile['xp']` by the API in live mode and by the
+  /// quiz session locally in demo mode.
+  static int getTotalXp() {
+    final xp = getUserProfile()?['xp'];
+    if (xp is int) return xp;
+    if (xp is num) return xp.toInt();
+    return 0;
+  }
+
   static Future<void> saveActiveExamTypeId(int id) =>
       _user.put('active_exam_type_id', id);
 

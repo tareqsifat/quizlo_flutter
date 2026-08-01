@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final profile = HiveStorage.getUserProfile();
     final streak = HiveStorage.getStreakCount();
-    final xp = profile != null ? (profile['xp'] ?? 1250) : 1250;
+    final xp = HiveStorage.getTotalXp();
     final hearts = profile != null ? (profile['hearts'] ?? 4) : 4;
 
     return Scaffold(
