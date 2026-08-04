@@ -9,19 +9,46 @@ import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/storage/secure_storage.dart';
 import '../../../../core/services/app_toast.dart';
 import '../../../auth/data/auth_repository.dart';
+import '../../data/profile_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Profile Screen
+/// Live mode fetches GET /user/profile for the real name/avatar/exam-type
+/// enrollment; Demo Mode (and a failed/loading fetch, via fallback) renders
+/// from the Hive cache populated at login. XP/streak/hearts stay sourced
+/// from Hive either way — GET /user/profile doesn't return gamification
+/// data, so Hive (kept current by login + lesson-complete + answer
+/// responses) remains the single source of truth for those.
 /// ─────────────────────────────────────────────
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final profile = HiveStorage.getUserProfile();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDemoMode = HiveStorage.isDemoMode();
+    final liveProfile = isDemoMode ? null : ref.watch(userProfileProvider).valueOrNull;
+    final cachedProfile = HiveStorage.getUserProfile();
+
     final streak = HiveStorage.getStreakCount();
     final xp = HiveStorage.getTotalXp();
-    final hearts = profile != null ? (profile['hearts'] ?? 4) : 4;
+    final hearts = cachedProfile != null ? (cachedProfile['hearts'] ?? 4) : 4;
+    final daysPracticed = HiveStorage.getPracticedDates().length;
+    final dailyGoal = liveProfile?.dailyGoal ?? HiveStorage.getDailyGoal();
+
+    final displayName = isDemoMode
+        ? 'Demo User'
+        : (liveProfile?.name ?? cachedProfile?['name'] as String? ?? 'Learner');
+    final initials = _initialsOf(displayName);
+
+    final examTypePills = isDemoMode || liveProfile == null || liveProfile.examTypes.isEmpty
+        ? [_ExamTypePillData(label: HiveStorage.getSelectedStack() ?? 'BCS', isPrimary: true)]
+        : liveProfile.examTypes
+            .map((e) => _ExamTypePillData(label: e.code, isPrimary: e.isPrimary))
+            .toList();
+    final primaryLabel = examTypePills
+        .firstWhere((p) => p.isPrimary, orElse: () => examTypePills.first)
+        .label;
+    final subtitle = isDemoMode ? '$primaryLabel Candidate (Demo Mode)' : '$primaryLabel Candidate';
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBg,
@@ -57,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         child: Center(
                           child: Text(
-                            HiveStorage.isDemoMode() ? 'DU' : 'HA',
+                            initials,
                             style: const TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 26,
@@ -69,14 +96,12 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        HiveStorage.isDemoMode() ? 'Demo User' : 'Hero Alom',
+                        displayName,
                         style: AppTextStyles.h3.copyWith(color: Colors.white),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        HiveStorage.isDemoMode()
-                            ? 'BCS Candidate (Demo Mode)'
-                            : 'BCS Candidate • Rank #1',
+                        subtitle,
                         style: AppTextStyles.bodySmall.copyWith(color: Colors.white70),
                       ),
                       const SizedBox(height: 8),
@@ -110,21 +135,22 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     children: [
-                      Expanded(child: _StatCard2(label: 'Quizzes Done', value: '142')),
-                      const SizedBox(width: 12),
-                      Expanded(child: _StatCard2(label: 'Accuracy', value: '78%')),
+                      Expanded(child: _StatCard2(label: 'Days Practiced', value: '$daysPracticed')),
                       const SizedBox(width: 12),
                       Expanded(child: _StatCard2(label: 'Total XP', value: '$xp')),
+                      const SizedBox(width: 12),
+                      Expanded(child: _StatCard2(label: 'Daily Goal', value: '$dailyGoal/day')),
                     ],
                   ),
                   const SizedBox(height: 24),
 
                   Text('My Exam Types', style: AppTextStyles.h4),
                   const SizedBox(height: 12),
-                  _ExamTypePill(label: 'BCS', isPrimary: true),
-                  const SizedBox(height: 8),
-                  _ExamTypePill(label: 'Bank Jobs'),
-                  const SizedBox(height: 24),
+                  for (final pill in examTypePills) ...[
+                    _ExamTypePill(label: pill.label, isPrimary: pill.isPrimary),
+                    const SizedBox(height: 8),
+                  ],
+                  const SizedBox(height: 16),
 
                   // Settings
                   Text('Settings', style: AppTextStyles.h4),
@@ -174,6 +200,21 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// First letter of up to the first two words, uppercased (e.g. "Sajid
+/// Ahmed" → "SA", "Demo" → "D"). Falls back to "?" for an empty name.
+String _initialsOf(String name) {
+  final words = name.trim().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+  if (words.isEmpty) return '?';
+  final letters = words.take(2).map((w) => w[0].toUpperCase()).join();
+  return letters;
+}
+
+class _ExamTypePillData {
+  final String label;
+  final bool isPrimary;
+  const _ExamTypePillData({required this.label, required this.isPrimary});
 }
 
 class _GamBadge extends StatelessWidget {

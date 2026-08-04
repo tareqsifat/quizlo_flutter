@@ -118,15 +118,31 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
         (s) => s!['code'] == _selectedStack,
         orElse: () => null);
     if (selectedItem == null) return;
-    
+
     final id = selectedItem['id'] as int;
     final code = selectedItem['code'] as String;
 
     await HiveStorage.saveActiveExamTypeId(id);
     await HiveStorage.saveSelectedStack(code == 'BCS_PRELIM' ? 'BCS' : code);
+
+    // Persist enrollment server-side so the choice survives reinstalls/other
+    // devices and every exam-type-scoped endpoint has an enrollment to match
+    // against. Best-effort — a failure here shouldn't strand onboarding, and
+    // DioClient's log interceptor already surfaces the error as a toast.
+    if (!_isDemoModeFallback) {
+      try {
+        await _dioClient.post(ApiEndpoints.userExamTypes, data: {
+          'exam_type_id': id,
+          'is_primary': true,
+        });
+      } catch (_) {
+        // Swallow — local selection above still lets the user proceed.
+      }
+    }
+
     await HiveStorage.setExamTypeSelected(true);
     await HiveStorage.setDemoMode(_isDemoModeFallback);
-    
+
     if (mounted) {
       context.go(AppRoutes.home);
     }

@@ -30,6 +30,56 @@
 
 ---
 
+## Verification Status
+
+> Tracks live verification of every endpoint below against the running backend, from the Flutter app's perspective. Updated in place as each endpoint is tested — see rules in the task that produced this table (auth flow used: `POST /auth/login`, the app's actual auth call, not the OTP flow below which the app never invokes).
+
+| # | Method | Path | Auth | Status |
+|---|--------|------|------|--------|
+| 1 | POST | /auth/send-otp | No | N/A — app never calls this (uses email/password `/auth/login` instead, see summary) |
+| 2 | POST | /auth/verify-otp | No | N/A — app never calls this (uses `/auth/register` + `/auth/verification` instead) |
+| 3 | POST | /auth/refresh-token | No (refresh token) | Pass |
+| 4 | GET | /exam-types | No | Pass |
+| 5 | POST | /user/exam-types | Yes | N/A — app never calls this. Onboarding screen (`stack_selection_screen.dart`) fetches exam types but only saves the choice to local Hive storage; enrollment is never sent to the backend. See summary — flagged as a real product bug even though out of this task's fix scope. |
+| 6 | DELETE | /user/exam-types/{examType} | Yes | N/A — app never calls this (no "remove exam type" UI exists) |
+| 7 | PATCH | /user/exam-types/{examType}/set-primary | Yes | N/A — app never calls this (no "switch primary exam type" UI exists) |
+| 8 | GET | /user/profile | Yes | N/A — app never calls this. `profile_screen.dart` renders from a local mock/cached map, not this endpoint. |
+| 9 | PUT | /user/profile | Yes | N/A — app never calls this (no profile-edit screen wired to the API) |
+| 10 | PUT | /user/daily-goal | Yes | N/A — app never calls this (no daily-goal-edit UI wired to the API) |
+| 11 | GET | /subjects | Yes | **Fixed & Pass** — backend `id:null` crashed practice-quiz subject lookup (`quiz_session_screen.dart:104`); also added missing `user_mastery_percentage`/`total_lessons`/`completed_lessons` fields (backend fix, see summary) |
+| 12 | GET | /subjects/{subject}/lessons | Yes | Pass — works; response omits `is_completed`/`best_score`/`xp_earned`/`coins_earned`/`completed_at` vs. doc, but app only reads `id` from this call today (see summary) |
+| 13 | GET | /lessons/{lesson}/questions | Yes | **Fixed & Pass** — table was empty for every lesson (backend seed-data bug, see summary); now returns questions correctly, no `is_correct` leak |
+| 14 | POST | /lessons/{lesson}/complete | Yes | Pass — works (200); response shape is missing `lesson_id`/`score`/`total_xp`/`coin_balance`/`is_first_completion`/`achievements_unlocked` vs. doc, but `streak_service.dart` defensively checks `containsKey` before reading, so nothing breaks |
+| 15 | POST | /questions/answer | Yes | Pass — correct + wrong answer both verified; all fields the app reads (`is_correct`, `correct_option_id`, `xp_earned`, `total_xp`) present and correctly typed. Response omits documented `daily_progress` block, but app doesn't read it. |
+| 16 | GET | /gamification/dashboard | Yes | N/A — app never calls this (home screen dashboard runs on local/mock data) |
+| 17 | GET | /gamification/streak | Yes | N/A — app never calls this |
+| 18 | POST | /gamification/streak/freeze | Yes | N/A — app never calls this (no streak-freeze UI wired to the API) |
+| 19 | GET | /gamification/hearts | Yes | N/A — app never calls this |
+| 20 | POST | /gamification/hearts/refill | Yes | N/A — app never calls this (no heart-refill purchase UI wired to the API) |
+| 21 | GET | /gamification/coins | Yes | N/A — app never calls this |
+| 22 | POST | /gamification/coins/spend | Yes | N/A — app never calls this (no coin-spend UI wired to the API) |
+| 23 | GET | /league/current | Yes | N/A — app calls an **undocumented** `GET /league/leaderboard` instead (verified separately below the table, response shape matches what `leaderboard_repository.dart` expects — Pass) |
+| 24 | GET | /league/history | Yes | N/A — app never calls this |
+| 25 | GET | /model-tests | Yes | N/A — app never calls this (no model-test list UI wired to the API) |
+| 26 | POST | /model-tests/{test}/start | Yes | N/A — app never calls this |
+| 27 | POST | /exam-sessions/{session}/submit | Yes | N/A — app never calls this |
+| 28 | GET | /exam-sessions/{session}/result | Yes | N/A — app never calls this |
+| 29 | GET | /exam-countdown | Yes | N/A — app never calls this |
+| 30 | GET | /progress/subjects | Yes | N/A — app never calls this (constants exist for `progress/overview` and `progress/heatmap`, neither documented nor called either) |
+| 31 | GET | /progress/daily | Yes | N/A — app never calls this |
+| 32 | GET | /progress/personal-best | Yes | N/A — app never calls this |
+| 33 | GET | /achievements | Yes | N/A — app never calls this |
+| 34 | GET | /achievements/earned | Yes | N/A — app never calls this |
+| 35 | GET | /social/activity-feed | Yes | N/A — app never calls this |
+| 36 | POST | /achievements/{id}/share | Yes | N/A — app never calls this |
+| 37 | GET | /notifications | Yes | N/A — app never calls this (no notifications screen wired to the API) |
+
+**Undocumented endpoint the app does call:** `GET /league/leaderboard?exam_type_id=` (`leaderboard_repository.dart:176`) — not in api-docs-flutter.md at all. Verified: `HTTP 200`, response `{week_number, year, tier, entries[], current_user, total_participants}` matches `LeaderboardData.fromJson` exactly. **Pass.**
+
+**Auth endpoints the app actually calls (all undocumented, verified against real backend routes):** `POST /auth/register`, `POST /auth/login`, `POST /auth/logout`, `POST /auth/google/exchange`, `POST /auth/send-verification`, `POST /auth/verification`, `POST /auth/send-forget-password-otp`, `POST /auth/update-password`, `POST /auth/change-password`. Register and login were exercised directly (200, correct `{token, user}` shape); the rest share the same request/response pattern and controller and were not independently fuzzed.
+
+---
+
 ## 1. Authentication — OTP Phone Login
 
 ### Flow Overview
