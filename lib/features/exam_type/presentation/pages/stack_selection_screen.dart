@@ -33,6 +33,11 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
   }
 
   Future<void> _fetchExamTypes() async {
+    if (HiveStorage.isDemoMode()) {
+      _loadDemoStacks();
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -54,47 +59,26 @@ class _StackSelectionScreenState extends State<StackSelectionScreen> {
         }).toList();
         _isLoading = false;
       });
-    } on DioException catch (e) {
+    } on DioException catch (_) {
       AppToast.showError('API failed. Loading default exam types.');
-      setState(() {
-        _stacks = [
-          {
-            'id': 1,
-            'code': 'BCS',
-            'name': 'BCS',
-            'icon': '🎖️',
-          },
-          {
-            'id': 2,
-            'code': 'NTRCA',
-            'name': 'NTRCA',
-            'icon': '📝',
-          },
-        ];
-        _isDemoModeFallback = true;
-        _isLoading = false;
-      });
-    } catch (e) {
+      _loadDemoStacks();
+    } catch (_) {
       AppToast.showError('An unexpected error occurred. Loading default exam types.');
-      setState(() {
-        _stacks = [
-          {
-            'id': 1,
-            'code': 'BCS',
-            'name': 'BCS',
-            'icon': '🎖️',
-          },
-          {
-            'id': 2,
-            'code': 'NTRCA',
-            'name': 'NTRCA',
-            'icon': '📝',
-          },
-        ];
-        _isDemoModeFallback = true;
-        _isLoading = false;
-      });
+      _loadDemoStacks();
     }
+  }
+
+  static const List<Map<String, dynamic>> _defaultStacks = [
+    {'id': 1, 'code': 'BCS', 'name': 'BCS', 'icon': '🎖️'},
+    {'id': 2, 'code': 'NTRCA', 'name': 'NTRCA', 'icon': '📝'},
+  ];
+
+  void _loadDemoStacks() {
+    setState(() {
+      _stacks = _defaultStacks;
+      _isDemoModeFallback = true;
+      _isLoading = false;
+    });
   }
 
   String _getExamTypeEmoji(String code) {
