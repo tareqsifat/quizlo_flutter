@@ -14,6 +14,7 @@ import '../../../../core/widgets/floating_xp_text.dart';
 import '../../../../core/services/streak_service.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
+import '../../../leaderboard/data/leaderboard_repository.dart';
 import 'package:dio/dio.dart';
 
 /// ─────────────────────────────────────────────
@@ -56,6 +57,11 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
   bool _isLoading = true;
   String? _errorMessage;
 
+  /// The user's real leaderboard standing captured right before this
+  /// session's answers start changing their XP — the "before" half of the
+  /// post-quiz leaderboard reveal. Null in Demo Mode or if the fetch fails.
+  Future<LeaderboardData?>? _beforeLeaderboardFuture;
+
   @override
   void initState() {
     super.initState();
@@ -76,6 +82,10 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
         _loadDemoQuestions();
         return;
       }
+
+      _beforeLeaderboardFuture = LeaderboardRepository(DioClient())
+          .getLeaderboard(examTypeId: examTypeId)
+          .catchError((_) => null);
 
       if (widget.lessonId != 0) {
         // Fetch lesson questions
@@ -284,6 +294,8 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
         score: accuracy,
       );
 
+      final beforeLeaderboard = await _beforeLeaderboardFuture;
+
       if (mounted) {
         context.pushReplacement(
           AppRoutes.quizCompleted,
@@ -291,6 +303,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
             'time_taken': timeStr,
             'accuracy': accuracy,
             'points': points,
+            'before_leaderboard': beforeLeaderboard,
           },
         );
       }

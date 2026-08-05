@@ -19,6 +19,7 @@ import '../../features/dashboard/presentation/pages/discover_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_loading_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_session_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart';
+import '../../features/leaderboard/data/leaderboard_repository.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/leaderboard/presentation/pages/rank_screen.dart';
 import '../storage/secure_storage.dart';
@@ -239,6 +240,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             timeTaken: extra?['time_taken'] as String? ?? '0:00',
             accuracy: extra?['accuracy'] as int? ?? 0,
             points: extra?['points'] as int? ?? 0,
+            beforeLeaderboard: extra?['before_leaderboard'] as LeaderboardData?,
           );
         },
       ),

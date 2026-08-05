@@ -9,22 +9,31 @@ import '../../../../core/widgets/app_button.dart';
 import '../../../../core/services/streak_service.dart';
 import '../../../../core/services/feedback_service.dart';
 import '../../../leaderboard/presentation/pages/leaderboard_reveal_page.dart';
+import '../../../leaderboard/data/leaderboard_repository.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Completed Screen
 /// Multi-step flow: Page 1 (Lesson Complete) -> Page 2 (Streak Screen)
-/// -> Page 3 (Leaderboard Reveal, Demo Mode only) -> Home
+/// -> Page 3 (Leaderboard Reveal, when a "before" standing was captured)
+/// -> Home
 /// ─────────────────────────────────────────────
 class QuizCompletedScreen extends StatefulWidget {
   final String timeTaken;
   final int accuracy;
   final int points;
 
+  /// The user's real leaderboard standing from just before this session
+  /// (captured by [QuizSessionScreen]). Null in Demo Mode (which uses a
+  /// simulated board instead) or if the live fetch failed — in the latter
+  /// case there's no reveal page and Continue goes straight home.
+  final LeaderboardData? beforeLeaderboard;
+
   const QuizCompletedScreen({
     super.key,
     required this.timeTaken,
     required this.accuracy,
     required this.points,
+    this.beforeLeaderboard,
   });
 
   @override
@@ -47,6 +56,9 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
     super.dispose();
   }
 
+  bool get _hasLeaderboardReveal =>
+      HiveStorage.isDemoMode() || widget.beforeLeaderboard != null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +74,11 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
         children: [
           _buildLessonCompletePage(),
           _buildStreakPage(),
-          if (HiveStorage.isDemoMode())
-            LeaderboardRevealPage(onContinue: () => context.go(AppRoutes.home)),
+          if (_hasLeaderboardReveal)
+            LeaderboardRevealPage(
+              onContinue: () => context.go(AppRoutes.home),
+              beforeLeaderboard: widget.beforeLeaderboard,
+            ),
         ],
       ),
     );
@@ -351,12 +366,12 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
 
             const Spacer(flex: 3),
 
-            // Continue Button — Demo Mode advances to the leaderboard
-            // reveal page; real accounts go straight home.
+            // Continue Button — advances to the leaderboard reveal page
+            // when one is available; otherwise goes straight home.
             AppButton(
               label: 'CONTINUE',
               onTap: () {
-                if (HiveStorage.isDemoMode()) {
+                if (_hasLeaderboardReveal) {
                   _pageController.nextPage(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeInOut,
