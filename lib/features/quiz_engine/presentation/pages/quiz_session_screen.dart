@@ -29,12 +29,12 @@ import 'package:dio/dio.dart';
 ///   - hear_touch   → HearTouchQuestion
 /// ─────────────────────────────────────────────
 ///
-/// `xpEarned`/`totalXp` are the backend's authoritative values from the
-/// answer-submission response — the single source of truth for XP, so the
-/// floating popup, the session total, and the cached profile XP never
-/// drift apart. They're null for answer paths with no backend call (demo
-/// mode, match/hear-touch questions), in which case callers fall back to
-/// [_QuizSessionScreenState._xpPerCorrectAnswer].
+/// `xpEarned` is a local estimate (`_xpPerCorrectAnswer` per correct answer)
+/// shown immediately, since grading itself never waits on the network — the
+/// correct option is already embedded in the loaded question. `totalXp` is
+/// always null here; the backend's authoritative running total is recorded
+/// in the background by [_QuizSessionScreenState._recordAnswer] and synced
+/// into the cached profile XP without blocking the UI.
 typedef AnswerCallback = void Function(bool isCorrect, [int? xpEarned, int? totalXp]);
 
 class QuizSessionScreen extends StatefulWidget {
@@ -203,46 +203,58 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           text: o['option_text'] as String,
         );
       }).toList(),
-      correctOptionId: -1, // Will be verified via API
+      correctOptionId: (item['correct_option_id'] as int?) ?? -1,
       subject: widget.subject ?? '',
       explanation: item['explanation'] as String?,
     );
   }
 
   Future<Map<String, dynamic>> _checkAnswer(int questionId, int selectedOptionId) async {
-    if (HiveStorage.isDemoMode() || (_questions.isNotEmpty && _questions[_currentIndex].correctOptionId != -1)) {
-      final q = _questions.firstWhere((question) => question.id == questionId);
-      final isCorrect = selectedOptionId == q.correctOptionId;
-      return {
-        'is_correct': isCorrect,
-        'correct_option_id': q.correctOptionId,
-        // No backend to confirm XP in demo/local mode — fall back to the
-        // same 10-per-correct rule the backend uses.
-        'xp_earned': isCorrect ? _xpPerCorrectAnswer : 0,
-        'total_xp': null,
-      };
-    } else {
-      final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
-      final response = await DioClient().post(
-        ApiEndpoints.submitAnswer,
-        data: {
-          'exam_type_id': examTypeId,
-          'question_id': questionId,
-          'selected_option_id': selectedOptionId,
-          'session_type': widget.lessonId > 0 ? 'lesson' : 'practice',
-          'session_id': null,
-        },
-      );
-      final data = response.data['data'] as Map<String, dynamic>;
-      return {
-        'is_correct': data['is_correct'] as bool,
-        'correct_option_id': data['correct_option_id'] as int,
-        // Authoritative XP for this answer and the user's running total —
-        // this is the single source of truth the popup/summary/profile all use.
-        'xp_earned': data['xp_earned'] as int? ?? _xpPerCorrectAnswer,
-        'total_xp': data['total_xp'] as int?,
-      };
+    // The correct option is already embedded in the question payload (see
+    // `_parseApiQuestion`/`_loadDemoQuestions`), so grading is instant and
+    // never waits on a network round-trip.
+    final q = _questions.firstWhere((question) => question.id == questionId);
+    final isCorrect = selectedOptionId == q.correctOptionId;
+
+    if (!HiveStorage.isDemoMode()) {
+      // Record the answer server-side (XP/streak/hearts/mastery bookkeeping)
+      // without blocking the instant feedback above.
+      _recordAnswer(questionId, selectedOptionId);
     }
+
+    return {
+      'is_correct': isCorrect,
+      'correct_option_id': q.correctOptionId,
+      // Local estimate shown immediately; reconciled with the backend's
+      // authoritative total once `_recordAnswer` resolves.
+      'xp_earned': isCorrect ? _xpPerCorrectAnswer : 0,
+      'total_xp': null,
+    };
+  }
+
+  void _recordAnswer(int questionId, int selectedOptionId) {
+    final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
+    DioClient()
+        .post(
+          ApiEndpoints.submitAnswer,
+          data: {
+            'exam_type_id': examTypeId,
+            'question_id': questionId,
+            'selected_option_id': selectedOptionId,
+            'session_type': widget.lessonId > 0 ? 'lesson' : 'practice',
+            'session_id': null,
+          },
+        )
+        .then((response) {
+          final totalXp = (response.data['data'] as Map<String, dynamic>?)?['total_xp'] as int?;
+          if (totalXp == null) return;
+          final profile = HiveStorage.getUserProfile() ?? <String, dynamic>{};
+          profile['xp'] = totalXp;
+          HiveStorage.saveUserProfile(profile);
+        })
+        .catchError((e) {
+          debugPrint('[QUIZ] Failed to record answer $questionId: $e');
+        });
   }
 
   static const int _xpPerCorrectAnswer = 10;

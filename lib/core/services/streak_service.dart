@@ -39,8 +39,10 @@ class StreakService {
       await HiveStorage.setPracticedDates(practicedDates);
     }
 
-    // 2. For Normal Mode (non-demo), call API to register completion on backend
-    if (!HiveStorage.isDemoMode()) {
+    // 2. For Normal Mode (non-demo), call API to register completion on backend.
+    // lessonId == 0 means this was a subject practice session (not tied to a
+    // single lesson), so there's no lesson to mark complete on the backend.
+    if (!HiveStorage.isDemoMode() && lessonId > 0) {
       try {
         final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
         final repository = QuizRepository(DioClient());
