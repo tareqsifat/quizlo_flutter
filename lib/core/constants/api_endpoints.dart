@@ -5,10 +5,9 @@
 abstract class ApiEndpoints {
   // LOCAL WIFI TESTING — pointing at Dockerized Laravel over LAN.
   // Revert to the Railway URL below before shipping/building for release.
-  static const String baseUrl = 'http://192.168.0.105:8000/api/v1/';
-  // static const String baseUrl =
-  //    'https://quizlobackend-production.up.railway.app/api/v1/';
-
+  // static const String baseUrl = 'http://192.168.0.105:8000/api/v1/';
+   static const String baseUrl =
+   'https://quizlobackend-production.up.railway.app/api/v1/';
   // ── Authentication ─────────────────────────
   static const String sendOtp = 'auth/send-otp';
   static const String verifyOtp = 'auth/verify-otp';
