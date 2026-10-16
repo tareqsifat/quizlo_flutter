@@ -1,13 +1,9 @@
 /// ─────────────────────────────────────────────
 /// Quizlo API Endpoints
-/// Base URL: https://quizlobackend-production.up.railway.app/api/v1
+/// Base URL: https://209.38.123.69/api/v1/
 /// ─────────────────────────────────────────────
 abstract class ApiEndpoints {
-  // LOCAL WIFI TESTING — pointing at Dockerized Laravel over LAN.
-  // Revert to the Railway URL below before shipping/building for release.
-  // static const String baseUrl = 'http://192.168.0.105:8000/api/v1/';
-   static const String baseUrl =
-   'https://quizlobackend-production.up.railway.app/api/v1/';
+  static const String baseUrl = 'https://209.38.123.69/api/v1/';
   // ── Authentication ─────────────────────────
   static const String sendOtp = 'auth/send-otp';
   static const String verifyOtp = 'auth/verify-otp';
@@ -38,6 +34,11 @@ abstract class ApiEndpoints {
   static String subjectLessons(int subjectId) => 'subjects/$subjectId/lessons';
   static String lessonQuestions(int lessonId) => 'lessons/$lessonId/questions';
   static String completeLesson(int lessonId) => 'lessons/$lessonId/complete';
+
+  // ── Topic Journey (checkpoint chain) ───────
+  static String subjectTopics(int subjectId) => 'subjects/$subjectId/topics';
+  static String topicQuestions(int topicId) => 'topics/$topicId/questions';
+  static String completeTopic(int topicId) => 'topics/$topicId/complete';
 
   // ── Answer Submission ──────────────────────
   static const String submitAnswer = 'questions/answer';

@@ -825,6 +825,76 @@ Marks a lesson as completed. Call this **after** all questions in the lesson hav
 
 ---
 
+### GET /subjects/{subject}/topics
+
+Topic checkpoints of a subject for the active exam type (the Topic Journey screen), ordered by `sort_order`.
+
+**Auth required:** ✅ Bearer token
+
+| Query | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `exam_type_id` | integer | ✅ | The user's active exam type |
+
+```json
+{
+    "success": true,
+    "message": "Topics retrieved successfully.",
+    "data": [
+        {
+            "id": 53,
+            "exam_type_subject_id": 1,
+            "name": "Tense",
+            "name_bn": "টেন্স",
+            "sort_order": 8,
+            "question_count": 30,
+            "status": "current"
+        }
+    ]
+}
+```
+
+- `status` is `completed`, `current` (the first topic not yet completed) or `locked`.
+- `question_count` counts only questions that can actually be served.
+- Topics that have no questions yet are left out of the list, so the journey never stops on an empty checkpoint.
+
+---
+
+### GET /topics/{topic}/questions
+
+One quiz for a topic. Same item shape as `GET /lessons/{lesson}/questions`.
+
+**Auth required:** ✅ Bearer token
+
+| Query | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `limit` | integer | ❌ | Questions to return. Default `10`, maximum `50` |
+
+- Questions come back in random order; ones the user has not yet answered correctly come first.
+- Before the user's first completed session, `easy` questions are preferred but other difficulties fill the rest.
+- The list can be shorter than `limit` when the topic has fewer questions.
+
+---
+
+### POST /topics/{topic}/complete
+
+Marks the checkpoint complete so the next topic becomes `current`.
+
+**Auth required:** ✅ Bearer token
+
+```json
+{ "score": 80 }
+```
+
+```json
+{
+    "success": true,
+    "message": "Topic completed successfully.",
+    "data": { "success": true, "xp_earned": 20, "coins_earned": 10 }
+}
+```
+
+---
+
 ## 6. Answer Submission
 
 ### POST /questions/answer
