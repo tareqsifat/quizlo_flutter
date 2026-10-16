@@ -15,6 +15,7 @@ import '../../../../core/services/streak_service.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
 import '../../../leaderboard/data/leaderboard_repository.dart';
+import '../widgets/exam_tag_chip.dart';
 import 'package:dio/dio.dart';
 
 /// ─────────────────────────────────────────────
@@ -41,7 +42,13 @@ class QuizSessionScreen extends StatefulWidget {
   final int lessonId;
   final String? subject;
 
-  const QuizSessionScreen({super.key, required this.lessonId, this.subject});
+  /// When set, this session runs in Topic-journey mode: questions come from
+  /// `/topics/{topicId}/questions` instead of the lesson/practice paths, and
+  /// finishing the quiz posts to `/topics/{topicId}/complete` to advance the
+  /// checkpoint chain. Takes precedence over [lessonId] when both are set.
+  final int? topicId;
+
+  const QuizSessionScreen({super.key, required this.lessonId, this.subject, this.topicId});
 
   @override
   State<QuizSessionScreen> createState() => _QuizSessionScreenState();
@@ -87,7 +94,17 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           .getLeaderboard(examTypeId: examTypeId)
           .catchError((_) => null);
 
-      if (widget.lessonId != 0) {
+      if (widget.topicId != null) {
+        final response = await DioClient().get(
+          ApiEndpoints.topicQuestions(widget.topicId!),
+          queryParams: {'exam_type_id': examTypeId},
+        );
+        final list = response.data['data'] as List;
+        setState(() {
+          _questions = list.map((item) => _parseApiQuestion(item)).toList();
+          _isLoading = false;
+        });
+      } else if (widget.lessonId != 0) {
         // Fetch lesson questions
         final response = await DioClient().get(
           ApiEndpoints.lessonQuestions(widget.lessonId),
@@ -206,6 +223,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       correctOptionId: (item['correct_option_id'] as int?) ?? -1,
       subject: widget.subject ?? '',
       explanation: item['explanation'] as String?,
+      appearances: _ExamAppearance.listFromJson(item['appearances']),
     );
   }
 
@@ -241,7 +259,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
             'exam_type_id': examTypeId,
             'question_id': questionId,
             'selected_option_id': selectedOptionId,
-            'session_type': widget.lessonId > 0 ? 'lesson' : 'practice',
+            'session_type': (widget.topicId == null && widget.lessonId > 0) ? 'lesson' : 'practice',
             'session_id': null,
           },
         )
@@ -302,9 +320,21 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
 
       // Update the user's daily streak count
       await StreakService.updateStreak(
-        lessonId: widget.lessonId,
+        lessonId: widget.topicId ?? widget.lessonId,
         score: accuracy,
       );
+
+      // Mark the checkpoint complete so the journey advances to the next Topic.
+      if (widget.topicId != null && !HiveStorage.isDemoMode()) {
+        DioClient()
+            .post(
+              ApiEndpoints.completeTopic(widget.topicId!),
+              data: {'score': accuracy},
+            )
+            .catchError((e) {
+              debugPrint('[QUIZ] Failed to complete topic ${widget.topicId}: $e');
+            });
+      }
 
       final beforeLeaderboard = await _beforeLeaderboardFuture;
 
@@ -525,6 +555,15 @@ class _McqQuestionWidgetState extends State<McqQuestionWidget> {
                     textAlign: TextAlign.center,
                   ),
                 ),
+
+                // "Appeared in" exam-year tags (e.g. BCS-60, NTRCA 2023) —
+                // shown below-right of the question text when this question
+                // has repeated across exam years/types.
+                if (widget.question.appearances.isNotEmpty) ...[
+                  const SizedBox(height: 12),
+                  _ExamAppearanceRow(appearances: widget.question.appearances),
+                ],
+
                 const SizedBox(height: 40),
 
                 // Options
@@ -1457,6 +1496,7 @@ class _Question {
   final int correctOptionId;
   final String subject;
   final String? explanation;
+  final List<_ExamAppearance> appearances;
 
   const _Question({
     required this.id,
@@ -1466,6 +1506,7 @@ class _Question {
     required this.correctOptionId,
     this.subject = '',
     this.explanation,
+    this.appearances = const [],
   });
 }
 
@@ -1477,4 +1518,79 @@ class _Option {
     required this.id,
     required this.text,
   });
+}
+
+/// Right-aligned row of `ExamTagChip`s for a question's exam-year
+/// appearances. Caps at 4 visible chips with a trailing "+N more" chip to
+/// avoid layout blowup on heavily-repeated questions.
+class _ExamAppearanceRow extends StatelessWidget {
+  final List<_ExamAppearance> appearances;
+  static const int _maxVisible = 4;
+
+  const _ExamAppearanceRow({required this.appearances});
+
+  @override
+  Widget build(BuildContext context) {
+    final labels = appearances
+        .map((a) => a.displayLabel)
+        .whereType<String>()
+        .toList();
+    if (labels.isEmpty) return const SizedBox.shrink();
+
+    final visible = labels.take(_maxVisible).toList();
+    final overflow = labels.length - visible.length;
+
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Wrap(
+        alignment: WrapAlignment.end,
+        spacing: 6,
+        runSpacing: 6,
+        children: [
+          for (final label in visible) ExamTagChip(label: label),
+          if (overflow > 0) ExamTagChip(label: '+$overflow more'),
+        ],
+      ),
+    );
+  }
+}
+
+/// A single exam-type + year the question has appeared in (e.g. "BCS-60").
+class _ExamAppearance {
+  final String examTypeName;
+  final String? examTypeCode;
+  final int? year;
+  final String? sourceBatch;
+
+  const _ExamAppearance({
+    required this.examTypeName,
+    this.examTypeCode,
+    this.year,
+    this.sourceBatch,
+  });
+
+  /// Prefer the free-text source_batch (e.g. "BCS-60") if present, else fall
+  /// back to "{examTypeCode} {year}" (e.g. "NTRCA 2023"). Null if neither.
+  String? get displayLabel {
+    if (sourceBatch != null && sourceBatch!.trim().isNotEmpty) {
+      return sourceBatch;
+    }
+    if (year != null) {
+      return '${examTypeCode ?? examTypeName} $year';
+    }
+    return null;
+  }
+
+  static List<_ExamAppearance> listFromJson(dynamic raw) {
+    if (raw is! List) return const [];
+    return raw
+        .whereType<Map>()
+        .map((m) => _ExamAppearance(
+              examTypeName: m['exam_type_name'] as String? ?? '',
+              examTypeCode: m['exam_type_code'] as String?,
+              year: m['year'] as int?,
+              sourceBatch: m['source_batch'] as String?,
+            ))
+        .toList();
+  }
 }

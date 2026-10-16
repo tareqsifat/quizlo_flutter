@@ -196,3 +196,57 @@ class QuestionOption extends Equatable {
     );
   }
 }
+
+/// Checkpoint-journey progress for a single Topic node.
+enum TopicStatus {
+  locked,
+  current,
+  completed;
+
+  static TopicStatus fromJson(String? value) {
+    switch (value) {
+      case 'completed':
+        return TopicStatus.completed;
+      case 'current':
+        return TopicStatus.current;
+      default:
+        return TopicStatus.locked;
+    }
+  }
+}
+
+/// A Topic node in a subject's checkpoint-journey path (e.g. "Tense", "Voice").
+class Topic extends Equatable {
+  final int id;
+  final int examTypeSubjectId;
+  final String name;
+  final String? nameBn;
+  final int sortOrder;
+  final int questionCount;
+  final TopicStatus status;
+
+  const Topic({
+    required this.id,
+    required this.examTypeSubjectId,
+    required this.name,
+    this.nameBn,
+    this.sortOrder = 0,
+    this.questionCount = 0,
+    this.status = TopicStatus.locked,
+  });
+
+  @override
+  List<Object?> get props => [id, status];
+
+  factory Topic.fromJson(Map<String, dynamic> json) {
+    return Topic(
+      id: json['id'] as int,
+      examTypeSubjectId: json['exam_type_subject_id'] as int? ?? 0,
+      name: json['name'] as String,
+      nameBn: json['name_bn'] as String?,
+      sortOrder: json['sort_order'] as int? ?? 0,
+      questionCount: json['question_count'] as int? ?? 0,
+      status: TopicStatus.fromJson(json['status'] as String?),
+    );
+  }
+}

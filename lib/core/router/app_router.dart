@@ -19,6 +19,7 @@ import '../../features/dashboard/presentation/pages/discover_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_loading_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_session_screen.dart';
 import '../../features/quiz_engine/presentation/pages/quiz_completed_screen.dart';
+import '../../features/journey/presentation/pages/topic_journey_screen.dart';
 import '../../features/leaderboard/data/leaderboard_repository.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/leaderboard/presentation/pages/rank_screen.dart';
@@ -48,6 +49,7 @@ abstract class AppRoutes {
   static const String profile = '/profile';
   static const String library = '/library';
   static const String rank = '/rank';
+  static const String topicJourney = '/journey';
 }
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -210,6 +212,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ],
       ),
 
+      // ── Topic Journey (checkpoint chain) ─────
+      GoRoute(
+        path: AppRoutes.topicJourney,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
+          return TopicJourneyScreen(
+            subjectId: extra?['subject_id'] as int? ?? 0,
+            subjectTitle: extra?['subject_title'] as String? ?? '',
+          );
+        },
+      ),
+
       // ── Quiz Engine ──────────────────────────
       GoRoute(
         path: AppRoutes.quizLoading,
@@ -219,6 +233,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             lessonId: extra?['lesson_id'] as int? ?? 0,
             lessonTitle: extra?['title'] as String? ?? '',
             subject: extra?['subject'] as String?,
+            topicId: extra?['topic_id'] as int?,
           );
         },
       ),
@@ -229,6 +244,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return QuizSessionScreen(
             lessonId: extra?['lesson_id'] as int? ?? 0,
             subject: extra?['subject'] as String?,
+            topicId: extra?['topic_id'] as int?,
           );
         },
       ),

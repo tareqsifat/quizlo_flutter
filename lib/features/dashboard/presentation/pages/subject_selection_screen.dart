@@ -54,6 +54,7 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
         _subjects = dataList.map((item) {
           final slug = item['slug'] as String;
           return {
+            'id': item['id'] as int,
             'name': slug,
             'displayName': item['name'] as String,
             'icon': _getEmojiIcon(slug),
@@ -253,11 +254,20 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
                                   total: total,
                                   progress: progress,
                                   onTap: () {
-                                    context.push(AppRoutes.quizLoading, extra: {
-                                      'lesson_id': 0,
-                                      'title': displayName,
-                                      'subject': name,
-                                    });
+                                    final subjectId = sub['id'] as int?;
+                                    if (subjectId != null) {
+                                      // Real (non-demo) subject: open its Topic checkpoint journey.
+                                      context.push(AppRoutes.topicJourney, extra: {
+                                        'subject_id': subjectId,
+                                        'subject_title': displayName,
+                                      });
+                                    } else {
+                                      context.push(AppRoutes.quizLoading, extra: {
+                                        'lesson_id': 0,
+                                        'title': displayName,
+                                        'subject': name,
+                                      });
+                                    }
                                   },
                                 );
                               },

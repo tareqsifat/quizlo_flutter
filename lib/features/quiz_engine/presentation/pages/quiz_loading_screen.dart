@@ -14,11 +14,15 @@ class QuizLoadingScreen extends StatefulWidget {
   final String lessonTitle;
   final String? subject;
 
+  /// When set, launches the Topic-journey quiz instead of a lesson quiz.
+  final int? topicId;
+
   const QuizLoadingScreen({
     super.key,
     required this.lessonId,
     required this.lessonTitle,
     this.subject,
+    this.topicId,
   });
 
   @override
@@ -65,6 +69,7 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
           extra: {
             'lesson_id': widget.lessonId,
             'subject': widget.subject,
+            'topic_id': widget.topicId,
           },
         );
       }
