@@ -223,6 +223,9 @@ class Topic extends Equatable {
   final String? nameBn;
   final int sortOrder;
   final int questionCount;
+
+  /// Distinct questions in this topic the user has answered correctly.
+  final int correctCount;
   final TopicStatus status;
 
   const Topic({
@@ -232,11 +235,16 @@ class Topic extends Equatable {
     this.nameBn,
     this.sortOrder = 0,
     this.questionCount = 0,
+    this.correctCount = 0,
     this.status = TopicStatus.locked,
   });
 
+  /// 0.0–1.0 share of the topic's questions answered correctly.
+  double get progress =>
+      questionCount == 0 ? 0.0 : (correctCount / questionCount).clamp(0.0, 1.0);
+
   @override
-  List<Object?> get props => [id, status];
+  List<Object?> get props => [id, status, correctCount, questionCount];
 
   factory Topic.fromJson(Map<String, dynamic> json) {
     return Topic(
@@ -246,6 +254,7 @@ class Topic extends Equatable {
       nameBn: json['name_bn'] as String?,
       sortOrder: json['sort_order'] as int? ?? 0,
       questionCount: json['question_count'] as int? ?? 0,
+      correctCount: json['correct_count'] as int? ?? 0,
       status: TopicStatus.fromJson(json['status'] as String?),
     );
   }

@@ -14,10 +14,11 @@ final journeyRepositoryProvider = Provider<JourneyRepository>((ref) {
   return JourneyRepository(DioClient());
 });
 
-/// Ordered Topic checkpoints for a subject, keyed by subjectId, refetched
-/// whenever the provider is invalidated (e.g. after completing a topic).
+/// Ordered Topic checkpoints for a subject, keyed by subjectId. autoDispose so
+/// reopening the journey always refetches: finishing a quiz goes back to home,
+/// which removes this screen, so a cached list would keep the next topic locked.
 final topicsProvider =
-    FutureProvider.family<List<Topic>, int>((ref, subjectId) async {
+    FutureProvider.autoDispose.family<List<Topic>, int>((ref, subjectId) async {
   final repository = ref.watch(journeyRepositoryProvider);
   final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
   return repository.getTopics(subjectId: subjectId, examTypeId: examTypeId);
