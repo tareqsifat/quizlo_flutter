@@ -42,7 +42,7 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
 
     _logoController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 1400),
     );
     _logoScale = Tween<double>(begin: 0.7, end: 1.0).animate(
       CurvedAnimation(parent: _logoController, curve: Curves.elasticOut),
@@ -51,7 +51,7 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
 
     _dotsController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 1000),
     )..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           setState(() => _activeDot = (_activeDot + 1) % 3);
@@ -162,7 +162,7 @@ class _ThreeDotLoader extends StatelessWidget {
       children: List.generate(3, (i) {
         final isActive = i == activeDot;
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 400),
           margin: const EdgeInsets.symmetric(horizontal: 6),
           width: isActive ? 14 : 10,
           height: isActive ? 14 : 10,

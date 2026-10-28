@@ -17,6 +17,11 @@ class TopicNode extends StatelessWidget {
 
   static const double diameter = 76.0;
 
+  // Progress ring drawn around the bubble, with a small gap between them.
+  static const double _ringStroke = 6.0;
+  static const double _ringGap = 4.0;
+  static const double _ringDiameter = diameter + 2 * (_ringGap + _ringStroke);
+
   const TopicNode({super.key, required this.topic, this.onTap});
 
   bool get _isLocked => topic.status == TopicStatus.locked;
@@ -30,30 +35,54 @@ class TopicNode extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: _isLocked ? null : onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: diameter,
-            height: diameter,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: _fillColor,
-              border: Border.all(color: _borderColor, width: 3),
-              boxShadow: _isLocked
-                  ? null
-                  : [
-                      BoxShadow(
-                        color: _borderColor.withOpacity(0.35),
-                        blurRadius: AppSizes.shadowBlurMd,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
+          child: SizedBox(
+            width: _ringDiameter,
+            height: _ringDiameter,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                // Right answers / total questions; fills in when the list loads
+                Positioned.fill(
+                  child: TweenAnimationBuilder<double>(
+                    tween: Tween(begin: 0.0, end: topic.progress),
+                    duration: const Duration(milliseconds: 900),
+                    curve: Curves.easeOutCubic,
+                    builder: (context, value, _) => CircularProgressIndicator(
+                      value: value,
+                      strokeWidth: _ringStroke,
+                      strokeCap: StrokeCap.round,
+                      backgroundColor: AppColors.border,
+                      valueColor: const AlwaysStoppedAnimation(AppColors.success),
+                    ),
+                  ),
+                ),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: diameter,
+                  height: diameter,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _fillColor,
+                    border: Border.all(color: _borderColor, width: 3),
+                    boxShadow: _isLocked
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: _borderColor.withOpacity(0.35),
+                              blurRadius: AppSizes.shadowBlurMd,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                  ),
+                  child: Icon(_icon, color: _iconColor, size: AppSizes.iconXl),
+                ),
+              ],
             ),
-            child: Icon(_icon, color: _iconColor, size: AppSizes.iconXl),
           ),
         ),
         const SizedBox(height: AppSizes.sm),
         SizedBox(
-          width: diameter + 24,
+          width: _ringDiameter + 24,
           child: Text(
             topic.name,
             textAlign: TextAlign.center,
@@ -63,6 +92,12 @@ class TopicNode extends StatelessWidget {
               fontWeight: _isCurrent ? FontWeight.w700 : FontWeight.w500,
               color: _isLocked ? AppColors.textHint : AppColors.textPrimary,
             ),
+          ),
+        ),
+        Text(
+          '${topic.correctCount}/${topic.questionCount}',
+          style: AppTextStyles.bodySmall.copyWith(
+            color: _isLocked ? AppColors.textHint : AppColors.textSecondary,
           ),
         ),
       ],

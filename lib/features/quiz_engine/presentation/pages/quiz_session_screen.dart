@@ -325,15 +325,19 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       );
 
       // Mark the checkpoint complete so the journey advances to the next Topic.
+      // Awaited: otherwise the journey can refetch before the server has
+      // recorded it, and the next topic stays locked.
       if (widget.topicId != null && !HiveStorage.isDemoMode()) {
-        DioClient()
-            .post(
-              ApiEndpoints.completeTopic(widget.topicId!),
-              data: {'score': accuracy},
-            )
-            .catchError((e) {
-              debugPrint('[QUIZ] Failed to complete topic ${widget.topicId}: $e');
-            });
+        try {
+          await DioClient()
+              .post(
+                ApiEndpoints.completeTopic(widget.topicId!),
+                data: {'score': accuracy},
+              )
+              .timeout(const Duration(seconds: 10));
+        } catch (e) {
+          debugPrint('[QUIZ] Failed to complete topic ${widget.topicId}: $e');
+        }
       }
 
       final beforeLeaderboard = await _beforeLeaderboardFuture;

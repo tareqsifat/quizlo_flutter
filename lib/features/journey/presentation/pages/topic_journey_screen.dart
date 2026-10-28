@@ -82,7 +82,7 @@ class TopicJourneyScreen extends ConsumerWidget {
       'topic_id': topic.id,
     });
     // Refresh so a just-completed checkpoint flips to completed/unlocks the next.
-    ref.invalidate(topicsProvider(subjectId));
+    if (context.mounted) ref.invalidate(topicsProvider(subjectId));
   }
 }
 

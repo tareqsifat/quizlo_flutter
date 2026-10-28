@@ -62,11 +62,11 @@ class _FloatingXpAnimation extends StatefulWidget {
 
 class _FloatingXpAnimationState extends State<_FloatingXpAnimation>
     with SingleTickerProviderStateMixin {
-  static const Duration _duration = Duration(milliseconds: 1000);
-  // Last 200ms of a 1000ms animation == last 20% of the timeline.
-  static const double _fadeStart = 0.8;
-  // Elastic pop-in finishes in the first 150ms.
-  static const double _popInEnd = 0.15;
+  static const Duration _duration = Duration(milliseconds: 2200);
+  // Fades over the last 25% (~550ms) of the timeline.
+  static const double _fadeStart = 0.75;
+  // Elastic pop-in finishes in the first ~260ms.
+  static const double _popInEnd = 0.12;
 
   late final AnimationController _controller;
   late final Offset _start;
