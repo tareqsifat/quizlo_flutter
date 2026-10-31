@@ -31,7 +31,7 @@ class ProfileScreen extends ConsumerWidget {
 
     final streak = HiveStorage.getStreakCount();
     final xp = HiveStorage.getTotalXp();
-    final hearts = cachedProfile != null ? (cachedProfile['hearts'] ?? 4) : 4;
+    final hearts = HiveStorage.getHearts();
     final daysPracticed = HiveStorage.getPracticedDates().length;
     final dailyGoal = liveProfile?.dailyGoal ?? HiveStorage.getDailyGoal();
 

@@ -21,10 +21,14 @@ class TopicJourneyScreen extends ConsumerWidget {
   final int subjectId;
   final String subjectTitle;
 
+  /// Show topic names in Bangla (name_bn) — set for the Bangla subject.
+  final bool banglaNames;
+
   const TopicJourneyScreen({
     super.key,
     required this.subjectId,
     required this.subjectTitle,
+    this.banglaNames = false,
   });
 
   @override
@@ -53,6 +57,7 @@ class TopicJourneyScreen extends ConsumerWidget {
               onRefresh: () async => ref.invalidate(topicsProvider(subjectId)),
               child: _JourneyPath(
                 topics: topics,
+                banglaNames: banglaNames,
                 onTapTopic: (topic) => _openTopicQuiz(context, ref, topic),
               ),
             );
@@ -77,7 +82,7 @@ class TopicJourneyScreen extends ConsumerWidget {
 
     await context.push(AppRoutes.quizLoading, extra: {
       'lesson_id': 0,
-      'title': topic.name,
+      'title': topic.displayName(bangla: banglaNames),
       'subject': null,
       'topic_id': topic.id,
     });
@@ -90,9 +95,14 @@ class TopicJourneyScreen extends ConsumerWidget {
 /// left/right offsets, connected by a simple vertical guide line.
 class _JourneyPath extends StatelessWidget {
   final List<Topic> topics;
+  final bool banglaNames;
   final ValueChanged<Topic> onTapTopic;
 
-  const _JourneyPath({required this.topics, required this.onTapTopic});
+  const _JourneyPath({
+    required this.topics,
+    required this.banglaNames,
+    required this.onTapTopic,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +124,7 @@ class _JourneyPath extends StatelessWidget {
             alignment: Alignment(alignX, 0),
             child: TopicNode(
               topic: topic,
+              title: topic.displayName(bangla: banglaNames),
               onTap: () => onTapTopic(topic),
             ),
           ),

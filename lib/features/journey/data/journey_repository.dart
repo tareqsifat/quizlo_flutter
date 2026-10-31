@@ -5,6 +5,7 @@ import '../../../core/constants/api_endpoints.dart';
 import '../../../core/errors/failures.dart';
 import '../../../core/domain/entities.dart';
 import '../../../core/storage/hive_storage.dart';
+import '../../../core/services/progress_sync.dart';
 
 /// ─────────────────────────────────────────────
 /// Journey Repository — Topic checkpoint chain
@@ -15,12 +16,15 @@ final journeyRepositoryProvider = Provider<JourneyRepository>((ref) {
 });
 
 /// Ordered Topic checkpoints for a subject, keyed by subjectId. autoDispose so
-/// reopening the journey always refetches: finishing a quiz goes back to home,
-/// which removes this screen, so a cached list would keep the next topic locked.
+/// reopening the journey always refetches; finishing a quiz pops back to the
+/// journey, which invalidates this so the ring reflects that session.
 final topicsProvider =
     FutureProvider.autoDispose.family<List<Topic>, int>((ref, subjectId) async {
   final repository = ref.watch(journeyRepositoryProvider);
   final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
+  // Let a just-finished quiz's answers/completion land first, so the ring and
+  // correct count include that session and the next checkpoint unlocks.
+  await ProgressSync.settled();
   return repository.getTopics(subjectId: subjectId, examTypeId: examTypeId);
 });
 

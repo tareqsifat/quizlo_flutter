@@ -121,6 +121,16 @@ class HiveStorage {
     return data != null ? List<String>.from(data as List) : [];
   }
 
+  // ── Hearts Cache ────────────────────────────
+  // Kept current by HeartsService; read by the hearts badge and quiz session.
+  static int getHearts() => _user.get('hearts', defaultValue: 5) as int;
+  static int getMaxHearts() => _user.get('max_hearts', defaultValue: 5) as int;
+
+  static Future<void> setHearts(int hearts, {int? max}) async {
+    await _user.put('hearts', hearts);
+    if (max != null) await _user.put('max_hearts', max);
+  }
+
   // ── Onboarding Box ─────────────────────────
   static Box get _onboarding => Hive.box(_boxOnboarding);
 

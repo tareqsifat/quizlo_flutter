@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -6,8 +7,8 @@ import '../../../../core/router/app_router.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Loading Screen
-/// Full purple background + logo + animated dots
-/// Matches Figma "Loading...." screen exactly
+/// Full primary background + logo + animated dots
+/// Matches Figma "Loading...." screen
 /// ─────────────────────────────────────────────
 class QuizLoadingScreen extends StatefulWidget {
   final int lessonId;
@@ -31,38 +32,35 @@ class QuizLoadingScreen extends StatefulWidget {
 
 class _QuizLoadingScreenState extends State<QuizLoadingScreen>
     with TickerProviderStateMixin {
-  late AnimationController _dotsController;
-  late AnimationController _logoController;
-  late Animation<double> _logoScale;
-  int _activeDot = 0;
+  // One slow, continuous loop drives both the logo's breathing and the dot
+  // wave, so nothing snaps or bounces.
+  static const _loopDuration = Duration(milliseconds: 1800);
+  static const _screenDuration = Duration(milliseconds: 3200);
+
+  late final AnimationController _introController;
+  late final AnimationController _loopController;
+  late final Animation<double> _introFade;
+  late final Animation<double> _introScale;
 
   @override
   void initState() {
     super.initState();
 
-    _logoController = AnimationController(
+    _introController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: const Duration(milliseconds: 900),
     );
-    _logoScale = Tween<double>(begin: 0.7, end: 1.0).animate(
-      CurvedAnimation(parent: _logoController, curve: Curves.elasticOut),
+    _introFade = CurvedAnimation(parent: _introController, curve: Curves.easeOut);
+    _introScale = Tween<double>(begin: 0.85, end: 1.0).animate(
+      CurvedAnimation(parent: _introController, curve: Curves.easeOutCubic),
     );
-    _logoController.forward();
+    _introController.forward();
 
-    _dotsController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1000),
-    )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          setState(() => _activeDot = (_activeDot + 1) % 3);
-          _dotsController.reset();
-          _dotsController.forward();
-        }
-      });
-    _dotsController.forward();
+    _loopController = AnimationController(vsync: this, duration: _loopDuration)
+      ..repeat();
 
     // Navigate after loading
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(_screenDuration, () {
       if (mounted) {
         context.pushReplacement(
           AppRoutes.quizSession,
@@ -78,8 +76,8 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
 
   @override
   void dispose() {
-    _dotsController.dispose();
-    _logoController.dispose();
+    _introController.dispose();
+    _loopController.dispose();
     super.dispose();
   }
 
@@ -89,26 +87,38 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
       backgroundColor: AppColors.primary,
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ── Logo ──────────────────────
-              ScaleTransition(
-                scale: _logoScale,
-                child: _QuizloWhiteLogo(),
-              ),
-              const SizedBox(height: 48),
+          child: FadeTransition(
+            opacity: _introFade,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ── Logo ──────────────────────
+                ScaleTransition(
+                  scale: _introScale,
+                  child: AnimatedBuilder(
+                    animation: _loopController,
+                    builder: (context, child) {
+                      // Gentle breathing: 1.0 → 1.04 → 1.0 once per loop.
+                      final t = _loopController.value;
+                      final scale = 1.0 + 0.04 * math.sin(t * 2 * math.pi).abs();
+                      return Transform.scale(scale: scale, child: child);
+                    },
+                    child: const _QuizloWhiteLogo(),
+                  ),
+                ),
+                const SizedBox(height: 48),
 
-              // ── Loading text ──────────────
-              Text(
-                'Loading....',
-                style: AppTextStyles.h3.copyWith(color: Colors.white70),
-              ),
-              const SizedBox(height: 24),
+                // ── Loading text ──────────────
+                Text(
+                  'Loading....',
+                  style: AppTextStyles.h3.copyWith(color: Colors.white70),
+                ),
+                const SizedBox(height: 24),
 
-              // ── 3 Dots Indicator ──────────
-              _ThreeDotLoader(activeDot: _activeDot),
-            ],
+                // ── 3 Dots Indicator ──────────
+                _WaveDotLoader(animation: _loopController),
+              ],
+            ),
           ),
         ),
       ),
@@ -117,61 +127,60 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen>
 }
 
 class _QuizloWhiteLogo extends StatelessWidget {
+  const _QuizloWhiteLogo();
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 90,
-          height: 90,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
-            shape: BoxShape.circle,
-          ),
-          child: const Center(
-            child: Icon(Icons.quiz_rounded, size: 52, color: Colors.white),
-          ),
-        ),
-      ],
+    return Container(
+      width: 90,
+      height: 90,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.15),
+        shape: BoxShape.circle,
+      ),
+      child: const Center(
+        child: Icon(Icons.quiz_rounded, size: 52, color: Colors.white),
+      ),
     );
   }
 }
 
-class _ThreeDotLoader extends StatelessWidget {
-  final int activeDot;
+/// Three dots that swell and turn orange one after another in a smooth,
+/// continuous wave (each dot is a third of a loop behind the previous one).
+class _WaveDotLoader extends StatelessWidget {
+  final Animation<double> animation;
 
-  const _ThreeDotLoader({required this.activeDot});
-
-  static const _dotColors = [
-    Colors.white54,
-    AppColors.accent,
-    AppColors.accent,
-  ];
+  const _WaveDotLoader({required this.animation});
 
   @override
   Widget build(BuildContext context) {
-    // Pattern from Figma: white · orange · orange (cycling)
-    final dots = [
-      Colors.white54,
-      AppColors.accent,
-      AppColors.accent,
-    ];
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(3, (i) {
-        final isActive = i == activeDot;
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 400),
-          margin: const EdgeInsets.symmetric(horizontal: 6),
-          width: isActive ? 14 : 10,
-          height: isActive ? 14 : 10,
-          decoration: BoxDecoration(
-            color: isActive ? AppColors.accent : Colors.white38,
-            shape: BoxShape.circle,
-          ),
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, _) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(3, (i) {
+            // 0 → 1 → 0 bump per dot, phase-shifted by a third of the loop.
+            final phase = (animation.value - i / 3) % 1.0;
+            final bump = math.max(0.0, math.sin(phase * 2 * math.pi));
+            final size = 10.0 + 4.0 * bump;
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 6),
+              width: 14,
+              height: 14,
+              alignment: Alignment.center,
+              child: Container(
+                width: size,
+                height: size,
+                decoration: BoxDecoration(
+                  color: Color.lerp(Colors.white38, AppColors.accent, bump),
+                  shape: BoxShape.circle,
+                ),
+              ),
+            );
+          }),
         );
-      }),
+      },
     );
   }
 }

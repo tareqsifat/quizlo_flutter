@@ -5,6 +5,7 @@ import '../constants/app_colors.dart';
 import '../constants/app_sizes.dart';
 import '../storage/hive_storage.dart';
 import '../router/app_router.dart';
+import 'hearts_badge.dart';
 
 class GlobalTopBar extends StatelessWidget {
   const GlobalTopBar({super.key});
@@ -66,6 +67,10 @@ class GlobalTopBar extends StatelessWidget {
           // finishing a lesson and returning here) without needing a
           // rebuild/restart — same fix as the correct-answer count on home.
           const _XpBadge(),
+          const SizedBox(width: 12),
+
+          // ── Hearts ─────────────────────────────────────────
+          const HeartsBadge(),
 
           const Spacer(),
 
