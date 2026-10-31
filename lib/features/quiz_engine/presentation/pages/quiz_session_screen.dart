@@ -12,6 +12,11 @@ import '../../../../core/constants/demo_questions.dart';
 import '../../../../core/services/feedback_service.dart';
 import '../../../../core/widgets/floating_xp_text.dart';
 import '../../../../core/services/streak_service.dart';
+import '../../../../core/services/progress_sync.dart';
+import '../../../../core/services/hearts_service.dart';
+import '../../../../core/widgets/out_of_hearts_toast.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../../../../core/utils/bangla_text.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
 import '../../../leaderboard/data/leaderboard_repository.dart';
@@ -73,6 +78,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
   void initState() {
     super.initState();
     _stopwatch.start();
+    HeartsService.refresh();
     _loadQuestions();
   }
 
@@ -193,18 +199,21 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
         return _Question(
           id: m['id'] as int,
           type: m['type'] as String? ?? 'mcq',
-          text: cleanedText,
+          text: BanglaText.forDisplay(cleanedText),
           options: (m['options'] as List).asMap().entries.map((entry) {
-            return _Option(id: entry.key, text: entry.value as String);
+            return _Option(id: entry.key, text: BanglaText.forDisplay(entry.value as String));
           }).toList(),
           correctOptionId: m['correctOptionId'] as int,
           subject: m['subject'] as String? ?? '',
-          explanation: m['explanation'] as String?,
+          explanation: _displayOrNull(m['explanation'] as String?),
         );
       }).toList();
       _isLoading = false;
     });
   }
+
+  static String? _displayOrNull(String? text) =>
+      text == null ? null : BanglaText.forDisplay(text);
 
   _Question _parseApiQuestion(Map<String, dynamic> item) {
     final text = item['question_text'] as String;
@@ -213,16 +222,16 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
     return _Question(
       id: item['id'] as int,
       type: 'mcq', // API only supports MCQ currently
-      text: cleanedText,
+      text: BanglaText.forDisplay(cleanedText),
       options: optionsList.map((o) {
         return _Option(
           id: o['id'] as int,
-          text: o['option_text'] as String,
+          text: BanglaText.forDisplay(o['option_text'] as String),
         );
       }).toList(),
       correctOptionId: (item['correct_option_id'] as int?) ?? -1,
       subject: widget.subject ?? '',
-      explanation: item['explanation'] as String?,
+      explanation: _displayOrNull(item['explanation'] as String?),
       appearances: _ExamAppearance.listFromJson(item['appearances']),
     );
   }
@@ -238,6 +247,7 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       // Record the answer server-side (XP/streak/hearts/mastery bookkeeping)
       // without blocking the instant feedback above.
       _recordAnswer(questionId, selectedOptionId);
+      if (!isCorrect) HeartsService.loseOne();
     }
 
     return {
@@ -252,7 +262,9 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
 
   void _recordAnswer(int questionId, int selectedOptionId) {
     final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
-    DioClient()
+    // Tracked so the journey/home refetch after this quiz waits for it and
+    // shows this session's correct answers.
+    ProgressSync.track(DioClient()
         .post(
           ApiEndpoints.submitAnswer,
           data: {
@@ -264,15 +276,22 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
           },
         )
         .then((response) {
-          final totalXp = (response.data['data'] as Map<String, dynamic>?)?['total_xp'] as int?;
+          final data = response.data['data'] as Map<String, dynamic>?;
+          final hearts = (data?['hearts'] as Map<String, dynamic>?)?['current'] as int?;
+          if (hearts != null) HeartsService.applyServerCount(hearts);
+          final totalXp = data?['total_xp'] as int?;
           if (totalXp == null) return;
           final profile = HiveStorage.getUserProfile() ?? <String, dynamic>{};
           profile['xp'] = totalXp;
           HiveStorage.saveUserProfile(profile);
         })
         .catchError((e) {
+          // 403: no hearts left — show the refill prompt.
+          if (e is DioException && e.response?.statusCode == 403) {
+            HeartsService.markEmpty();
+          }
           debugPrint('[QUIZ] Failed to record answer $questionId: $e');
-        });
+        }));
   }
 
   static const int _xpPerCorrectAnswer = 10;
@@ -318,29 +337,15 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
       final accuracy = _questions.isEmpty ? 0 : ((_score / _questions.length) * 100).round();
       final points = _totalXpEarned;
 
-      // Update the user's daily streak count
-      await StreakService.updateStreak(
-        lessonId: widget.topicId ?? widget.lessonId,
-        score: accuracy,
-      );
+      // Streak + completion writes run in the background so the result screen
+      // opens immediately. The journey/home refetch awaits ProgressSync, so the
+      // next topic still unlocks and counts are fresh when the user gets back.
+      ProgressSync.track(_syncCompletion(accuracy));
 
-      // Mark the checkpoint complete so the journey advances to the next Topic.
-      // Awaited: otherwise the journey can refetch before the server has
-      // recorded it, and the next topic stays locked.
-      if (widget.topicId != null && !HiveStorage.isDemoMode()) {
-        try {
-          await DioClient()
-              .post(
-                ApiEndpoints.completeTopic(widget.topicId!),
-                data: {'score': accuracy},
-              )
-              .timeout(const Duration(seconds: 10));
-        } catch (e) {
-          debugPrint('[QUIZ] Failed to complete topic ${widget.topicId}: $e');
-        }
-      }
-
-      final beforeLeaderboard = await _beforeLeaderboardFuture;
+      // Fetched when the quiz loaded, so it's normally ready; never hold the
+      // result screen for it (null just skips the leaderboard reveal).
+      final beforeLeaderboard = await (_beforeLeaderboardFuture ?? Future.value(null))
+          .timeout(const Duration(milliseconds: 500), onTimeout: () => null);
 
       if (mounted) {
         context.pushReplacement(
@@ -352,6 +357,29 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
             'before_leaderboard': beforeLeaderboard,
           },
         );
+      }
+    }
+  }
+
+  Future<void> _syncCompletion(int accuracy) async {
+    // Only real lessons are completed via /lessons/{id}/complete. A topic quiz
+    // used to pass its topic id here, which marked an unrelated lesson complete.
+    await StreakService.updateStreak(
+      lessonId: widget.topicId == null ? widget.lessonId : 0,
+      score: accuracy,
+    );
+
+    // Mark the checkpoint complete so the journey advances to the next Topic.
+    if (widget.topicId != null && !HiveStorage.isDemoMode()) {
+      try {
+        await DioClient()
+            .post(
+              ApiEndpoints.completeTopic(widget.topicId!),
+              data: {'score': accuracy},
+            )
+            .timeout(const Duration(seconds: 10));
+      } catch (e) {
+        debugPrint('[QUIZ] Failed to complete topic ${widget.topicId}: $e');
       }
     }
   }
@@ -428,7 +456,21 @@ class _QuizSessionScreenState extends State<QuizSessionScreen> {
         onBack: () => context.go(AppRoutes.home),
         onMenu: _showLeaveDialog,
       ),
-      body: _buildQuestionType(q),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          _buildQuestionType(q),
+          // Out of hearts: answers would be rejected, so block the quiz
+          // behind the refill prompt until the hearts are back.
+          if (!HiveStorage.isDemoMode())
+            ValueListenableBuilder<Box>(
+              valueListenable: HiveStorage.userBoxListenable,
+              builder: (context, box, _) => HiveStorage.getHearts() > 0
+                  ? const SizedBox.shrink()
+                  : const Positioned.fill(child: OutOfHeartsToast()),
+            ),
+        ],
+      ),
     );
   }
 

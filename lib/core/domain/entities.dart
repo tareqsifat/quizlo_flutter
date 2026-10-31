@@ -239,6 +239,12 @@ class Topic extends Equatable {
     this.status = TopicStatus.locked,
   });
 
+  /// The Bangla name when [bangla] is set and one exists, else [name].
+  String displayName({required bool bangla}) {
+    final bn = nameBn?.trim();
+    return bangla && bn != null && bn.isNotEmpty ? bn : name;
+  }
+
   /// 0.0–1.0 share of the topic's questions answered correctly.
   double get progress =>
       questionCount == 0 ? 0.0 : (correctCount / questionCount).clamp(0.0, 1.0);

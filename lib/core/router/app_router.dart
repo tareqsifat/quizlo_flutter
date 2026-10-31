@@ -220,6 +220,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return TopicJourneyScreen(
             subjectId: extra?['subject_id'] as int? ?? 0,
             subjectTitle: extra?['subject_title'] as String? ?? '',
+            banglaNames: extra?['bangla_names'] as bool? ?? false,
           );
         },
       ),

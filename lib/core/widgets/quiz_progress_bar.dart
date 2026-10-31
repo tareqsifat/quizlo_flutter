@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_text_styles.dart';
 import '../constants/app_sizes.dart';
+import 'hearts_badge.dart';
 
 /// ─────────────────────────────────────────────
 /// Quiz Progress Bar
@@ -81,6 +82,7 @@ class QuizAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: AppTextStyles.h4,
           ),
           actions: [
+            const Center(child: HeartsBadge(refresh: false)),
             IconButton(
               icon: const Icon(Icons.more_vert_rounded, size: 22),
               onPressed: onMenu,

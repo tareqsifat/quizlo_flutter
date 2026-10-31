@@ -15,6 +15,9 @@ class TopicNode extends StatelessWidget {
   final Topic topic;
   final VoidCallback? onTap;
 
+  /// Label under the bubble (the Bangla name for Bangla subjects).
+  final String title;
+
   static const double diameter = 76.0;
 
   // Progress ring drawn around the bubble, with a small gap between them.
@@ -22,7 +25,12 @@ class TopicNode extends StatelessWidget {
   static const double _ringGap = 4.0;
   static const double _ringDiameter = diameter + 2 * (_ringGap + _ringStroke);
 
-  const TopicNode({super.key, required this.topic, this.onTap});
+  const TopicNode({
+    super.key,
+    required this.topic,
+    required this.title,
+    this.onTap,
+  });
 
   bool get _isLocked => topic.status == TopicStatus.locked;
   bool get _isCompleted => topic.status == TopicStatus.completed;
@@ -84,7 +92,7 @@ class TopicNode extends StatelessWidget {
         SizedBox(
           width: _ringDiameter + 24,
           child: Text(
-            topic.name,
+            title,
             textAlign: TextAlign.center,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,

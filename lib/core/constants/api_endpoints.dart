@@ -49,6 +49,7 @@ abstract class ApiEndpoints {
   static const String streakFreeze = 'gamification/streak/freeze';
   static const String hearts = 'gamification/hearts';
   static const String heartRefill = 'gamification/hearts/refill';
+  static const String heartAutoRefill = 'gamification/hearts/auto-refill';
   static const String coins = 'gamification/coins';
   static const String spendCoins = 'gamification/coins/spend';
 

@@ -11,6 +11,7 @@ import '../../../../core/storage/hive_storage.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../core/constants/api_endpoints.dart';
 import '../../../../core/services/app_toast.dart';
+import '../../../../core/services/progress_sync.dart';
 import 'package:dio/dio.dart';
 
 class SubjectSelectionScreen extends StatefulWidget {
@@ -32,16 +33,21 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
     _fetchSubjects();
   }
 
-  Future<void> _fetchSubjects() async {
+  /// [silent] refreshes counts in place, without swapping the grid for a spinner.
+  Future<void> _fetchSubjects({bool silent = false}) async {
     if (HiveStorage.isDemoMode()) {
       _loadDemoSubjects();
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
+    if (!silent) {
+      setState(() {
+        _isLoading = true;
+        _errorMessage = null;
+      });
+    } else {
+      await ProgressSync.settled();
+    }
 
     try {
       final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
@@ -50,6 +56,7 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
         queryParams: {'exam_type_id': examTypeId},
       );
       final dataList = response.data['data'] as List;
+      if (!mounted) return;
       setState(() {
         _subjects = dataList.map((item) {
           final slug = item['slug'] as String;
@@ -58,16 +65,22 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
             'name': slug,
             'displayName': item['name'] as String,
             'icon': _getEmojiIcon(slug),
-            'total': item['total_marks'] as int? ?? 10,
+            // Real question bank size and the user's distinct correct answers,
+            // both from the server (not exam marks / the local demo counter).
+            'total': item['question_count'] as int? ?? 0,
+            'correct': item['correct_count'] as int? ?? 0,
           };
         }).toList();
         _isLoading = false;
       });
-    } on DioException catch (e) {
+    } on DioException catch (_) {
+      // A failed background refresh keeps the counts already on screen.
+      if (silent) return;
       AppToast.showError('API failed. Loading default subjects.');
       await HiveStorage.setDemoMode(true);
       _loadDemoSubjects();
     } catch (e) {
+      if (silent) return;
       AppToast.showError('An unexpected error occurred. Loading default subjects.');
       await HiveStorage.setDemoMode(true);
       _loadDemoSubjects();
@@ -134,23 +147,10 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: const TextSpan(children: [
-                      TextSpan(
-                          text: 'Quiz',
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: Color(0xFF1A1A2E))),
-                      TextSpan(
-                          text: 'Lo',
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.accent)),
-                    ]),
+                  Image.asset(
+                    'assets/images/logo_wordmark.png',
+                    height: 28,
+                    semanticLabel: 'QuizLo',
                   ),
                   const SizedBox(height: 12),
                   Text('Choose a Subject', style: AppTextStyles.h1),
@@ -242,9 +242,11 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
                                 final icon = sub['icon'] as String;
                                 final total = sub['total'] as int;
 
-                                // Get correct answers count from Hive
-                                final correctCount = HiveStorage.getCorrectQuestionsCount(name);
-                                final progress = (correctCount / total).clamp(0.0, 1.0);
+                                // Live subjects carry the server count; demo ones use Hive.
+                                final correctCount = sub['correct'] as int? ??
+                                    HiveStorage.getCorrectQuestionsCount(name);
+                                final progress =
+                                    total == 0 ? 0.0 : (correctCount / total).clamp(0.0, 1.0);
 
                                 return _SubjectCard3D(
                                   name: name,
@@ -253,14 +255,17 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
                                   correctCount: correctCount,
                                   total: total,
                                   progress: progress,
-                                  onTap: () {
+                                  onTap: () async {
                                     final subjectId = sub['id'] as int?;
                                     if (subjectId != null) {
-                                      // Real (non-demo) subject: open its Topic checkpoint journey.
-                                      context.push(AppRoutes.topicJourney, extra: {
+                                      // Real (non-demo) subject: open its Topic checkpoint journey,
+                                      // then refetch so the solved count reflects that session.
+                                      await context.push(AppRoutes.topicJourney, extra: {
                                         'subject_id': subjectId,
                                         'subject_title': displayName,
+                                        'bangla_names': name.toLowerCase().contains('bangla'),
                                       });
+                                      if (mounted) _fetchSubjects(silent: true);
                                     } else {
                                       context.push(AppRoutes.quizLoading, extra: {
                                         'lesson_id': 0,
@@ -282,12 +287,13 @@ class _SubjectSelectionScreenState extends State<SubjectSelectionScreen> {
               child: AppButton.cta(
                 label: 'Random / Mixup',
                 icon: const Icon(Icons.shuffle_rounded, color: Colors.white, size: 20),
-                onTap: () {
-                  context.push(AppRoutes.quizLoading, extra: {
+                onTap: () async {
+                  await context.push(AppRoutes.quizLoading, extra: {
                     'lesson_id': 0,
                     'title': 'Random Mixup',
                     'subject': '', // Empty indicates all subjects mixed
                   });
+                  if (mounted) _fetchSubjects(silent: true);
                 },
               ),
             ),

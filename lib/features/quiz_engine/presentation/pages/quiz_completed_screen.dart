@@ -56,6 +56,16 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
     super.dispose();
   }
 
+  /// Returns to whatever launched the quiz (e.g. the topic journey, which then
+  /// refetches so its progress ring shows this session), or home if nothing did.
+  void _exit() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      context.go(AppRoutes.home);
+    }
+  }
+
   bool get _hasLeaderboardReveal =>
       HiveStorage.isDemoMode() || widget.beforeLeaderboard != null;
 
@@ -76,7 +86,7 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
           _buildStreakPage(),
           if (_hasLeaderboardReveal)
             LeaderboardRevealPage(
-              onContinue: () => context.go(AppRoutes.home),
+              onContinue: _exit,
               beforeLeaderboard: widget.beforeLeaderboard,
             ),
         ],
@@ -377,7 +387,7 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> {
                     curve: Curves.easeInOut,
                   );
                 } else {
-                  context.go(AppRoutes.home);
+                  _exit();
                 }
               },
             ),

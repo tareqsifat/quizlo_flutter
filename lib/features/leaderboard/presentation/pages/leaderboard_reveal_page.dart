@@ -5,6 +5,7 @@ import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/app_button.dart';
 import '../../../../core/network/dio_client.dart';
+import '../../../../core/services/progress_sync.dart';
 import '../../../../core/storage/hive_storage.dart';
 import '../../data/leaderboard_repository.dart';
 import '../widgets/rank_row.dart';
@@ -113,6 +114,9 @@ class _LeaderboardRevealPageState extends State<LeaderboardRevealPage> {
     final examTypeId = HiveStorage.getActiveExamTypeId() ?? 1;
     LeaderboardData? after;
     try {
+      // This session's answers are submitted in the background; wait for them
+      // so the "after" standing includes the XP just earned.
+      await ProgressSync.settled();
       after = await LeaderboardRepository(DioClient()).getLeaderboard(examTypeId: examTypeId);
     } catch (_) {
       after = null;
